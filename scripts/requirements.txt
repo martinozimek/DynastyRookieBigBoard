@@ -1,0 +1,7 @@
+pandas
+pdfplumber
+pdfminer.six
+requests
+beautifulsoup4
+rapidfuzz
+playwright

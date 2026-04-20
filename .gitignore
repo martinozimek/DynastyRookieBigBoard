@@ -1,0 +1,29 @@
+# Source data files (PDFs and CSVs — copyrighted, not for public repo)
+/src/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+scripts/__pycache__/
+
+# Node
+app/node_modules/
+app/dist/
+
+# Vite
+app/.vite/
+
+# Historical Excel boards (local reference only)
+manual_examples/
+
+# OS
+.DS_Store
+Thumbs.db
+~$*.xlsx
+
+# Local logs
+scripts/output/waldman_log*.txt

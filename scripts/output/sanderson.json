@@ -1,0 +1,542 @@
+{
+  "Jeremiyah Love": {
+    "slot": "1.01",
+    "name": "Jeremiyah Love",
+    "college": "Notre Dame",
+    "position_slot": "RB1",
+    "sanderson_tier": 1,
+    "sanderson_tier_label": "2+ BASE 1s",
+    "sanderson_rank": 1
+  },
+  "Jordyn Tyson": {
+    "slot": "1.02",
+    "name": "Jordyn Tyson",
+    "college": "Arizona State",
+    "position_slot": "WR1",
+    "sanderson_tier": 2,
+    "sanderson_tier_label": "1.25 BASE 1s",
+    "sanderson_rank": 2
+  },
+  "Makai Lemon": {
+    "slot": "1.03",
+    "name": "Makai Lemon",
+    "college": "USC",
+    "position_slot": "WR2",
+    "sanderson_tier": 2,
+    "sanderson_tier_label": "1.25 BASE 1s",
+    "sanderson_rank": 3
+  },
+  "Carnell Tate": {
+    "slot": "1.04",
+    "name": "Carnell Tate",
+    "college": "Ohio State",
+    "position_slot": "WR3",
+    "sanderson_tier": 2,
+    "sanderson_tier_label": "1.25 BASE 1s",
+    "sanderson_rank": 4
+  },
+  "Fernando Mendoza": {
+    "slot": "1.05",
+    "name": "Fernando Mendoza",
+    "college": "Indiana",
+    "position_slot": "QB1",
+    "sanderson_tier": 3,
+    "sanderson_tier_label": "BASE 1",
+    "sanderson_rank": 5
+  },
+  "KC Concepcion": {
+    "slot": "1.06",
+    "name": "KC Concepcion",
+    "college": "Texas A&M",
+    "position_slot": "WR4",
+    "sanderson_tier": 4,
+    "sanderson_tier_label": "LATE 1",
+    "sanderson_rank": 6
+  },
+  "Kenyon Sadiq": {
+    "slot": "1.07",
+    "name": "Kenyon Sadiq",
+    "college": "Oregon",
+    "position_slot": "TE1",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 7
+  },
+  "Omar Cooper Jr.": {
+    "slot": "1.08",
+    "name": "Omar Cooper Jr.",
+    "college": "Indiana",
+    "position_slot": "WR5",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 8
+  },
+  "Denzel Boston": {
+    "slot": "1.09",
+    "name": "Denzel Boston",
+    "college": "Washington",
+    "position_slot": "WR6",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 9
+  },
+  "Jonah Coleman": {
+    "slot": "1.10",
+    "name": "Jonah Coleman",
+    "college": "Washington",
+    "position_slot": "RB2",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 10
+  },
+  "Jadarian Price": {
+    "slot": "1.11",
+    "name": "Jadarian Price",
+    "college": "Notre Dame",
+    "position_slot": "RB3",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 11
+  },
+  "Ty Simpson": {
+    "slot": "1.12",
+    "name": "Ty Simpson",
+    "college": "Alabama",
+    "position_slot": "QB2",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 12
+  },
+  "Eli Stowers": {
+    "slot": "2.01",
+    "name": "Eli Stowers",
+    "college": "Vanderbilt",
+    "position_slot": "TE2",
+    "sanderson_tier": 6,
+    "sanderson_tier_label": "BASE 2",
+    "sanderson_rank": 13
+  },
+  "Mike Washington Jr.": {
+    "slot": "2.02",
+    "name": "Mike Washington Jr.",
+    "college": "Arkansas",
+    "position_slot": "RB4",
+    "sanderson_tier": 6,
+    "sanderson_tier_label": "BASE 2",
+    "sanderson_rank": 14
+  },
+  "Nick Singleton": {
+    "slot": "2.03",
+    "name": "Nick Singleton",
+    "college": "Penn State",
+    "position_slot": "RB5",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 15
+  },
+  "Emmett Johnson": {
+    "slot": "2.04",
+    "name": "Emmett Johnson",
+    "college": "Nebraska",
+    "position_slot": "RB6",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 16
+  },
+  "Max Klare": {
+    "slot": "2.05",
+    "name": "Max Klare",
+    "college": "Ohio State",
+    "position_slot": "TE3",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 17
+  },
+  "Elijah Sarratt": {
+    "slot": "2.06",
+    "name": "Elijah Sarratt",
+    "college": "Indiana",
+    "position_slot": "WR7",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 18
+  },
+  "Chris Brazzell II": {
+    "slot": "2.07",
+    "name": "Chris Brazzell II",
+    "college": "Tennessee",
+    "position_slot": "WR8",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 19
+  },
+  "Antonio Williams": {
+    "slot": "2.08",
+    "name": "Antonio Williams",
+    "college": "Clemson",
+    "position_slot": "WR9",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 20
+  },
+  "Kaytron Allen": {
+    "slot": "2.09",
+    "name": "Kaytron Allen",
+    "college": "Penn State",
+    "position_slot": "RB7",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 21
+  },
+  "Zachariah Branch": {
+    "slot": "2.10",
+    "name": "Zachariah Branch",
+    "college": "Georgia",
+    "position_slot": "WR10",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 22
+  },
+  "Germie Bernard": {
+    "slot": "2.11",
+    "name": "Germie Bernard",
+    "college": "Alabama",
+    "position_slot": "WR11",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 23
+  },
+  "Chris Bell": {
+    "slot": "2.12",
+    "name": "Chris Bell",
+    "college": "Louisville",
+    "position_slot": "WR12",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 24
+  },
+  "Ted Hurst": {
+    "slot": "3.01",
+    "name": "Ted Hurst",
+    "college": "Georgia State",
+    "position_slot": "WR13",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 25
+  },
+  "Oscar Delp": {
+    "slot": "3.02",
+    "name": "Oscar Delp",
+    "college": "Georgia",
+    "position_slot": "TE4",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 26
+  },
+  "Eli Raridon": {
+    "slot": "3.03",
+    "name": "Eli Raridon",
+    "college": "Notre Dame",
+    "position_slot": "TE5",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 27
+  },
+  "Justin Joly": {
+    "slot": "3.04",
+    "name": "Justin Joly",
+    "college": "NC State",
+    "position_slot": "TE6",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 28
+  },
+  "Cole Payton": {
+    "slot": "3.05",
+    "name": "Cole Payton",
+    "college": "North Dakota State",
+    "position_slot": "QB3",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 29
+  },
+  "Garrett Nussmeier": {
+    "slot": "3.06",
+    "name": "Garrett Nussmeier",
+    "college": "LSU",
+    "position_slot": "QB4",
+    "sanderson_tier": 8,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 30
+  },
+  "Taylen Green": {
+    "slot": "3.07",
+    "name": "Taylen Green",
+    "college": "Arkansas",
+    "position_slot": "QB5",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 31
+  },
+  "Eric McCallister": {
+    "slot": "3.08",
+    "name": "Eric McCallister",
+    "college": "TCU",
+    "position_slot": "WR14",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 32
+  },
+  "Skyler Bell": {
+    "slot": "3.09",
+    "name": "Skyler Bell",
+    "college": "UCONN",
+    "position_slot": "WR15",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 33
+  },
+  "Brenen Thompson": {
+    "slot": "3.10",
+    "name": "Brenen Thompson",
+    "college": "Mississippi State",
+    "position_slot": "WR16",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 34
+  },
+  "Bryce Lance": {
+    "slot": "3.11",
+    "name": "Bryce Lance",
+    "college": "North Dakota State",
+    "position_slot": "WR17",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 35
+  },
+  "Ja'Kobi Lane": {
+    "slot": "3.12",
+    "name": "Ja'Kobi Lane",
+    "college": "USC",
+    "position_slot": "WR18",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 36
+  },
+  "Jack Endries": {
+    "slot": "4.01",
+    "name": "Jack Endries",
+    "college": "Texas",
+    "position_slot": "TE7",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 37
+  },
+  "Malachi Fields": {
+    "slot": "4.02",
+    "name": "Malachi Fields",
+    "college": "Notre Dame",
+    "position_slot": "WR19",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 38
+  },
+  "Kevin Coleman Jr.": {
+    "slot": "4.03",
+    "name": "Kevin Coleman Jr.",
+    "college": "Mizzou",
+    "position_slot": "WR20",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 39
+  },
+  "Adam Randall": {
+    "slot": "4.04",
+    "name": "Adam Randall",
+    "college": "Clemson",
+    "position_slot": "RB8",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 40
+  },
+  "Seth McGowan": {
+    "slot": "4.05",
+    "name": "Seth McGowan",
+    "college": "Kentucky",
+    "position_slot": "RB9",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 41
+  },
+  "Carson Beck": {
+    "slot": "4.06",
+    "name": "Carson Beck",
+    "college": "Miami",
+    "position_slot": "QB6",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 42
+  },
+  "Drew Allar": {
+    "slot": "4.07",
+    "name": "Drew Allar",
+    "college": "Penn State",
+    "position_slot": "QB7",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 43
+  },
+  "Michael Trigg": {
+    "slot": "4.08",
+    "name": "Michael Trigg",
+    "college": "Baylor",
+    "position_slot": "TE8",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 44
+  },
+  "Sam Roush": {
+    "slot": "4.09",
+    "name": "Sam Roush",
+    "college": "Stanford",
+    "position_slot": "TE9",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 45
+  },
+  "Tanner Koziol": {
+    "slot": "4.10",
+    "name": "Tanner Koziol",
+    "college": "Houston",
+    "position_slot": "TE10",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 46
+  },
+  "Jaydn Ott": {
+    "slot": "4.11",
+    "name": "Jaydn Ott",
+    "college": "Oklahoma",
+    "position_slot": "RB10",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 47
+  },
+  "Demond Claiborne": {
+    "slot": "4.12",
+    "name": "Demond Claiborne",
+    "college": "Wake Forest",
+    "position_slot": "RB11",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 48
+  },
+  "J'Mari Taylor": {
+    "slot": "5.01",
+    "name": "J'Mari Taylor",
+    "college": "Virginia",
+    "position_slot": "RB12",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 49
+  },
+  "Desmond Reid": {
+    "slot": "5.02",
+    "name": "Desmond Reid",
+    "college": "Pittsburgh",
+    "position_slot": "RB13",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 50
+  },
+  "Robert Henry Jr.": {
+    "slot": "5.03",
+    "name": "Robert Henry Jr.",
+    "college": "UTSA",
+    "position_slot": "RB14",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 51
+  },
+  "Terion Stewart": {
+    "slot": "5.04",
+    "name": "Terion Stewart",
+    "college": "Virginia Tech",
+    "position_slot": "RB15",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 52
+  },
+  "Eric Rivers": {
+    "slot": "5.05",
+    "name": "Eric Rivers",
+    "college": "Georgia Tech",
+    "position_slot": "WR21",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 53
+  },
+  "De'Zhaun Stribling": {
+    "slot": "5.06",
+    "name": "De'Zhaun Stribling",
+    "college": "Ole Miss",
+    "position_slot": "WR22",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 54
+  },
+  "Le'Veon Moss": {
+    "slot": "5.07",
+    "name": "Le'Veon Moss",
+    "college": "Texas A&M",
+    "position_slot": "RB16",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 55
+  },
+  "Eli Heidenreich": {
+    "slot": "5.08",
+    "name": "Eli Heidenreich",
+    "college": "Navy",
+    "position_slot": "RB17",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 56
+  },
+  "Cade Klubnik": {
+    "slot": "5.09",
+    "name": "Cade Klubnik",
+    "college": "Clemson",
+    "position_slot": "QB8",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 57
+  },
+  "Dae'Quan Wright": {
+    "slot": "5.10",
+    "name": "Dae'Quan Wright",
+    "college": "Ole Miss",
+    "position_slot": "TE11",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 58
+  },
+  "Kaelon Black": {
+    "slot": "5.11",
+    "name": "Kaelon Black",
+    "college": "Indiana",
+    "position_slot": "RB18",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 59
+  },
+  "Aaron Anderson": {
+    "slot": "5.12",
+    "name": "Aaron Anderson",
+    "college": "LSU",
+    "position_slot": "WR23",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 60
+  }
+}

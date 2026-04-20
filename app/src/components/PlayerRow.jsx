@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { rankToColor, zapToColor, deltaToColor, positionColors } from '../utils/colors';
+import { rankToColor, zapToColor, zapTierToColor, deltaToColor, positionColors } from '../utils/colors';
 
 const TOTAL = 74;
 
@@ -155,15 +155,20 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
       <DeltaCell value={player.adp_delta} />
 
       {/* Breakout Score */}
-      <EditableCell value={player.breakout_score} onChange={v => onFieldChange('breakout_score', v)} />
+      <ZapCell value={player.breakout_score} />
 
       {/* ZAP Score */}
       <ZapCell value={player.zap_score} />
 
       {/* ZAP Tier Label */}
-      <td style={{ padding: '2px 5px', fontSize: 10, color: '#555', whiteSpace: 'nowrap', textAlign: 'center' }}>
-        {player.lateround_zap_tier_label ?? '—'}
-      </td>
+      {(() => {
+        const { bg, text } = zapTierToColor(player.lateround_zap_tier_label);
+        return (
+          <td style={{ padding: '2px 5px', fontSize: 9, fontWeight: 700, whiteSpace: 'nowrap', textAlign: 'center', background: bg, color: text }}>
+            {player.lateround_zap_tier_label ?? '—'}
+          </td>
+        );
+      })()}
 
       {/* LateRound SF Rank */}
       <RankCell value={player.lateround_sf_rank} />

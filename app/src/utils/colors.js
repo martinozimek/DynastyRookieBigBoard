@@ -55,6 +55,32 @@ export function deltaToColor(delta) {
   return { bg: '#dc3545', text: '#fff' };                    // strong sell
 }
 
+// ZAP tier label color — Legendary Performer is best (green), Benchwarmer is worst (red)
+const ZAP_TIER_ORDER = [
+  'LEGENDARY PERFORMER',
+  'ELITE PRODUCER',
+  'WEEKLY STARTER',
+  'FLEX PLAY',
+  'DART THROW',
+  'WAIVER WIRE ADD',
+  'BENCHWARMER',
+];
+const ZAP_TIER_COLORS = [
+  { bg: '#15803d', text: '#fff' },  // Legendary — deep green
+  { bg: '#22c55e', text: '#fff' },  // Elite Producer — bright green
+  { bg: '#86efac', text: '#1a1a1a' }, // Weekly Starter — light green
+  { bg: '#fde68a', text: '#1a1a1a' }, // Flex Play — yellow
+  { bg: '#fb923c', text: '#fff' },  // Dart Throw — orange
+  { bg: '#f87171', text: '#fff' },  // Waiver Wire — light red
+  { bg: '#dc2626', text: '#fff' },  // Benchwarmer — red
+];
+export function zapTierToColor(label) {
+  if (!label) return { bg: 'transparent', text: '#888' };
+  const idx = ZAP_TIER_ORDER.indexOf(label.toUpperCase());
+  if (idx === -1) return { bg: '#e5e7eb', text: '#555' };
+  return ZAP_TIER_COLORS[idx];
+}
+
 export function tierToColor(tier) {
   const palette = [
     '#1a472a', '#155724', '#186a3b', '#1e8449',

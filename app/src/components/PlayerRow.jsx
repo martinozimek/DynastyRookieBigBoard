@@ -64,15 +64,15 @@ function EditableCell({ value, onChange, type = 'number', placeholder = '—' })
 export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarget, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
 
-  const isMyPick = league && draftedBy === league.myTeam;
-  const isDrafted = !!draftedBy;
+  const isMyPick = draftedBy === 'mine';
+  const isDrafted = draftedBy === 'drafted';
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.4 : (isDrafted && !isMyPick ? 0.45 : 1),
-    background: isMyPick ? '#fef9c3'
-      : isDrafted ? '#f3f4f6'
+    opacity: isDragging ? 0.4 : (isDrafted ? 0.5 : 1),
+    background: isMyPick ? '#dcfce7'
+      : isDrafted ? '#ffe4e6'
       : isTarget ? '#d4edda'
       : (myRank % 2 === 0 ? '#f9f9f9' : '#ffffff'),
     cursor: 'default',
@@ -82,28 +82,18 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
 
   return (
     <tr ref={setNodeRef} style={style}>
-      {/* Draft status cell — only when league active */}
+      {/* Draft status cell — click cycles: available → mine → drafted → available */}
       {league && (
-        <td style={{ textAlign: 'center', padding: '2px 4px' }}>
-          <select
-            value={draftedBy || ''}
-            onChange={e => {
-              const val = e.target.value;
-              if (!val) onClearDrafted();
-              else onMarkDrafted(val);
-            }}
-            style={{
-              fontSize: 10, padding: '2px 4px', borderRadius: 4, border: '1px solid #ddd',
-              background: isMyPick ? '#fde68a' : isDrafted ? '#e5e7eb' : '#fff',
-              color: isMyPick ? '#92400e' : isDrafted ? '#6b7280' : '#374151',
-              fontWeight: isMyPick ? 700 : 400, cursor: 'pointer', maxWidth: 100,
-            }}>
-            <option value="">Available</option>
-            <option value={league.myTeam}>★ My Pick ({league.myTeam})</option>
-            {league.teams.filter(t => t !== league.myTeam).map(t => (
-              <option key={t} value={t}>{t}</option>
-            ))}
-          </select>
+        <td
+          onClick={() => {
+            if (!draftedBy) onMarkDrafted('mine');
+            else if (draftedBy === 'mine') onMarkDrafted('drafted');
+            else onClearDrafted();
+          }}
+          title={!draftedBy ? 'Click: mark as my pick' : draftedBy === 'mine' ? 'Click: mark as drafted' : 'Click: clear'}
+          style={{ textAlign: 'center', padding: '2px 6px', cursor: 'pointer', fontSize: 14, userSelect: 'none', fontWeight: 700,
+            color: isMyPick ? '#16a34a' : isDrafted ? '#dc2626' : '#d1d5db' }}>
+          {isMyPick ? '✔' : isDrafted ? '✗' : '·'}
         </td>
       )}
 

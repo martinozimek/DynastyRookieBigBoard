@@ -69,8 +69,8 @@ function getItemTiers(items) {
 
 export default function BigBoard({
   initialState, prospectsData, onPlayerClick,
-  league, allLeagues, onSelectLeague, onNewLeague, onEditLeague, onDeleteLeague,
-  onMarkDrafted, onClearDrafted, onShowMyTeam,
+  league, allLeagues, onSelectLeague, onNewLeague, onEditLeague,
+  onMarkDrafted, onClearDrafted,
 }) {
   const [items, setItems] = useState(initialState.items);
   const [tierLabels, setTierLabels] = useState(initialState.tierLabels || {});
@@ -257,11 +257,11 @@ export default function BigBoard({
   const playerTiersMap = getItemTiers(items);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, height: '100%' }}>
       {/* Toolbar */}
       <div ref={toolbarRef} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '10px 16px', background: '#1a1a2e', color: '#eee', flexWrap: 'wrap', flexShrink: 0, zIndex: 20 }}>
         <span style={{ fontWeight: 700, fontSize: 17, color: '#fff', marginRight: 8 }}>
-          2026 Dynasty Big Board
+          2026 Dynasty Rookie Big Board
         </span>
 
         <div style={{ display: 'flex', gap: 3 }}>
@@ -306,11 +306,7 @@ export default function BigBoard({
           {league && <>
             <button onClick={onEditLeague}
               style={{ padding: '3px 8px', borderRadius: 4, border: '1px solid #444', background: '#16213e', color: '#aaa', fontSize: 11, cursor: 'pointer' }}>
-              Edit
-            </button>
-            <button onClick={onShowMyTeam}
-              style={{ padding: '3px 10px', borderRadius: 4, border: 'none', background: '#7c3aed', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
-              My Team
+              Rename
             </button>
             <button onClick={() => setShowAvailableOnly(v => !v)}
               style={{ padding: '3px 10px', borderRadius: 4, border: 'none', background: showAvailableOnly ? '#e94560' : '#16213e', color: showAvailableOnly ? '#fff' : '#aaa', fontSize: 12, cursor: 'pointer' }}>
@@ -345,8 +341,8 @@ export default function BigBoard({
           <thead>
             <tr style={{ background: '#1a1a2e', color: '#ccc' }}>
               {league && (
-                <th style={{ padding: '6px 6px', minWidth: 110, fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap', borderBottom: '2px solid #e94560', position: 'sticky', top: 0, background: '#1a1a2e', zIndex: 10, textAlign: 'center', color: '#a78bfa' }}>
-                  Drafted By
+                <th style={{ padding: '6px 6px', minWidth: 44, fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap', borderBottom: '2px solid #e94560', position: 'sticky', top: 0, background: '#1a1a2e', zIndex: 10, textAlign: 'center', color: '#a78bfa' }}>
+                  Pick
                 </th>
               )}
               {COLUMNS.map(col => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import BigBoard from './components/BigBoard';
 import LeagueSetup from './components/LeagueSetup';
-import MyTeamPanel from './components/MyTeamPanel';
+import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
@@ -260,7 +260,6 @@ export default function App() {
   const [leagueState, setLeagueState] = useState(() => loadLeagueState());
   const [showLeagueSetup, setShowLeagueSetup] = useState(false);
   const [editingLeague, setEditingLeague] = useState(null);
-  const [showMyTeam, setShowMyTeam] = useState(false);
 
   const activeLeague = leagueState.activeId ? leagueState.leagues[leagueState.activeId] : null;
 
@@ -269,8 +268,8 @@ export default function App() {
     saveLeagueState(next);
   }
 
-  function handleCreateLeague({ name, myTeam, teams }) {
-    const league = makeLeague(name, myTeam, teams);
+  function handleCreateLeague(name) {
+    const league = makeLeague(name);
     const next = {
       leagues: { ...leagueState.leagues, [league.id]: league },
       activeId: league.id,
@@ -280,8 +279,8 @@ export default function App() {
     setEditingLeague(null);
   }
 
-  function handleEditLeague({ name, myTeam, teams }) {
-    const league = { ...editingLeague, name, myTeam, teams };
+  function handleEditLeague(name) {
+    const league = { ...editingLeague, name };
     const next = {
       ...leagueState,
       leagues: { ...leagueState.leagues, [league.id]: league },
@@ -301,9 +300,9 @@ export default function App() {
     updateLeagueState({ leagues: rest, activeId: nextActive });
   }
 
-  function handleMarkDrafted(playerId, teamName) {
+  function handleMarkDrafted(playerId, status) {
     if (!activeLeague) return;
-    const league = { ...activeLeague, picks: { ...activeLeague.picks, [playerId]: teamName } };
+    const league = { ...activeLeague, picks: { ...activeLeague.picks, [playerId]: status } };
     updateLeagueState({ ...leagueState, leagues: { ...leagueState.leagues, [league.id]: league } });
   }
 
@@ -311,12 +310,6 @@ export default function App() {
     if (!activeLeague) return;
     const { [playerId]: _, ...rest } = activeLeague.picks;
     const league = { ...activeLeague, picks: rest };
-    updateLeagueState({ ...leagueState, leagues: { ...leagueState.leagues, [league.id]: league } });
-  }
-
-  function handleUpdateNeeds(teamName, needs) {
-    if (!activeLeague) return;
-    const league = { ...activeLeague, teamNeeds: { ...activeLeague.teamNeeds, [teamName]: needs } };
     updateLeagueState({ ...leagueState, leagues: { ...leagueState.leagues, [league.id]: league } });
   }
 
@@ -350,7 +343,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden', background: '#f4f5f7', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ height: '100vh', overflow: 'hidden', display: 'flex', background: '#f4f5f7', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       <BigBoard
         initialState={boardState}
         prospectsData={players}
@@ -360,10 +353,14 @@ export default function App() {
         onSelectLeague={handleSelectLeague}
         onNewLeague={() => { setEditingLeague(null); setShowLeagueSetup(true); }}
         onEditLeague={() => { setEditingLeague(activeLeague); setShowLeagueSetup(true); }}
-        onDeleteLeague={activeLeague ? () => handleDeleteLeague(activeLeague.id) : null}
         onMarkDrafted={handleMarkDrafted}
         onClearDrafted={handleClearDrafted}
-        onShowMyTeam={() => setShowMyTeam(true)}
+      />
+
+      <MyPicksPanel
+        league={activeLeague}
+        prospectsById={prospectsById}
+        onUnmark={handleClearDrafted}
       />
 
       {selectedPlayer && (
@@ -375,16 +372,6 @@ export default function App() {
           existing={editingLeague}
           onSave={editingLeague ? handleEditLeague : handleCreateLeague}
           onClose={() => { setShowLeagueSetup(false); setEditingLeague(null); }}
-        />
-      )}
-
-      {showMyTeam && activeLeague && (
-        <MyTeamPanel
-          league={activeLeague}
-          prospectsById={prospectsById}
-          onClose={() => setShowMyTeam(false)}
-          onUpdateNeeds={handleUpdateNeeds}
-          onUnmark={handleClearDrafted}
         />
       )}
     </div>

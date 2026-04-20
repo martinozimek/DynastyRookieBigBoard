@@ -233,6 +233,9 @@ def build():
     waldman_data = load_json(os.path.join(OUT_DIR, 'waldman.json'))
     adp_data = load_json(os.path.join(OUT_DIR, 'adp.json'))
     beast_data = load_json(os.path.join(OUT_DIR, 'beast.json'))
+    breakout_raw = load_json(os.path.join(SRC, 'breakout_scores.json'))
+    # Flatten WR/RB dicts into single lookup
+    breakout_flat = {**breakout_raw.get('WR', {}), **breakout_raw.get('RB', {})}
 
     print(f"  ETR: {len(etr_df)} players")
     print(f"  DLF: {len(dlf_df)} players")
@@ -242,6 +245,7 @@ def build():
     print(f"  Waldman: {len(waldman_data)} players")
     print(f"  ADP: {len(adp_data)} players")
     print(f"  Beast: {len(beast_data)} players")
+    print(f"  Breakout: {len(breakout_flat)} players")
 
     # Use ETR as the primary name list (most complete for SF)
     base_names = list(etr_df['name'])
@@ -256,6 +260,7 @@ def build():
     print(f"\nBuilding prospect list ({len(base_names)} base names)...")
 
     # Pre-compute candidate lists for fuzzy matching
+    breakout_keys = list(breakout_flat.keys())
     zap_keys = list(zap_data.keys())
     sanderson_keys = list(sanderson_data.keys())
     waldman_keys = list(waldman_data.keys())
@@ -363,6 +368,22 @@ def build():
             brugler_grade = bd.get('brugler_grade')
             brugler_summary = bd.get('brugler_summary')
 
+        # --- Breakout Finder score (RB/WR only) ---
+        breakout_score = None
+        bo_match_key = fuzzy_match(name, {n: n for n in breakout_keys}, threshold=82)
+        if bo_match_key:
+            breakout_score = breakout_flat[bo_match_key]
+
+        # --- Position overrides (manual corrections for DB errors) ---
+        POSITION_OVERRIDES = {
+            'mike washington': 'RB', 'mike washington jr': 'RB',
+            'jam miller': 'RB', 'eli heidenreich': 'RB',
+        }
+        import re as _re
+        name_key = _re.sub(r'[^a-z ]', '', name.lower()).strip()
+        if name_key in POSITION_OVERRIDES:
+            position = POSITION_OVERRIDES[name_key]
+
         # --- Compute Avg Rank from available consensus ranks ---
         rank_sources = [r for r in [etr_rank, dlf_rank, sanderson_rank] if r is not None]
         avg_rank = round(sum(rank_sources) / len(rank_sources), 2) if rank_sources else None
@@ -380,7 +401,7 @@ def build():
             'draft_capital': None,  # filled in after draft night
             'adp': adp,
             'adp_delta': None,  # calculated client-side
-            'breakout_score': None,
+            'breakout_score': breakout_score,
             'zap_score': zap_score,
             'lateround_sf_rank': lateround_sf_rank,
             'lateround_overall_tier': lateround_overall_tier,

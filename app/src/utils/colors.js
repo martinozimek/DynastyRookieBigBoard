@@ -45,6 +45,15 @@ export function zapToColor(score) {
   return rankToColor(Math.round(t * 63) + 1, 64);
 }
 
+// Color for Breakout Finder score (raw scale: 10s=red, 20s=orange, 30s=yellow, 40s=light green, 50s=green, 60s=solid green, 70s+=dark green)
+export function breakoutToColor(score) {
+  if (score == null) return { bg: 'transparent', text: '#888' };
+  const s = Math.max(0, Math.min(80, score));
+  // Map 0→red (t=1), 35→yellow (t=0.5), 70+→dark green (t=0)
+  const t = Math.max(0, Math.min(1, 1 - s / 70));
+  return rankToColor(Math.round(t * 63) + 1, 64);
+}
+
 // Color for delta values (negative = player ranked higher than ADP/avg = good)
 export function deltaToColor(delta) {
   if (delta == null) return { bg: 'transparent', text: '#888' };

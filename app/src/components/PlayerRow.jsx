@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { rankToColor, zapToColor, zapTierToColor, deltaToColor, positionColors } from '../utils/colors';
+import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors } from '../utils/colors';
 
 const TOTAL = 74;
 
@@ -168,7 +168,14 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
       })()}
 
       {/* Breakout Score */}
-      <ZapCell value={player.breakout_score} />
+      {(() => {
+        const { bg, text } = breakoutToColor(player.breakout_score);
+        return (
+          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 600, fontSize: 12 }}>
+            {player.breakout_score ?? '—'}
+          </td>
+        );
+      })()}
 
       {/* ORBIT Score */}
       <ZapCell value={player.orbit_score} />

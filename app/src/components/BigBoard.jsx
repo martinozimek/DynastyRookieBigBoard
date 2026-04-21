@@ -31,6 +31,8 @@ const COLUMNS = [
   { key: 'adp',             label: 'ADP',      width: 52,  sortField: 'adp' },
   { key: 'adp_delta',       label: 'ADP Δ',    width: 56,  sortField: 'adp_delta' },
   { key: 'breakout_score',  label: 'Brkout',   width: 56,  sortField: 'breakout_score' },
+  { key: 'orbit_score',     label: 'ORBIT',    width: 54,  sortField: 'orbit_score' },
+  { key: 'projected_b2s',   label: 'B2S',      width: 52,  sortField: 'projected_b2s' },
   { key: 'zap_score',       label: 'ZAP',      width: 52,  sortField: 'zap_score' },
   { key: 'zap_tier_label',  label: 'ZAP Tier', width: 110, sortField: null },
   { key: 'lr_sf_rank',      label: 'LR Rk',    width: 50,  sortField: 'lateround_sf_rank' },

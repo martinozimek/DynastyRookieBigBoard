@@ -23,7 +23,7 @@ export default function TierDivider({ id, tier, label, onLabelChange, onRemove, 
 
   return (
     <tr ref={setNodeRef} style={style}>
-      <td colSpan={extraCol ? 31 : 30}
+      <td colSpan={extraCol ? 33 : 32}
         style={{ background: color, borderTop: '3px solid rgba(0,0,0,0.25)', padding: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', padding: '3px 6px', gap: 6 }}>
           {/* Drag handle */}

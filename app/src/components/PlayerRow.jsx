@@ -157,6 +157,14 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
       {/* Breakout Score */}
       <ZapCell value={player.breakout_score} />
 
+      {/* ORBIT Score */}
+      <ZapCell value={player.orbit_score} />
+
+      {/* Projected B2S */}
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: player.projected_b2s != null ? '#1a1a1a' : '#ccc', fontWeight: player.projected_b2s != null ? 600 : 400 }}>
+        {player.projected_b2s != null ? player.projected_b2s.toFixed(1) : '—'}
+      </td>
+
       {/* ZAP Score */}
       <ZapCell value={player.zap_score} />
 

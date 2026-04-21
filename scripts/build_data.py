@@ -23,6 +23,12 @@ SRC = os.path.join(BASE, 'src')
 OUT_DIR = os.path.join(BASE, 'scripts', 'output')
 APP_DATA = os.path.join(BASE, 'app', 'src', 'data')
 
+# ORBIT model — pre-draft: scores_2026_ridge.csv
+# Post-draft: re-run score_class.py --year 2026 --post-draft to overwrite this file, then rebuild.
+ORBIT_SCORES_PATH = r'C:\Users\Ozimek\Documents\Claude\FF\dynasty-prospect-model\output\scores\scores_2026_ridge.csv'
+
+DRAFT_YEAR = 2026
+
 # Name aliases: CSV/ranking name -> DB name
 # Used when fuzzy matching fails due to nicknames, initials, or Jr./Sr. differences.
 NAME_ALIASES = {
@@ -59,6 +65,27 @@ def fuzzy_match(name: str, candidates: dict, threshold: int = 80):
     if result and result[1] >= threshold:
         return result[0]
     return None
+
+
+def load_orbit() -> dict:
+    """Load ORBIT scores from the dynasty-prospect-model CSV.
+    Keys are DB canonical player names (same as players.full_name).
+    Pre-draft: uses projected draft capital. Post-draft: re-run score_class.py --post-draft.
+    """
+    if not os.path.exists(ORBIT_SCORES_PATH):
+        print(f"  WARNING: ORBIT scores not found at {ORBIT_SCORES_PATH}")
+        return {}
+    df = pd.read_csv(ORBIT_SCORES_PATH)
+    result = {}
+    for _, row in df.iterrows():
+        result[str(row['player_name'])] = {
+            'orbit_score': row.get('orbit_score') if not pd.isna(row.get('orbit_score', float('nan'))) else None,
+            'projected_b2s': round(float(row['projected_b2s']), 2) if not pd.isna(row.get('projected_b2s', float('nan'))) else None,
+            'b2s_lo80': round(float(row['b2s_lo80']), 2) if 'b2s_lo80' in row and not pd.isna(row.get('b2s_lo80', float('nan'))) else None,
+            'b2s_hi80': round(float(row['b2s_hi80']), 2) if 'b2s_hi80' in row and not pd.isna(row.get('b2s_hi80', float('nan'))) else None,
+            'post_draft': bool(row.get('post_draft', False)),
+        }
+    return result
 
 
 def load_json(path: str) -> dict:
@@ -118,6 +145,18 @@ def load_db_players() -> dict:
         if name in players and 'height_inches' not in players[name]:
             players[name]['height_inches'] = height_in
             players[name]['weight_lbs'] = weight_lb
+
+    # NFL draft picks (populated after draft day; empty pre-draft)
+    draft_pick_rows = conn.execute(f"""
+        SELECT p.full_name, d.draft_round, d.overall_pick, d.nfl_team
+        FROM players p
+        JOIN nfl_draft_picks d ON p.id = d.player_id
+        WHERE d.draft_year = {DRAFT_YEAR}
+    """).fetchall()
+    for name, rnd, pick, nfl_team in draft_pick_rows:
+        if name in players:
+            players[name]['draft_capital'] = f"{rnd}.{pick:02d}"
+            players[name]['nfl_team'] = nfl_team
 
     # Combine results
     combine_rows = conn.execute("""
@@ -234,6 +273,7 @@ def build():
     adp_data = load_json(os.path.join(OUT_DIR, 'adp.json'))
     beast_data = load_json(os.path.join(OUT_DIR, 'beast.json'))
     breakout_raw = load_json(os.path.join(SRC, 'breakout_scores.json'))
+    orbit_data = load_orbit()
     # Flatten WR/RB dicts into single lookup
     breakout_flat = {**breakout_raw.get('WR', {}), **breakout_raw.get('RB', {})}
 
@@ -246,6 +286,7 @@ def build():
     print(f"  ADP: {len(adp_data)} players")
     print(f"  Beast: {len(beast_data)} players")
     print(f"  Breakout: {len(breakout_flat)} players")
+    print(f"  ORBIT: {len(orbit_data)} players (post_draft={any(v['post_draft'] for v in orbit_data.values())})")
 
     # Use ETR as the primary name list (most complete for SF)
     base_names = list(etr_df['name'])
@@ -374,6 +415,18 @@ def build():
         if bo_match_key:
             breakout_score = breakout_flat[bo_match_key]
 
+        # --- ORBIT score (keyed by DB canonical name = db_match) ---
+        orbit_score = None
+        projected_b2s = None
+        b2s_lo80 = None
+        b2s_hi80 = None
+        if db_match and db_match in orbit_data:
+            od = orbit_data[db_match]
+            orbit_score = od.get('orbit_score')
+            projected_b2s = od.get('projected_b2s')
+            b2s_lo80 = od.get('b2s_lo80')
+            b2s_hi80 = od.get('b2s_hi80')
+
         # --- Position overrides (manual corrections for DB errors) ---
         POSITION_OVERRIDES = {
             'mike washington': 'RB', 'mike washington jr': 'RB',
@@ -398,10 +451,14 @@ def build():
             'weight_lbs': weight_lbs,
             'combine': combine,
             'seasons': seasons,
-            'draft_capital': None,  # filled in after draft night
+            'draft_capital': db.get('draft_capital') if db_match else None,  # from DB post-draft
             'adp': adp,
             'adp_delta': None,  # calculated client-side
             'breakout_score': breakout_score,
+            'orbit_score': round(orbit_score, 1) if orbit_score is not None else None,
+            'projected_b2s': projected_b2s,
+            'b2s_lo80': b2s_lo80,
+            'b2s_hi80': b2s_hi80,
             'zap_score': zap_score,
             'lateround_sf_rank': lateround_sf_rank,
             'lateround_overall_tier': lateround_overall_tier,

@@ -12,9 +12,28 @@ export function loadBoardState() {
   }
 }
 
+// Stale ID → current ID remap (applied whenever localStorage has old slugs)
+const ID_REMAP = {
+  'nicholas-singleton': 'nick-singleton',
+  'kevin-concepcion':   'kc-concepcion',
+  'omar-cooper-jr':     'omar-cooper',
+  'mike-washington-jr': 'mike-washington',
+};
+
+function remapItems(items) {
+  return items.map(item =>
+    item.type === 'player' && ID_REMAP[item.id]
+      ? { ...item, id: ID_REMAP[item.id] }
+      : item
+  );
+}
+
 // Migrate old format {order,tiers} to new {items} format
 export function migrateState(old, prospects) {
-  if (old.items) return old; // already new format
+  if (old.items) {
+    // Apply stale ID remapping even in current format
+    return { ...old, items: remapItems(old.items) };
+  }
   if (!old.order) return null;
 
   // Old format: order is player IDs, tiers is {id: tierNum}

@@ -56,6 +56,11 @@ def slugify(name: str) -> str:
     return re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
 
 
+def canonicalize(name: str) -> str:
+    """Resolve any name alias to its canonical form for comparison purposes only."""
+    return NAME_ALIASES.get(name, NAME_ALIASES.get(name.rstrip('.'), name))
+
+
 def fuzzy_match(name: str, candidates: dict, threshold: int = 80):
     """Return the best matching key from candidates dict, or None."""
     if not candidates:
@@ -108,8 +113,6 @@ def load_etr() -> pd.DataFrame:
     df = df[['Player', 'Age', 'SF/TE Premium Rank']].dropna(subset=['Player'])
     df.columns = ['name', 'age', 'etr_rank']
     df['etr_rank'] = pd.to_numeric(df['etr_rank'], errors='coerce')
-    # Normalize aliases so "KC Concepcion" → "Kevin Concepcion", "Omar Cooper" → "Omar Cooper Jr.", etc.
-    df['name'] = df['name'].map(lambda n: NAME_ALIASES.get(n, NAME_ALIASES.get(n.rstrip('.'), n)))
     return df
 
 
@@ -120,8 +123,6 @@ def load_dlf() -> pd.DataFrame:
     df = df[['Name', 'Rank', 'Age']].dropna(subset=['Name'])
     df.columns = ['name', 'dlf_rank', 'dlf_age']
     df['dlf_rank'] = pd.to_numeric(df['dlf_rank'], errors='coerce')
-    # Normalize aliases so "Nick Singleton" → "Nicholas Singleton" etc.
-    df['name'] = df['name'].map(lambda n: NAME_ALIASES.get(n, NAME_ALIASES.get(n.rstrip('.'), n)))
     return df
 
 
@@ -292,14 +293,20 @@ def build():
     print(f"  Breakout: {len(breakout_flat)} players")
     print(f"  ORBIT: {len(orbit_data)} players (post_draft={any(v['post_draft'] for v in orbit_data.values())})")
 
-    # Use ETR as the primary name list (most complete for SF)
+    # Use ETR as the primary name list (most complete for SF).
+    # Dedup against DLF by comparing canonical forms (via NAME_ALIASES) so that
+    # "KC Concepcion"/"Kevin Concepcion", "Nick Singleton"/"Nicholas Singleton", etc.
+    # are treated as the same player without changing any display names or slug IDs.
     base_names = list(etr_df['name'])
-    # Add DLF players not already covered (fuzzy check to avoid duplicates)
+    canonical_set = {canonicalize(n) for n in base_names}
     etr_name_lookup = {n: n for n in base_names}
     for n in dlf_df['name']:
+        if canonicalize(n) in canonical_set:
+            continue  # already covered by canonical equivalence
         match = fuzzy_match(n, etr_name_lookup, threshold=85)
         if not match:
             base_names.append(n)
+            canonical_set.add(canonicalize(n))
             etr_name_lookup[n] = n
 
     print(f"\nBuilding prospect list ({len(base_names)} base names)...")
@@ -313,6 +320,9 @@ def build():
     beast_keys = list(beast_data.keys())
     db_keys = list(db_players.keys())
 
+    # Canonical → original DLF name lookup so "KC Concepcion" finds "Kevin Concepcion" in DLF, etc.
+    dlf_canonical_lookup = {canonicalize(n): n for n in dlf_df['name']}
+
     prospects = []
 
     for name in base_names:
@@ -321,8 +331,8 @@ def build():
         etr_rank = int(etr_row['etr_rank'].iloc[0]) if not etr_row.empty and not pd.isna(etr_row['etr_rank'].iloc[0]) else None
         age = float(etr_row['age'].iloc[0]) if not etr_row.empty and not pd.isna(etr_row['age'].iloc[0]) else None
 
-        # --- DLF data ---
-        dlf_match = fuzzy_match(name, {n: n for n in dlf_df['name']}, threshold=85)
+        # --- DLF data — try canonical alias first, fall back to fuzzy ---
+        dlf_match = dlf_canonical_lookup.get(canonicalize(name)) or fuzzy_match(name, {n: n for n in dlf_df['name']}, threshold=85)
         dlf_rank = None
         if dlf_match:
             dlf_row = dlf_df[dlf_df['name'] == dlf_match]
@@ -386,7 +396,13 @@ def build():
                     position = pos_letters.group(1)
 
         # --- Waldman data ---
-        wald_match_key = fuzzy_match(name, {n: n for n in waldman_keys}, threshold=80)
+        # Waldman keys are "POS Name" (e.g. "RB Nicholas Singleton").
+        # Match by name-only (strip position prefix) using canonical alias.
+        _waldman_name_map = {' '.join(k.split()[1:]): k for k in waldman_keys}
+        _search_name = canonicalize(name)  # resolve nicknames (Nick → Nicholas)
+        wald_name_hit = fuzzy_match(_search_name, _waldman_name_map, threshold=82) or \
+                        fuzzy_match(name, _waldman_name_map, threshold=82)
+        wald_match_key = _waldman_name_map.get(wald_name_hit) if wald_name_hit else None
         waldman_dot = None
         elevator_pitch = None
         pre_draft_advice = None

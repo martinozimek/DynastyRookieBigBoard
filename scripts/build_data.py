@@ -36,8 +36,9 @@ NAME_ALIASES = {
     'Omar Cooper': 'Omar Cooper Jr.',
     'Omar Cooper Jr': 'Omar Cooper Jr.',
     'Nick Singleton': 'Nicholas Singleton',
-    'Mike Washington': 'Mike Washington Jr.',
-    'Mike Washington Jr': 'Mike Washington Jr.',
+    'Mike Washington': 'Michael Washington',
+    'Mike Washington Jr': 'Michael Washington',
+    'Mike Washington Jr.': 'Michael Washington',
     'Ja\'Kobi Lane': 'Jakobi Lane',
     'Chris Brazzell II': 'Chris Brazzell',
     'Chris Brazzell': 'Chris Brazzell',
@@ -449,7 +450,7 @@ def build():
 
         # --- Position overrides (manual corrections for DB errors) ---
         POSITION_OVERRIDES = {
-            'mike washington': 'RB', 'mike washington jr': 'RB',
+            'mike washington': 'RB', 'michael washington': 'RB',
             'jam miller': 'RB', 'eli heidenreich': 'RB',
         }
         import re as _re

@@ -21,11 +21,19 @@ const ID_REMAP = {
 };
 
 function remapItems(items) {
-  return items.map(item =>
-    item.type === 'player' && ID_REMAP[item.id]
-      ? { ...item, id: ID_REMAP[item.id] }
-      : item
-  );
+  const seen = new Set();
+  return items
+    .map(item =>
+      item.type === 'player' && ID_REMAP[item.id]
+        ? { ...item, id: ID_REMAP[item.id] }
+        : item
+    )
+    .filter(item => {
+      if (item.type !== 'player') return true;
+      if (seen.has(item.id)) return false;
+      seen.add(item.id);
+      return true;
+    });
 }
 
 // Migrate old format {order,tiers} to new {items} format

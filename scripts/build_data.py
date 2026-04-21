@@ -108,6 +108,8 @@ def load_etr() -> pd.DataFrame:
     df = df[['Player', 'Age', 'SF/TE Premium Rank']].dropna(subset=['Player'])
     df.columns = ['name', 'age', 'etr_rank']
     df['etr_rank'] = pd.to_numeric(df['etr_rank'], errors='coerce')
+    # Normalize aliases so "KC Concepcion" → "Kevin Concepcion", "Omar Cooper" → "Omar Cooper Jr.", etc.
+    df['name'] = df['name'].map(lambda n: NAME_ALIASES.get(n, NAME_ALIASES.get(n.rstrip('.'), n)))
     return df
 
 
@@ -118,6 +120,8 @@ def load_dlf() -> pd.DataFrame:
     df = df[['Name', 'Rank', 'Age']].dropna(subset=['Name'])
     df.columns = ['name', 'dlf_rank', 'dlf_age']
     df['dlf_rank'] = pd.to_numeric(df['dlf_rank'], errors='coerce')
+    # Normalize aliases so "Nick Singleton" → "Nicholas Singleton" etc.
+    df['name'] = df['name'].map(lambda n: NAME_ALIASES.get(n, NAME_ALIASES.get(n.rstrip('.'), n)))
     return df
 
 

@@ -13,13 +13,7 @@ export function saveLeagueState(state) {
   localStorage.setItem(KEY, JSON.stringify(state));
 }
 
-export function makeLeague(name, myTeam, teamNames) {
-  return {
-    id: Date.now().toString(),
-    name,
-    myTeam,           // which of the 12 team names is mine
-    teams: teamNames, // array of 12 names
-    teamNeeds: {},    // { teamName: string }
-    picks: {},        // { playerId: teamName }
-  };
+// picks: { playerId: 'mine' | 'drafted' }
+export function makeLeague(name) {
+  return { id: Date.now().toString(), name, picks: {} };
 }

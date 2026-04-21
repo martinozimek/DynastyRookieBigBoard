@@ -41,7 +41,7 @@ const COLUMNS = [
   { key: 'dlf_rank',        label: 'DLF',      width: 44,  sortField: 'dlf_rank' },
   { key: 'sand_rank',       label: 'Sand',     width: 48,  sortField: 'sanderson_rank' },
   { key: 'sand_tier',       label: 'S.Tier',   width: 50,  sortField: 'sanderson_tier' },
-  { key: 'sand_val',        label: 'S.Val',    width: 80,  sortField: null },
+  { key: 'sand_val',        label: 'S.Val',    width: 80,  sortField: 'sanderson_tier_label' },
   { key: 'brugler_grade',   label: 'Brugler',  width: 64,  sortField: 'brugler_grade' },
   { key: 'waldman_dot',     label: 'W.DOT',    width: 54,  sortField: 'waldman_dot' },
   { key: 'larky_rank',      label: 'Larky',    width: 48,  sortField: 'larky_rank' },
@@ -53,6 +53,12 @@ const COLUMNS = [
 
 // Round grades for Brugler sort order
 const BRUGLER_ORDER = {'1st':1,'1st-2nd':1.5,'2nd':2,'2nd-3rd':2.5,'3rd':3,'3rd-4th':3.5,'4th':4,'4th-5th':4.5,'5th':5,'5th-6th':5.5,'6th':6,'6th-7th':6.5,'7th':7,'7th-FA':7.5,'FA':8};
+
+// Sanderson value label sort order (most valuable = lowest number)
+const SANDERSON_VAL_ORDER = {
+  '2+ BASE 1s': 1, '1.25 BASE 1s': 2, 'LATE 1': 3, 'BASE 1': 4,
+  'EARLY 2': 5, 'BASE 2': 6, 'LATE 2': 7, '3RD ROUND': 8, '4TH ROUND': 9, 'WAIVER WIRE': 10,
+};
 
 const POS_FILTERS = ['All', 'QB', 'RB', 'WR', 'TE'];
 
@@ -184,6 +190,7 @@ export default function BigBoard({
 
   function getSortValue(p, field) {
     if (field === 'brugler_grade') return BRUGLER_ORDER[p.brugler_grade] ?? 999;
+    if (field === 'sanderson_tier_label') return SANDERSON_VAL_ORDER[p.sanderson_tier_label] ?? 999;
     if (field === 'draft_capital') {
       const v = p[field];
       if (!v) return 999;
@@ -288,6 +295,14 @@ export default function BigBoard({
           style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #444', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#ccc' }}>
           + Add Tier
         </button>
+
+        {sortConfig && (
+          <button onClick={() => setSortConfig(null)}
+            title="Tier bars are hidden while sorting — click to restore"
+            style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #e94560', cursor: 'pointer', fontSize: 12, background: '#2a0a0f', color: '#e94560', fontWeight: 600 }}>
+            ✕ Clear Sort (tier bars hidden)
+          </button>
+        )}
 
         {/* League section */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 5, borderLeft: '1px solid #333', paddingLeft: 10 }}>

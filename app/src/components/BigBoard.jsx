@@ -32,7 +32,6 @@ const COLUMNS = [
   { key: 'adp_delta',       label: 'ADP Δ',    width: 56,  sortField: 'adp_delta' },
   { key: 'breakout_score',  label: 'Brkout',   width: 56,  sortField: 'breakout_score' },
   { key: 'orbit_score',     label: 'ORBIT*',   width: 54,  sortField: 'orbit_score',   tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
-  { key: 'projected_b2s',   label: 'Proj PPG*', width: 58,  sortField: 'projected_b2s', tooltip: 'ORBIT projected fantasy PPG — avg of best 2 seasons in first 3 NFL years (PPR). Cross-position comparable. Experimental — in development.' },
   { key: 'zap_score',       label: 'ZAP',      width: 52,  sortField: 'zap_score' },
   { key: 'zap_tier_label',  label: 'ZAP Tier', width: 110, sortField: null },
   { key: 'lr_sf_rank',      label: 'LR Rk',    width: 50,  sortField: 'lateround_sf_rank' },

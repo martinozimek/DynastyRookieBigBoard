@@ -154,12 +154,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
       {/* ADP Delta */}
       <DeltaCell value={player.adp_delta} />
 
-      {/* Breakout Score */}
-      <ZapCell value={player.breakout_score} />
-
-      {/* ORBIT Score */}
-      <ZapCell value={player.orbit_score} />
-
       {/* ZAP Score */}
       <ZapCell value={player.zap_score} />
 
@@ -172,6 +166,12 @@ export default function PlayerRow({ player, myRank, tier, isTarget, onToggleTarg
           </td>
         );
       })()}
+
+      {/* Breakout Score */}
+      <ZapCell value={player.breakout_score} />
+
+      {/* ORBIT Score */}
+      <ZapCell value={player.orbit_score} />
 
       {/* LateRound SF Rank */}
       <RankCell value={player.lateround_sf_rank} />

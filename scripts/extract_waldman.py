@@ -12,18 +12,31 @@ PDF_PATH = os.path.join(os.path.dirname(__file__), '..', 'src',
                         '2026_Rookie_Scouting_Portfolio.pdf')
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), 'output', 'waldman.json')
 
-DOT_PATTERN    = re.compile(r'Depth of Talent Score:\s*([\d.]+)')
-NAME_PATTERN   = re.compile(
-    r'([A-Z][a-zA-Z\'.]+(?:\s+[A-Z][a-zA-Z\'.]*)+)\s+RSP\s+(?:Scouting\s+)?Profile'
+# Standard DOT: "Depth of Talent Score: 85.575"
+DOT_PATTERN     = re.compile(r'Depth of Talent Score:\s*([\d.]+)')
+# Alternate TE format: "In-Line Depth of Talent Ranking: TE16 (77.5)" — score is in parens
+DOT_PATTERN_ALT = re.compile(r'(?:In-Line|Overall)\s+Depth of Talent[^\(]*\(([\d.]+)\)')
+
+# Allow optional comma before suffix words (handles "Omar Cooper, Jr." and "Mike Washington, Jr.")
+# Also handles unicode-normalized text (curly quotes replaced with straight before matching)
+NAME_PATTERN = re.compile(
+    r'([A-Z][a-zA-Z\'.]+(?:,?\s+[A-Z][a-zA-Z\'.]*)+)\s+RSP\s+(?:Scouting\s+)?Profile'
 )
 RSP_RANK_PATTERN = re.compile(r'RSP Ranking:\s*([A-Z]+)(\d+)')
 PITCH_PATTERN    = re.compile(r'Elevator Pitch:\s*(.+?)(?=\nBoiler/Film Room|\nPre-NFL Draft|\nDurability:|\nRSP Ranking|\Z)', re.DOTALL)
 ADVICE_PATTERN   = re.compile(r'Pre-NFL Draft Fantasy Advice:\s*(.+?)(?=\nBoiler/Film Room|\nDurability:|\nRSP Ranking|\Z)', re.DOTALL)
 
-# Text that signals a new player section (used to stop accumulating text)
 NEW_SECTION_PATTERN = re.compile(
-    r'[A-Z][a-zA-Z\'.]+(?:\s+[A-Z][a-zA-Z\'.]*)+\s+RSP\s+(?:Scouting\s+)?Profile'
+    r'[A-Z][a-zA-Z\'.]+(?:,?\s+[A-Z][a-zA-Z\'.]*)+\s+RSP\s+(?:Scouting\s+)?Profile'
 )
+
+# Unicode quote/dash normalization — curly quotes break the name regex
+UNICODE_FIXES = str.maketrans({
+    '\u2018': "'", '\u2019': "'",  # left/right single quotes → straight apostrophe
+    '\u201c': '"', '\u201d': '"',  # left/right double quotes
+    '\u2013': '-', '\u2014': '-',  # en/em dash
+    '\u2026': '...',               # ellipsis
+})
 
 
 def clean(text):
@@ -42,7 +55,6 @@ def extract():
     results = {}
     current_player = None
     current_data = {}
-    # Buffer to accumulate text across pages for long sections
     pending_pitch = ''
     pending_advice = ''
     pitch_open = False
@@ -54,37 +66,52 @@ def extract():
         if page_num % 200 == 0:
             print(f"  Page {page_num + 1}...", flush=True)
 
-        page_text = ''
+        raw_text = ''
         for element in page_layout:
             if isinstance(element, LTTextContainer):
-                page_text += element.get_text()
+                raw_text += element.get_text()
 
-        # Detect new player header → flush previous
+        # Normalize unicode so curly apostrophes don't break name matching
+        page_text = raw_text.translate(UNICODE_FIXES)
+
+        # Detect new player header
         name_match = NAME_PATTERN.search(page_text)
         if name_match:
-            # Flush pending sections for outgoing player
-            if current_player:
-                if pending_pitch:
-                    current_data['elevator_pitch'] = clean(pending_pitch)
-                if pending_advice:
-                    current_data['pre_draft_advice'] = clean(pending_advice)
-                results[current_player] = current_data
+            incoming = name_match.group(1).strip()
 
-            current_player = name_match.group(1).strip()
-            current_data = {}
-            pending_pitch = ''
-            pending_advice = ''
-            pitch_open = False
-            advice_open = False
+            # Flush outgoing player (skip flush if same player appears twice in PDF)
+            if current_player and incoming != current_player:
+                if pending_pitch and 'elevator_pitch' not in current_data:
+                    current_data['elevator_pitch'] = clean(pending_pitch)
+                if pending_advice and 'pre_draft_advice' not in current_data:
+                    current_data['pre_draft_advice'] = clean(pending_advice)
+                # Merge into results (don't overwrite a richer earlier entry)
+                existing = results.get(current_player, {})
+                merged = {**current_data, **{k: v for k, v in existing.items() if v is not None}}
+                results[current_player] = merged
+
+            if incoming != current_player:
+                # Genuine new player
+                current_player = incoming
+                current_data = {}
+                pending_pitch = ''
+                pending_advice = ''
+                pitch_open = False
+                advice_open = False
+            # If same player repeats, keep accumulating without reset
 
         if not current_player:
             continue
 
-        # DOT score
+        # DOT score — try standard format first, then TE alternate
         if 'waldman_dot_score' not in current_data:
             dot = DOT_PATTERN.search(page_text)
             if dot:
                 current_data['waldman_dot_score'] = float(dot.group(1))
+            else:
+                dot_alt = DOT_PATTERN_ALT.search(page_text)
+                if dot_alt:
+                    current_data['waldman_dot_score'] = float(dot_alt.group(1))
 
         # RSP Rank
         if 'waldman_position' not in current_data:
@@ -93,7 +120,7 @@ def extract():
                 current_data['waldman_position'] = rank.group(1)
                 current_data['waldman_rsp_rank'] = int(rank.group(2))
 
-        # Elevator Pitch — try full-page extraction first
+        # Elevator Pitch
         if 'elevator_pitch' not in current_data:
             pm = PITCH_PATTERN.search(page_text)
             if pm:
@@ -101,14 +128,11 @@ def extract():
                 pitch_open = False
                 pending_pitch = ''
             elif 'Elevator Pitch:' in page_text:
-                # Start of pitch, continues on next page(s)
                 idx = page_text.find('Elevator Pitch:') + len('Elevator Pitch:')
                 pending_pitch = page_text[idx:]
                 pitch_open = True
             elif pitch_open:
-                # Continuation page
                 if NEW_SECTION_PATTERN.search(page_text):
-                    # New player started — close pitch
                     current_data['elevator_pitch'] = clean(pending_pitch)
                     pending_pitch = ''
                     pitch_open = False
@@ -140,17 +164,17 @@ def extract():
             current_data['elevator_pitch'] = clean(pending_pitch)
         if pending_advice and 'pre_draft_advice' not in current_data:
             current_data['pre_draft_advice'] = clean(pending_advice)
-        results[current_player] = current_data
+        existing = results.get(current_player, {})
+        merged = {**current_data, **{k: v for k, v in existing.items() if v is not None}}
+        results[current_player] = merged
 
     with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     print(f"Wrote {len(results)} Waldman entries to {OUTPUT_PATH}")
 
-    # Sample output
     for name, d in list(results.items())[:5]:
         rank_str = f"{d.get('waldman_position','?')}{d.get('waldman_rsp_rank','?')}"
         pitch = (d.get('elevator_pitch') or '')[:80]
-        advice = (d.get('pre_draft_advice') or '')[:80]
         print(f"  {rank_str}. {name}: DOT={d.get('waldman_dot_score')} pitch={pitch!r}")
     return results
 

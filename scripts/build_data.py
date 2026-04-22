@@ -397,9 +397,13 @@ def build():
                     position = pos_letters.group(1)
 
         # --- Waldman data ---
-        # Waldman keys are "POS Name" (e.g. "RB Nicholas Singleton").
-        # Match by name-only (strip position prefix) using canonical alias.
-        _waldman_name_map = {' '.join(k.split()[1:]): k for k in waldman_keys}
+        # Waldman keys are usually "POS Name" (e.g. "RB Nicholas Singleton").
+        # Strip position prefix only when first word is a known position.
+        _POS = {'RB', 'WR', 'QB', 'TE'}
+        _waldman_name_map = {
+            (' '.join(k.split()[1:]) if k.split()[0] in _POS else k): k
+            for k in waldman_keys
+        }
         _search_name = canonicalize(name)  # resolve nicknames (Nick → Nicholas)
         wald_name_hit = fuzzy_match(_search_name, _waldman_name_map, threshold=82) or \
                         fuzzy_match(name, _waldman_name_map, threshold=82)

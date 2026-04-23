@@ -186,12 +186,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* LateRound SF Rank */}
       <RankCell value={player.lateround_sf_rank} />
 
-      {/* LateRound Overall Tier */}
-      <RankCell value={player.lateround_overall_tier} />
-
-      {/* LateRound Risk */}
-      <EditableCell value={player.lateround_risk} onChange={v => onFieldChange('lateround_risk', v)} type="text" />
-
       {/* ETR Rank */}
       <RankCell value={player.etr_rank} />
 
@@ -210,6 +204,12 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
         {player.sanderson_tier_label ?? '—'}
       </td>
+
+      {/* LateRound Overall Tier */}
+      <RankCell value={player.lateround_overall_tier} />
+
+      {/* LateRound Risk */}
+      <EditableCell value={player.lateround_risk} onChange={v => onFieldChange('lateround_risk', v)} type="text" />
 
       {/* Brugler Grade */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>

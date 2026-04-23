@@ -61,7 +61,7 @@ function EditableCell({ value, onChange, type = 'number', placeholder = '—' })
   );
 }
 
-export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleTarget, onToggleAvoid, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted }) {
+export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
 
   const isMyPick = draftedBy === 'mine';
@@ -115,16 +115,12 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* Tier (read-only display) */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, color: '#777', fontWeight: 600 }}>{tier}</td>
 
-      {/* Target */}
-      <td onClick={onToggleTarget} title={isTarget ? 'Remove target' : 'Mark as target'}
-        style={{ textAlign: 'center', cursor: 'pointer', fontSize: 15, padding: '2px 3px', color: isTarget ? '#155724' : '#ccc' }}>
-        {isTarget ? '★' : '☆'}
-      </td>
-
-      {/* Avoid */}
-      <td onClick={onToggleAvoid} title={isAvoid ? 'Remove avoid' : 'Mark as avoid'}
-        style={{ textAlign: 'center', cursor: 'pointer', fontSize: 14, padding: '2px 3px', color: isAvoid ? '#c2410c' : '#ccc' }}>
-        {isAvoid ? '▼' : '▽'}
+      {/* Target / Avoid — cycles ☆ → ★ → ▼ → ☆ */}
+      <td onClick={onToggleMark}
+        title={isTarget ? 'Target (click → avoid)' : isAvoid ? 'Avoid (click → clear)' : 'Click: mark as target'}
+        style={{ textAlign: 'center', cursor: 'pointer', fontSize: 15, padding: '2px 3px',
+          color: isTarget ? '#155724' : isAvoid ? '#c2410c' : '#ccc' }}>
+        {isTarget ? '★' : isAvoid ? '▼' : '☆'}
       </td>
 
       {/* Player name — clickable for detail panel */}

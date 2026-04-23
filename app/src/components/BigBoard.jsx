@@ -22,8 +22,7 @@ const COLUMNS = [
   { key: 'my_rank',         label: 'Rk',       width: 38,  sortField: 'my_rank' },
   { key: 'pos_rank',        label: 'Pos Rk',   width: 52,  sortField: null },
   { key: 'tier',            label: 'Tier',     width: 40,  sortField: null },
-  { key: 'target',          label: '★',        width: 34,  sortField: null },
-  { key: 'avoid',           label: '▽',        width: 34,  sortField: null },
+  { key: 'target',          label: '★▽',       width: 34,  sortField: null },
   { key: 'name',            label: 'Player',   width: 160, sortField: 'name' },
   { key: 'team',            label: 'Team',     width: 90,  sortField: 'team' },
   { key: 'age',             label: 'Age',      width: 44,  sortField: 'age' },
@@ -118,18 +117,21 @@ export default function BigBoard({
     persist(newItems, null, null, null, null);
   }
 
-  function handleToggleTarget(id) {
-    const next = new Set(targets);
-    next.has(id) ? next.delete(id) : next.add(id);
-    setTargets(next);
-    persist(null, null, next, null, null);
-  }
-
-  function handleToggleAvoid(id) {
-    const next = new Set(avoids);
-    next.has(id) ? next.delete(id) : next.add(id);
-    setAvoids(next);
-    persist(null, null, null, null, next);
+  function handleToggleMark(id) {
+    // Cycle: neutral → target → avoid → neutral
+    const nextTargets = new Set(targets);
+    const nextAvoids = new Set(avoids);
+    if (nextTargets.has(id)) {
+      nextTargets.delete(id);
+      nextAvoids.add(id);
+    } else if (nextAvoids.has(id)) {
+      nextAvoids.delete(id);
+    } else {
+      nextTargets.add(id);
+    }
+    setTargets(nextTargets);
+    setAvoids(nextAvoids);
+    persist(null, null, nextTargets, null, nextAvoids);
   }
 
   function handleTierLabelChange(num, label) {
@@ -417,8 +419,7 @@ export default function BigBoard({
                       tier={item._tier ?? playerTiersMap[p.id] ?? 1}
                       isTarget={targets.has(p.id)}
                       isAvoid={avoids.has(p.id)}
-                      onToggleTarget={() => handleToggleTarget(p.id)}
-                      onToggleAvoid={() => handleToggleAvoid(p.id)}
+                      onToggleMark={() => handleToggleMark(p.id)}
                       onFieldChange={(field, val) => handleFieldChange(p.id, field, val)}
                       onClick={() => onPlayerClick?.(p)}
                       league={league}

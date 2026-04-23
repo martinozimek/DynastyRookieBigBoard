@@ -129,12 +129,12 @@ export default function BigBoard({
   }
 
   function handleAddTier() {
-    // Add a new tier divider at the end, num = max existing tier + 1
     const maxNum = items.filter(i => i.type === 'tier').reduce((m, i) => Math.max(m, i.num), 1);
     const newNum = maxNum + 1;
     const newDiv = { type: 'tier', id: `div-${++dividerCounter}`, num: newNum };
     const newItems = [...items, newDiv];
     setItems(newItems);
+    setSortConfig(null); // clear sort so the new tier is immediately visible
     persist(newItems, null, null, null);
   }
 
@@ -251,6 +251,8 @@ export default function BigBoard({
       rankCounter++;
       result.push({ ...item, displayRank: rankCounter });
     }
+    // Always show a trailing tier divider (e.g. newly added tier at end of list)
+    if (pendingTier) result.push(pendingTier);
     return result;
   }
 

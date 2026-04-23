@@ -421,7 +421,7 @@ export default function BigBoard({
                       isAvoid={avoids.has(p.id)}
                       onToggleMark={() => handleToggleMark(p.id)}
                       onFieldChange={(field, val) => handleFieldChange(p.id, field, val)}
-                      onClick={() => onPlayerClick?.(p)}
+                      onClick={() => onPlayerClick?.(p, item.displayRank)}
                       league={league}
                       draftedBy={draftedBy}
                       onMarkDrafted={team => onMarkDrafted(p.id, team)}

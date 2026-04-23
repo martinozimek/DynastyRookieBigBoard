@@ -146,9 +146,26 @@ function SeasonStats({ player }) {
   );
 }
 
-function PlayerPanel({ player, onClose }) {
+function RankBadge({ label, value, highlight }) {
+  return (
+    <div style={{ textAlign: 'center', padding: '4px 10px', background: highlight ? '#eff6ff' : '#f9fafb',
+      border: `1px solid ${highlight ? '#bfdbfe' : '#e5e7eb'}`, borderRadius: 6 }}>
+      <div style={{ fontSize: 10, color: '#9ca3af', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+      <div style={{ fontSize: 15, fontWeight: 800, color: highlight ? '#1d4ed8' : '#111' }}>{value ?? '—'}</div>
+    </div>
+  );
+}
+
+function PlayerPanel({ player, myRank, onClose }) {
   const posColor = POS_COLORS[player.position] || '#6b7280';
   const c = player.combine || {};
+
+  const avgRank = player.avg_rank;
+  const myVsAvg = myRank != null && avgRank != null ? myRank - avgRank : null;
+  const myVsAvgLabel = myVsAvg == null ? null
+    : myVsAvg > 0 ? `+${myVsAvg} vs consensus (you rank lower)`
+    : myVsAvg < 0 ? `${myVsAvg} vs consensus (you rank higher)`
+    : 'Matches consensus avg';
 
   return (
     <div onClick={onClose}
@@ -171,6 +188,34 @@ function PlayerPanel({ player, onClose }) {
             ? ` · ${fmtHeight(player.height_inches)}${player.weight_lbs ? ` / ${player.weight_lbs} lbs` : ''}`
             : ''}
         </div>
+
+        {/* Rank summary strip */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16, flexWrap: 'wrap' }}>
+          <RankBadge label="My Rank" value={myRank} />
+          <RankBadge label="LateRound" value={player.lateround_sf_rank} highlight />
+          <RankBadge label="Sanderson" value={player.sanderson_rank} highlight />
+          <RankBadge label="ETR" value={player.etr_rank} />
+          <RankBadge label="DLF" value={player.dlf_rank} />
+          <RankBadge label="Avg" value={avgRank} />
+        </div>
+        {myVsAvgLabel && (
+          <div style={{ fontSize: 11, color: myVsAvg > 2 ? '#b45309' : myVsAvg < -2 ? '#15803d' : '#6b7280',
+            fontWeight: 600, marginBottom: 16, textAlign: 'center' }}>
+            {myVsAvgLabel}
+          </div>
+        )}
+
+        {/* AI Insight */}
+        {player.ai_insight && (
+          <div style={{ background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 8,
+            padding: '12px 14px', marginBottom: 20 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#0369a1', textTransform: 'uppercase',
+              letterSpacing: '0.06em', marginBottom: 6 }}>AI Analysis</div>
+            <div style={{ fontSize: 13, color: '#0c4a6e', lineHeight: 1.65 }}>
+              {player.ai_insight}
+            </div>
+          </div>
+        )}
 
         <StatSection title="Rankings">
           <KVTable rows={[
@@ -252,7 +297,7 @@ export default function App() {
   const prospectsById = Object.fromEntries(players.map(p => [p.id, p]));
 
   const [boardState, setBoardState] = useState(null);
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [selectedPlayer, setSelectedPlayer] = useState(null); // { player, myRank }
 
   // League state
   const [leagueState, setLeagueState] = useState(() => loadLeagueState());
@@ -350,7 +395,7 @@ export default function App() {
       <BigBoard
         initialState={boardState}
         prospectsData={players}
-        onPlayerClick={setSelectedPlayer}
+        onPlayerClick={(player, rank) => setSelectedPlayer({ player, myRank: rank })}
         league={activeLeague}
         allLeagues={leagueState.leagues}
         onSelectLeague={handleSelectLeague}
@@ -367,7 +412,7 @@ export default function App() {
       />
 
       {selectedPlayer && (
-        <PlayerPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+        <PlayerPanel player={selectedPlayer.player} myRank={selectedPlayer.myRank} onClose={() => setSelectedPlayer(null)} />
       )}
 
       {showLeagueSetup && (

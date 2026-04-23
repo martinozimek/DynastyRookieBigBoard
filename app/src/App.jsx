@@ -22,9 +22,7 @@ function buildDefaultItems(players) {
     else                 tier = 6;
 
     if (tier !== lastTier) {
-      if (lastTier !== null) {
-        items.push({ type: 'tier', id: `div-${divCounter++}`, num: tier });
-      }
+      items.push({ type: 'tier', id: `div-${divCounter++}`, num: tier });
       lastTier = tier;
     }
     items.push({ type: 'player', id: p.id });
@@ -324,7 +322,12 @@ export default function App() {
       const savedPlayerIds = new Set(saved.items.filter(i => i.type === 'player').map(i => i.id));
       const newPlayers = players.filter(p => !savedPlayerIds.has(p.id));
       const newItems = newPlayers.map(p => ({ type: 'player', id: p.id }));
-      const merged = { ...saved, items: [...saved.items, ...newItems] };
+      let mergedItems = [...saved.items, ...newItems];
+      // Ensure a Tier 1 divider exists at the top
+      if (mergedItems[0]?.type !== 'tier') {
+        mergedItems = [{ type: 'tier', id: 'div-0', num: 1 }, ...mergedItems];
+      }
+      const merged = { ...saved, items: mergedItems };
       setBoardState(merged);
     } else {
       const items = buildDefaultItems(players);

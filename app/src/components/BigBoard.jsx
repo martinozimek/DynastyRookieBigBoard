@@ -23,6 +23,7 @@ const COLUMNS = [
   { key: 'pos_rank',        label: 'Pos Rk',   width: 52,  sortField: null },
   { key: 'tier',            label: 'Tier',     width: 40,  sortField: null },
   { key: 'target',          label: '★',        width: 34,  sortField: null },
+  { key: 'avoid',           label: '▽',        width: 34,  sortField: null },
   { key: 'name',            label: 'Player',   width: 160, sortField: 'name' },
   { key: 'team',            label: 'Team',     width: 90,  sortField: 'team' },
   { key: 'age',             label: 'Age',      width: 44,  sortField: 'age' },
@@ -82,6 +83,7 @@ export default function BigBoard({
   const [items, setItems] = useState(initialState.items);
   const [tierLabels, setTierLabels] = useState(initialState.tierLabels || {});
   const [targets, setTargets] = useState(new Set(initialState.targets));
+  const [avoids, setAvoids] = useState(new Set(initialState.avoids || []));
   const [playerEdits, setPlayerEdits] = useState(initialState.playerEdits || {});
   const [posFilter, setPosFilter] = useState('All');
   const [showTargetsOnly, setShowTargetsOnly] = useState(false);
@@ -96,11 +98,12 @@ export default function BigBoard({
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  function persist(newItems, newLabels, newTargets, newEdits) {
+  function persist(newItems, newLabels, newTargets, newEdits, newAvoids) {
     saveBoardState({
       items: newItems ?? items,
       tierLabels: newLabels ?? tierLabels,
       targets: [...(newTargets ?? targets)],
+      avoids: [...(newAvoids ?? avoids)],
       playerEdits: newEdits ?? playerEdits,
     });
   }
@@ -112,20 +115,27 @@ export default function BigBoard({
     // Don't allow tier divider to move before position 1 (keep at least one player visible at top if desired)
     const newItems = arrayMove(items, oldIdx, newIdx);
     setItems(newItems);
-    persist(newItems, null, null, null);
+    persist(newItems, null, null, null, null);
   }
 
   function handleToggleTarget(id) {
     const next = new Set(targets);
     next.has(id) ? next.delete(id) : next.add(id);
     setTargets(next);
-    persist(null, null, next, null);
+    persist(null, null, next, null, null);
+  }
+
+  function handleToggleAvoid(id) {
+    const next = new Set(avoids);
+    next.has(id) ? next.delete(id) : next.add(id);
+    setAvoids(next);
+    persist(null, null, null, null, next);
   }
 
   function handleTierLabelChange(num, label) {
     const newLabels = { ...tierLabels, [num]: label };
     setTierLabels(newLabels);
-    persist(null, newLabels, null, null);
+    persist(null, newLabels, null, null, null);
   }
 
   function handleAddTier() {
@@ -135,19 +145,19 @@ export default function BigBoard({
     const newItems = [...items, newDiv];
     setItems(newItems);
     setSortConfig(null); // clear sort so the new tier is immediately visible
-    persist(newItems, null, null, null);
+    persist(newItems, null, null, null, null);
   }
 
   function handleRemoveTier(divId) {
     const newItems = items.filter(i => i.id !== divId);
     setItems(newItems);
-    persist(newItems, null, null, null);
+    persist(newItems, null, null, null, null);
   }
 
   function handleFieldChange(id, field, value) {
     const newEdits = { ...playerEdits, [id]: { ...(playerEdits[id] || {}), [field]: value } };
     setPlayerEdits(newEdits);
-    persist(null, null, null, newEdits);
+    persist(null, null, null, newEdits, null);
   }
 
   function handleImport(e) {
@@ -158,7 +168,7 @@ export default function BigBoard({
       setTierLabels(state.tierLabels || {});
       setTargets(new Set(state.targets));
       setPlayerEdits(state.playerEdits || {});
-      persist(state.items, state.tierLabels, new Set(state.targets), state.playerEdits);
+      persist(state.items, state.tierLabels, new Set(state.targets), state.playerEdits, new Set(state.avoids || []));
     }).catch(err => alert('Import failed: ' + err.message));
   }
 
@@ -406,7 +416,9 @@ export default function BigBoard({
                     <PlayerRow key={p.id} player={p} myRank={item.displayRank}
                       tier={item._tier ?? playerTiersMap[p.id] ?? 1}
                       isTarget={targets.has(p.id)}
+                      isAvoid={avoids.has(p.id)}
                       onToggleTarget={() => handleToggleTarget(p.id)}
+                      onToggleAvoid={() => handleToggleAvoid(p.id)}
                       onFieldChange={(field, val) => handleFieldChange(p.id, field, val)}
                       onClick={() => onPlayerClick?.(p)}
                       league={league}

@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor } from '../utils/colors';
+import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor, riskToColor } from '../utils/colors';
 
 const TOTAL = 74;
 
@@ -216,7 +216,14 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <RankCell value={player.lateround_overall_tier} />
 
       {/* LateRound Risk */}
-      <EditableCell value={player.lateround_risk} onChange={v => onFieldChange('lateround_risk', v)} type="text" />
+      {(() => {
+        const { bg, text } = riskToColor(player.lateround_risk);
+        return (
+          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 10, whiteSpace: 'nowrap' }}>
+            {player.lateround_risk ?? '—'}
+          </td>
+        );
+      })()}
 
       {/* Brugler Grade */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>

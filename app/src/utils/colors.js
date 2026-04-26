@@ -90,6 +90,16 @@ export function zapTierToColor(label) {
   return ZAP_TIER_COLORS[idx];
 }
 
+// Color for LateRound risk indicator
+export function riskToColor(value) {
+  if (!value) return { bg: 'transparent', text: '#888' };
+  const v = String(value).trim().toLowerCase();
+  if (v === 'low risk')  return { bg: '#22c55e', text: '#fff' };
+  if (v === 'neutral')   return { bg: '#fbbf24', text: '#1a1a1a' };
+  if (v === 'high risk') return { bg: '#dc2626', text: '#fff' };
+  return { bg: '#e5e7eb', text: '#555' };
+}
+
 // Color for draft capital (e.g. "1.03", "3.15", "UDFA", null)
 export function draftCapitalToColor(value) {
   if (!value || value === '—') return { bg: 'transparent', text: '#888' };

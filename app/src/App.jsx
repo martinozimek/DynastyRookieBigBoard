@@ -183,7 +183,10 @@ function PlayerPanel({ player, myRank, onClose }) {
           <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>{player.name}</h2>
         </div>
         <div style={{ color: '#6b7280', fontSize: 13, marginBottom: 16 }}>
-          {player.team}{player.age ? ` · Age ${player.age}` : ''}
+          {player.nfl_team
+            ? <><strong style={{ color: '#374151' }}>{player.nfl_team}</strong>{player.team ? ` · ${player.team}` : ''}</>
+            : player.team}
+          {player.age ? ` · Age ${player.age}` : ''}
           {player.height_inches || player.weight_lbs
             ? ` · ${fmtHeight(player.height_inches)}${player.weight_lbs ? ` / ${player.weight_lbs} lbs` : ''}`
             : ''}

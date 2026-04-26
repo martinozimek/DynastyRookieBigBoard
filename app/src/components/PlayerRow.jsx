@@ -132,9 +132,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         {player.name}
       </td>
 
-      {/* Team */}
+      {/* Team (NFL post-draft, college pre-draft) */}
       <td style={{ padding: '2px 6px', fontSize: 12, color: '#555', whiteSpace: 'nowrap' }}>
-        {player.team || '—'}
+        {player.nfl_team || player.team || '—'}
       </td>
 
       {/* Age */}

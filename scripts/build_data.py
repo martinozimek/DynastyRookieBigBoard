@@ -273,7 +273,7 @@ def build():
     etr_df = load_etr()
     dlf_df = load_dlf()
     db_players = load_db_players()
-    zap_data = load_json(os.path.join(OUT_DIR, 'zap.json'))
+    zap_data = load_json(os.path.join(OUT_DIR, 'zap_postdraft.json'))
     sanderson_data = load_json(os.path.join(OUT_DIR, 'sanderson.json'))
     waldman_data = load_json(os.path.join(OUT_DIR, 'waldman.json'))
     adp_data = load_json(os.path.join(OUT_DIR, 'adp.json'))
@@ -363,13 +363,15 @@ def build():
             combine = db.get('combine')
             seasons = db.get('seasons')
 
-        # --- ZAP data ---
+        # --- ZAP data (post-draft) ---
         zap_match_key = fuzzy_match(name, {n: n for n in zap_keys}, threshold=80)
         zap_score = None
         lateround_overall_tier = None
         lateround_sf_rank = None
         lateround_zap_tier_label = None
         lateround_profile = None
+        pos_rank = None
+        nfl_team_lr = None  # NFL team from LateRound PDF
         if zap_match_key:
             zd = zap_data[zap_match_key]
             zap_score = zd.get('zap_score')
@@ -377,6 +379,8 @@ def build():
             lateround_sf_rank = zd.get('lateround_sf_rank')
             lateround_zap_tier_label = zd.get('lateround_zap_tier_label')
             lateround_profile = zd.get('lateround_profile')
+            pos_rank = zd.get('pos_rank')
+            nfl_team_lr = zd.get('nfl_team')
             if position is None:
                 position = zd.get('position')
 
@@ -466,17 +470,23 @@ def build():
         rank_sources = [r for r in [etr_rank, dlf_rank, sanderson_rank] if r is not None]
         avg_rank = round(sum(rank_sources) / len(rank_sources), 2) if rank_sources else None
 
+        # NFL team: prefer DB (most authoritative post-draft), fall back to LateRound PDF
+        db_nfl_team = db_players[db_match].get('nfl_team') if db_match else None
+        nfl_team = db_nfl_team or nfl_team_lr
+
         prospect = {
             'id': slugify(name),
             'name': name,
-            'team': team or '',
+            'team': team or '',           # college team (unchanged)
+            'nfl_team': nfl_team or '',   # NFL team (post-draft)
             'age': round(age, 1) if age is not None else None,
             'position': position or '',
+            'pos_rank': pos_rank,
             'height_inches': height_inches,
             'weight_lbs': weight_lbs,
             'combine': combine,
             'seasons': seasons,
-            'draft_capital': db.get('draft_capital') if db_match else None,  # from DB post-draft
+            'draft_capital': db_players[db_match].get('draft_capital') if db_match else None,
             'adp': adp,
             'adp_delta': None,  # calculated client-side
             'breakout_score': breakout_score,

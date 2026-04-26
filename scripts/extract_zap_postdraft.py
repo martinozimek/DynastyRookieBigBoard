@@ -14,6 +14,40 @@ import pdfplumber
 PDF_PATH = os.path.join(os.path.dirname(__file__), '..', 'src', 'LateRoundProspectGuide26_PostDraft.pdf')
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), 'output', 'zap_postdraft.json')
 
+RISK_FONT = 'DharmaGothicE'
+RISK_WORDS = {'Low', 'Neutral', 'High', 'Risk'}
+GRAY_SC = (0.14, 0.12, 0.13)
+
+
+def parse_risk(page) -> str | None:
+    """
+    Read the Draft Capital Delta risk indicator from a profile page.
+    The active risk level's neighbors are grayed out; we identify which label group is gray.
+
+    Color mapping (determined empirically from stroking_color of DharmaGothicE font words):
+      gray=['Neutral']       → 'Low Risk'
+      gray=['High', 'Risk']  → 'Neutral'
+      gray=['Low', 'Risk']   → 'High Risk'
+      gray=[]                → None  (undrafted/dart-throw — no indicator)
+    """
+    words = page.extract_words(extra_attrs=['stroking_color', 'fontname'])
+    risk_row = [
+        w for w in words
+        if RISK_FONT in (w.get('fontname') or '')
+        and w['text'] in RISK_WORDS
+        and w['top'] < 200 and w['x0'] > 400
+    ]
+    gray = {w['text'] for w in risk_row if w.get('stroking_color') == GRAY_SC}
+
+    if 'Neutral' in gray and 'High' not in gray and 'Low' not in gray:
+        return 'Low Risk'
+    if 'High' in gray and 'Neutral' not in gray and 'Low' not in gray:
+        return 'Neutral'
+    if 'Low' in gray and 'Neutral' not in gray:
+        return 'High Risk'
+    return None
+
+
 UNICODE_FIXES = str.maketrans({
     '‘': "'", '’': "'",
     '“': '"', '”': '"',
@@ -238,6 +272,9 @@ def extract_profiles(pdf, start_page=35, end_page=132):
             nfl_m = NFL_TEAM_RE.search(raw)
             if nfl_m:
                 current_data['nfl_team'] = nfl_m.group(1).strip()
+
+            # Risk indicator (color-based)
+            current_data['lateround_risk'] = parse_risk(page)
         elif current_name:
             current_text_lines.append(raw)
 

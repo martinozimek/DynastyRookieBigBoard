@@ -154,14 +154,15 @@ def load_db_players() -> dict:
 
     # NFL draft picks (populated after draft day; empty pre-draft)
     draft_pick_rows = conn.execute(f"""
-        SELECT p.full_name, d.draft_round, d.overall_pick, d.nfl_team
+        SELECT p.full_name, d.draft_round, d.pick_within_round, d.overall_pick, d.nfl_team
         FROM players p
         JOIN nfl_draft_picks d ON p.id = d.player_id
         WHERE d.draft_year = {DRAFT_YEAR}
     """).fetchall()
-    for name, rnd, pick, nfl_team in draft_pick_rows:
+    for name, rnd, within_rnd, overall_pick, nfl_team in draft_pick_rows:
         if name in players:
-            players[name]['draft_capital'] = f"{rnd}.{pick:02d}"
+            pick_num = within_rnd if within_rnd is not None else overall_pick
+            players[name]['draft_capital'] = f"{rnd}.{pick_num:02d}"
             players[name]['nfl_team'] = nfl_team
 
     # Combine results
@@ -274,7 +275,7 @@ def build():
     dlf_df = load_dlf()
     db_players = load_db_players()
     zap_data = load_json(os.path.join(OUT_DIR, 'zap_postdraft.json'))
-    sanderson_data = load_json(os.path.join(OUT_DIR, 'sanderson.json'))
+    sanderson_data = load_json(os.path.join(OUT_DIR, 'sanderson_postdraft.json'))
     waldman_data = load_json(os.path.join(OUT_DIR, 'waldman.json'))
     adp_data = load_json(os.path.join(OUT_DIR, 'adp.json'))
     beast_data = load_json(os.path.join(OUT_DIR, 'beast.json'))
@@ -370,6 +371,7 @@ def build():
         lateround_sf_rank = None
         lateround_zap_tier_label = None
         lateround_profile = None
+        lateround_risk = None
         pos_rank = None
         nfl_team_lr = None  # NFL team from LateRound PDF
         if zap_match_key:
@@ -379,6 +381,7 @@ def build():
             lateround_sf_rank = zd.get('lateround_sf_rank')
             lateround_zap_tier_label = zd.get('lateround_zap_tier_label')
             lateround_profile = zd.get('lateround_profile')
+            lateround_risk = zd.get('lateround_risk')
             pos_rank = zd.get('pos_rank')
             nfl_team_lr = zd.get('nfl_team')
             if position is None:
@@ -499,7 +502,7 @@ def build():
             'lateround_overall_tier': lateround_overall_tier,
             'lateround_zap_tier_label': lateround_zap_tier_label,
             'lateround_profile': lateround_profile,
-            'lateround_risk': None,
+            'lateround_risk': lateround_risk,
             'etr_rank': etr_rank,
             'dlf_rank': dlf_rank,
             'sanderson_rank': sanderson_rank,

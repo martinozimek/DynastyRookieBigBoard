@@ -1,0 +1,582 @@
+{
+  "Jeremiyah Love": {
+    "slot": "1.01",
+    "name": "Jeremiyah Love",
+    "position_slot": "RB1",
+    "nfl_team": "AZ",
+    "sanderson_pick_value": "1.03",
+    "sanderson_tier": 1,
+    "sanderson_tier_label": "2+ BASE 1s",
+    "sanderson_rank": 1
+  },
+  "Jordyn Tyson": {
+    "slot": "1.02",
+    "name": "Jordyn Tyson",
+    "position_slot": "WR1",
+    "nfl_team": "NO",
+    "sanderson_pick_value": "1.08",
+    "sanderson_tier": 2,
+    "sanderson_tier_label": "1.25 BASE 1s",
+    "sanderson_rank": 2
+  },
+  "Carnell Tate": {
+    "slot": "1.03",
+    "name": "Carnell Tate",
+    "position_slot": "WR2",
+    "nfl_team": "TEN",
+    "sanderson_pick_value": "1.04",
+    "sanderson_tier": 2,
+    "sanderson_tier_label": "1.25 BASE 1s",
+    "sanderson_rank": 3
+  },
+  "Fernando Mendoza": {
+    "slot": "1.04",
+    "name": "Fernando Mendoza",
+    "position_slot": "QB1",
+    "nfl_team": "LVR",
+    "sanderson_pick_value": "1.01",
+    "sanderson_tier": 3,
+    "sanderson_tier_label": "BASE 1",
+    "sanderson_rank": 4
+  },
+  "Makai Lemon": {
+    "slot": "1.05",
+    "name": "Makai Lemon",
+    "position_slot": "WR3",
+    "nfl_team": "PHI",
+    "sanderson_pick_value": "1.20",
+    "sanderson_tier": 3,
+    "sanderson_tier_label": "BASE 1",
+    "sanderson_rank": 5
+  },
+  "KC Concepcion": {
+    "slot": "1.06",
+    "name": "KC Concepcion",
+    "position_slot": "WR4",
+    "nfl_team": "CLE",
+    "sanderson_pick_value": "1.24",
+    "sanderson_tier": 4,
+    "sanderson_tier_label": "LATE 1",
+    "sanderson_rank": 6
+  },
+  "Jadarian Price": {
+    "slot": "1.07",
+    "name": "Jadarian Price",
+    "position_slot": "RB2",
+    "nfl_team": "SEA",
+    "sanderson_pick_value": "1.32",
+    "sanderson_tier": 4,
+    "sanderson_tier_label": "LATE 1",
+    "sanderson_rank": 7
+  },
+  "Kenyon Sadiq": {
+    "slot": "1.08",
+    "name": "Kenyon Sadiq",
+    "position_slot": "TE1",
+    "nfl_team": "NYJ",
+    "sanderson_pick_value": "1.16",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 8
+  },
+  "Ty Simpson": {
+    "slot": "1.09",
+    "name": "Ty Simpson",
+    "position_slot": "QB2",
+    "nfl_team": "LAR",
+    "sanderson_pick_value": "1.13",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 9
+  },
+  "Omar Cooper Jr.": {
+    "slot": "1.10",
+    "name": "Omar Cooper Jr.",
+    "position_slot": "WR5",
+    "nfl_team": "NYJ",
+    "sanderson_pick_value": "1.30",
+    "sanderson_tier": 5,
+    "sanderson_tier_label": "EARLY 2",
+    "sanderson_rank": 10
+  },
+  "Denzel Boston": {
+    "slot": "1.11",
+    "name": "Denzel Boston",
+    "position_slot": "WR6",
+    "nfl_team": "CLE",
+    "sanderson_pick_value": "2.39",
+    "sanderson_tier": 6,
+    "sanderson_tier_label": "BASE 2",
+    "sanderson_rank": 11
+  },
+  "Jonah Coleman": {
+    "slot": "1.12",
+    "name": "Jonah Coleman",
+    "position_slot": "RB3",
+    "nfl_team": "DEN",
+    "sanderson_pick_value": "4.108",
+    "sanderson_tier": 6,
+    "sanderson_tier_label": "BASE 2",
+    "sanderson_rank": 12
+  },
+  "Eli Stowers": {
+    "slot": "2.01",
+    "name": "Eli Stowers",
+    "position_slot": "TE2",
+    "nfl_team": "PHI",
+    "sanderson_pick_value": "2.54",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 13
+  },
+  "Nick Singleton": {
+    "slot": "2.02",
+    "name": "Nick Singleton",
+    "position_slot": "RB4",
+    "nfl_team": "TEN",
+    "sanderson_pick_value": "5.165",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 14
+  },
+  "Eli Raridon": {
+    "slot": "2.03",
+    "name": "Eli Raridon",
+    "position_slot": "TE3",
+    "nfl_team": "NE",
+    "sanderson_pick_value": "3.95",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 15
+  },
+  "Germie Bernard": {
+    "slot": "2.04",
+    "name": "Germie Bernard",
+    "position_slot": "WR7",
+    "nfl_team": "PIT",
+    "sanderson_pick_value": "2.47",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 16
+  },
+  "Antonio Williams": {
+    "slot": "2.05",
+    "name": "Antonio Williams",
+    "position_slot": "WR8",
+    "nfl_team": "WSH",
+    "sanderson_pick_value": "3.71",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 17
+  },
+  "Elijah Sarratt": {
+    "slot": "2.06",
+    "name": "Elijah Sarratt",
+    "position_slot": "WR9",
+    "nfl_team": "BAL",
+    "sanderson_pick_value": "4.115",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "LATE 2",
+    "sanderson_rank": 18
+  },
+  "Chris Bell": {
+    "slot": "2.07",
+    "name": "Chris Bell",
+    "position_slot": "WR10",
+    "nfl_team": "MIA",
+    "sanderson_pick_value": "3.94",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 19
+  },
+  "Zachariah Branch": {
+    "slot": "2.08",
+    "name": "Zachariah Branch",
+    "position_slot": "WR11",
+    "nfl_team": "ATL",
+    "sanderson_pick_value": "3.79",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 20
+  },
+  "Emmett Johnson": {
+    "slot": "2.09",
+    "name": "Emmett Johnson",
+    "position_slot": "RB5",
+    "nfl_team": "KC",
+    "sanderson_pick_value": "5.161",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 21
+  },
+  "Kaytron Allen": {
+    "slot": "2.10",
+    "name": "Kaytron Allen",
+    "position_slot": "RB6",
+    "nfl_team": "WSH",
+    "sanderson_pick_value": "6.187",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 22
+  },
+  "Chris Brazzell II": {
+    "slot": "2.11",
+    "name": "Chris Brazzell II",
+    "position_slot": "WR12",
+    "nfl_team": "CAR",
+    "sanderson_pick_value": "3.83",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 23
+  },
+  "Oscar Delp": {
+    "slot": "2.12",
+    "name": "Oscar Delp",
+    "position_slot": "TE4",
+    "nfl_team": "NO",
+    "sanderson_pick_value": "3.73",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 24
+  },
+  "Max Klare": {
+    "slot": "3.02",
+    "name": "Max Klare",
+    "position_slot": "TE5",
+    "nfl_team": "LAR",
+    "sanderson_pick_value": "2.61",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 25
+  },
+  "Ted Hurst": {
+    "slot": "3.04",
+    "name": "Ted Hurst",
+    "position_slot": "WR13",
+    "nfl_team": "TB",
+    "sanderson_pick_value": "3.84",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 26
+  },
+  "Justin Joly": {
+    "slot": "3.05",
+    "name": "Justin Joly",
+    "position_slot": "TE6",
+    "nfl_team": "DEN",
+    "sanderson_pick_value": "5.152",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 27
+  },
+  "De'Zhaun Stribling": {
+    "slot": "3.06",
+    "name": "De'Zhaun Stribling",
+    "position_slot": "WR14",
+    "nfl_team": "SF",
+    "sanderson_pick_value": "2.33",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 28
+  },
+  "Demond Claiborne": {
+    "slot": "3.07",
+    "name": "Demond Claiborne",
+    "position_slot": "RB8",
+    "nfl_team": "MIN",
+    "sanderson_pick_value": "6.198",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 29
+  },
+  "Kaelon Black": {
+    "slot": "3.08",
+    "name": "Kaelon Black",
+    "position_slot": "RB9",
+    "nfl_team": "SF",
+    "sanderson_pick_value": "3.90",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 30
+  },
+  "Drew Allar": {
+    "slot": "3.09",
+    "name": "Drew Allar",
+    "position_slot": "QB4",
+    "nfl_team": "PIT",
+    "sanderson_pick_value": "3.76",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 31
+  },
+  "Adam Randall": {
+    "slot": "3.10",
+    "name": "Adam Randall",
+    "position_slot": "RB10",
+    "nfl_team": "BAL",
+    "sanderson_pick_value": "5.174",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 32
+  },
+  "Brenen Thompson": {
+    "slot": "3.11",
+    "name": "Brenen Thompson",
+    "position_slot": "WR15",
+    "nfl_team": "LAC",
+    "sanderson_pick_value": "4.105",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 33
+  },
+  "Jack Endries": {
+    "slot": "3.12",
+    "name": "Jack Endries",
+    "position_slot": "TE7",
+    "nfl_team": "CIN",
+    "sanderson_pick_value": "7.221",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 34
+  },
+  "Kevin Coleman Jr.": {
+    "slot": "4.01",
+    "name": "Kevin Coleman Jr.",
+    "position_slot": "WR16",
+    "nfl_team": "MIA",
+    "sanderson_pick_value": "5.177",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 35
+  },
+  "Tanner Koziol": {
+    "slot": "4.02",
+    "name": "Tanner Koziol",
+    "position_slot": "TE8",
+    "nfl_team": "JAX",
+    "sanderson_pick_value": "5.164",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 36
+  },
+  "Taylen Green": {
+    "slot": "4.03",
+    "name": "Taylen Green",
+    "position_slot": "QB5",
+    "nfl_team": "CLE",
+    "sanderson_pick_value": "6.182",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 37
+  },
+  "Skyler Bell": {
+    "slot": "4.04",
+    "name": "Skyler Bell",
+    "position_slot": "WR17",
+    "nfl_team": "BUF",
+    "sanderson_pick_value": "4.125",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 38
+  },
+  "Ja'Kobi Lane": {
+    "slot": "4.05",
+    "name": "Ja'Kobi Lane",
+    "position_slot": "WR18",
+    "nfl_team": "BAL",
+    "sanderson_pick_value": "3.80",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 39
+  },
+  "Malachi Fields": {
+    "slot": "4.06",
+    "name": "Malachi Fields",
+    "position_slot": "WR19",
+    "nfl_team": "NYG",
+    "sanderson_pick_value": "3.74",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 40
+  },
+  "Bryce Lance": {
+    "slot": "4.07",
+    "name": "Bryce Lance",
+    "position_slot": "WR20",
+    "nfl_team": "NO",
+    "sanderson_pick_value": "4.136",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 41
+  },
+  "Cade Klubnik": {
+    "slot": "4.08",
+    "name": "Cade Klubnik",
+    "position_slot": "QB6",
+    "nfl_team": "NYJ",
+    "sanderson_pick_value": "4.110",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 42
+  },
+  "Eli Heidenreich": {
+    "slot": "4.09",
+    "name": "Eli Heidenreich",
+    "position_slot": "RB11",
+    "nfl_team": "PIT",
+    "sanderson_pick_value": "7.230",
+    "sanderson_tier": 9,
+    "sanderson_tier_label": "4TH ROUND",
+    "sanderson_rank": 43
+  },
+  "Seth McGowan": {
+    "slot": "4.10",
+    "name": "Seth McGowan",
+    "position_slot": "RB12",
+    "nfl_team": "IND",
+    "sanderson_pick_value": "7.237",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 44
+  },
+  "Nate Roerkircher": {
+    "slot": "4.11",
+    "name": "Nate Roerkircher",
+    "position_slot": "TE9",
+    "nfl_team": "JAX",
+    "sanderson_pick_value": "2.56",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 45
+  },
+  "Marlin Klein": {
+    "slot": "4.12",
+    "name": "Marlin Klein",
+    "position_slot": "TE10",
+    "nfl_team": "HOU",
+    "sanderson_pick_value": "2.59",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 46
+  },
+  "Sam Roush": {
+    "slot": "5.01",
+    "name": "Sam Roush",
+    "position_slot": "TE11",
+    "nfl_team": "CHI",
+    "sanderson_pick_value": "3.79",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 47
+  },
+  "Cole Payton": {
+    "slot": "5.02",
+    "name": "Cole Payton",
+    "position_slot": "QB7",
+    "nfl_team": "PHI",
+    "sanderson_pick_value": "5.178",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 48
+  },
+  "Desmond Reid": {
+    "slot": "5.03",
+    "name": "Desmond Reid",
+    "position_slot": "RB13",
+    "nfl_team": "BUF",
+    "sanderson_pick_value": "UDFA",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 49
+  },
+  "Jaren Kanak": {
+    "slot": "5.04",
+    "name": "Jaren Kanak",
+    "position_slot": "TE12",
+    "nfl_team": "TEN",
+    "sanderson_pick_value": "7.225",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 50
+  },
+  "Deion Burks": {
+    "slot": "5.05",
+    "name": "Deion Burks",
+    "position_slot": "WR21",
+    "nfl_team": "IND",
+    "sanderson_pick_value": "7.254",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 51
+  },
+  "Josh Cameron": {
+    "slot": "5.06",
+    "name": "Josh Cameron",
+    "position_slot": "WR22",
+    "nfl_team": "JAX",
+    "sanderson_pick_value": "6.191",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 52
+  },
+  "Le'Veon Moss": {
+    "slot": "5.07",
+    "name": "Le'Veon Moss",
+    "position_slot": "RB14",
+    "nfl_team": "MIA",
+    "sanderson_pick_value": "UDFA",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 53
+  },
+  "Jaydn Ott": {
+    "slot": "5.08",
+    "name": "Jaydn Ott",
+    "position_slot": "RB15",
+    "nfl_team": "KC",
+    "sanderson_pick_value": "UDFA",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 54
+  },
+  "Caleb Douglas": {
+    "slot": "5.09",
+    "name": "Caleb Douglas",
+    "position_slot": "WR23",
+    "nfl_team": "MIA",
+    "sanderson_pick_value": "3.75",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 55
+  },
+  "Cyrus Allen": {
+    "slot": "5.10",
+    "name": "Cyrus Allen",
+    "position_slot": "WR24",
+    "nfl_team": "KC",
+    "sanderson_pick_value": "5.176",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 56
+  },
+  "Colbie Young": {
+    "slot": "5.11",
+    "name": "Colbie Young",
+    "position_slot": "WR25",
+    "nfl_team": "CIN",
+    "sanderson_pick_value": "4.140",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 57
+  },
+  "Garrett Nussmeier": {
+    "slot": "5.12",
+    "name": "Garrett Nussmeier",
+    "position_slot": "QB8",
+    "nfl_team": "KC",
+    "sanderson_pick_value": "7.249",
+    "sanderson_tier": 10,
+    "sanderson_tier_label": "WAIVER WIRE",
+    "sanderson_rank": 58
+  }
+}

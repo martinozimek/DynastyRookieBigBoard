@@ -22,13 +22,14 @@ GRAY_SC = (0.14, 0.12, 0.13)
 def parse_risk(page) -> str | None:
     """
     Read the Draft Capital Delta risk indicator from a profile page.
-    The active risk level's neighbors are grayed out; we identify which label group is gray.
+    The ACTIVE risk level is rendered in gray stroke; inactive labels are black.
+    Use x-position to distinguish 'Risk' appearing in both 'Low Risk' and 'High Risk'.
 
-    Color mapping (determined empirically from stroking_color of DharmaGothicE font words):
-      gray=['Neutral']       → 'Low Risk'
-      gray=['High', 'Risk']  → 'Neutral'
-      gray=['Low', 'Risk']   → 'High Risk'
-      gray=[]                → None  (undrafted/dart-throw — no indicator)
+    Color mapping (gray stroke = selected):
+      only Neutral gray (x≈476)          → 'Neutral'
+      only High+Risk gray (x≈513,534)    → 'High Risk'
+      only Low+Risk gray (x≈430,449)     → 'Low Risk'
+      nothing gray                        → None  (UDFA / no indicator)
     """
     words = page.extract_words(extra_attrs=['stroking_color', 'fontname'])
     risk_row = [
@@ -37,14 +38,17 @@ def parse_risk(page) -> str | None:
         and w['text'] in RISK_WORDS
         and w['top'] < 200 and w['x0'] > 400
     ]
-    gray = {w['text'] for w in risk_row if w.get('stroking_color') == GRAY_SC}
 
-    if 'Neutral' in gray and 'High' not in gray and 'Low' not in gray:
-        return 'Low Risk'
-    if 'High' in gray and 'Neutral' not in gray and 'Low' not in gray:
+    low_gray    = any(w['x0'] < 470 and w.get('stroking_color') == GRAY_SC for w in risk_row)
+    neutral_gray = any(470 <= w['x0'] < 507 and w.get('stroking_color') == GRAY_SC for w in risk_row)
+    high_gray   = any(w['x0'] >= 507 and w.get('stroking_color') == GRAY_SC for w in risk_row)
+
+    if neutral_gray and not low_gray and not high_gray:
         return 'Neutral'
-    if 'Low' in gray and 'Neutral' not in gray:
+    if high_gray and not low_gray and not neutral_gray:
         return 'High Risk'
+    if low_gray and not neutral_gray and not high_gray:
+        return 'Low Risk'
     return None
 
 

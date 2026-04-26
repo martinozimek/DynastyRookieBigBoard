@@ -56,7 +56,7 @@ const BRUGLER_ORDER = {'1st':1,'1st-2nd':1.5,'2nd':2,'2nd-3rd':2.5,'3rd':3,'3rd-
 
 // Sanderson value label sort order (most valuable = lowest number)
 const SANDERSON_VAL_ORDER = {
-  '2+ BASE 1s': 1, '1.25 BASE 1s': 2, 'LATE 1': 3, 'BASE 1': 4,
+  '2+ BASE 1s': 1, '1.25 BASE 1s': 2, 'BASE 1': 3, 'LATE 1': 4,
   'EARLY 2': 5, 'BASE 2': 6, 'LATE 2': 7, '3RD ROUND': 8, '4TH ROUND': 9, 'WAIVER WIRE': 10,
 };
 

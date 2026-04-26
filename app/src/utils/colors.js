@@ -90,6 +90,17 @@ export function zapTierToColor(label) {
   return ZAP_TIER_COLORS[idx];
 }
 
+// Color for draft capital (e.g. "1.03", "3.15", "UDFA", null)
+export function draftCapitalToColor(value) {
+  if (!value || value === '—') return { bg: 'transparent', text: '#888' };
+  const s = String(value).trim().toUpperCase();
+  if (s === 'UDFA') return { bg: '#dc2626', text: '#fff' };
+  const round = parseInt(s.split('.')[0], 10);
+  if (isNaN(round)) return { bg: 'transparent', text: '#888' };
+  // Round 1 = green, Round 7 = red
+  return rankToColor(round, 7);
+}
+
 export function tierToColor(tier) {
   const palette = [
     '#1a472a', '#155724', '#186a3b', '#1e8449',

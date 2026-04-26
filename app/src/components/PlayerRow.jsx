@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors } from '../utils/colors';
+import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor } from '../utils/colors';
 
 const TOTAL = 74;
 
@@ -140,8 +140,15 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* Age */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12 }}>{player.age ?? '—'}</td>
 
-      {/* Draft Capital (editable) */}
-      <EditableCell value={player.draft_capital} onChange={v => onFieldChange('draft_capital', v)} type="text" placeholder="—" />
+      {/* Draft Capital */}
+      {(() => {
+        const { bg, text } = draftCapitalToColor(player.draft_capital);
+        return (
+          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 12, whiteSpace: 'nowrap' }}>
+            {player.draft_capital ?? '—'}
+          </td>
+        );
+      })()}
 
       {/* Position */}
       <td style={{ textAlign: 'center', padding: '2px 4px' }}>

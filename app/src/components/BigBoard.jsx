@@ -232,9 +232,15 @@ export default function BigBoard({
       playerItems.push({ ...item, displayRank: rankCounter, _tier: tierMap[item.id] ?? 1 });
     }
 
-    // When sorted, return flat player list without tier dividers
+    // When sorted, return flat player list without tier dividers.
+    // displayRank stays as the player's unsorted board position so the "Rk"
+    // column always shows where the user ranked that player.
     if (sort) {
-      const sorted = [...playerItems].sort((a, b) => {
+      return [...playerItems].sort((a, b) => {
+        // Sorting by "Rk" column uses board position (displayRank)
+        if (sort.field === 'my_rank') {
+          return sort.dir === 'asc' ? a.displayRank - b.displayRank : b.displayRank - a.displayRank;
+        }
         const pa = annotatedById[a.id];
         const pb = annotatedById[b.id];
         const va = getSortValue(pa, sort.field);
@@ -243,7 +249,6 @@ export default function BigBoard({
         const cmp = va < vb ? -1 : 1;
         return sort.dir === 'asc' ? cmp : -cmp;
       });
-      return sorted.map((item, i) => ({ ...item, displayRank: i + 1 }));
     }
 
     // Unsorted: rebuild with tier dividers in original order

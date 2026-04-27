@@ -257,6 +257,14 @@ function PlayerPanel({ player, myRank, onClose }) {
           </StatSection>
         )}
 
+        {player.etr_notes && (
+          <StatSection title="ETR Notes">
+            <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+              {player.etr_notes}
+            </div>
+          </StatSection>
+        )}
+
         {player.brugler_summary && (
           <StatSection title="The Beast Summary">
             <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, fontStyle: 'italic' }}>

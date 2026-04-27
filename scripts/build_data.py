@@ -107,20 +107,18 @@ def load_json(path: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def load_etr() -> pd.DataFrame:
-    path = os.path.join(SRC, 'Rookie Rankings.csv')
+    path = os.path.join(SRC, 'RookieRankingsETR_PostDraft.csv')
     df = pd.read_csv(path)
-    # Columns: Player, Team, Position, Age, Status, 1QB Rank, 1QB Pos Rank,
-    #          SF/TE Premium Rank, SF/TE Premium Pos Rank, Notes
-    df = df[['Player', 'Age', 'SF/TE Premium Rank']].dropna(subset=['Player'])
-    df.columns = ['name', 'age', 'etr_rank']
+    df = df[['Player', 'Age', 'SF/TE Premium Rank', 'Notes']].dropna(subset=['Player'])
+    df.columns = ['name', 'age', 'etr_rank', 'etr_notes']
     df['etr_rank'] = pd.to_numeric(df['etr_rank'], errors='coerce')
+    df['etr_notes'] = df['etr_notes'].where(df['etr_notes'].notna(), None)
     return df
 
 
 def load_dlf() -> pd.DataFrame:
-    path = os.path.join(SRC, 'Dynasty Rookie Superflex Rankings-3-20-2026-1500.csv')
+    path = os.path.join(SRC, 'Dynasty Rookie Superflex Rankings-3-27-2026-2111.csv')
     df = pd.read_csv(path)
-    # Columns: Rank, Avg, Pos, Name, Team, Age, DanM, Joe C, Ken K, ...
     df = df[['Name', 'Rank', 'Age']].dropna(subset=['Name'])
     df.columns = ['name', 'dlf_rank', 'dlf_age']
     df['dlf_rank'] = pd.to_numeric(df['dlf_rank'], errors='coerce')
@@ -332,6 +330,7 @@ def build():
         etr_row = etr_df[etr_df['name'] == name]
         etr_rank = int(etr_row['etr_rank'].iloc[0]) if not etr_row.empty and not pd.isna(etr_row['etr_rank'].iloc[0]) else None
         age = float(etr_row['age'].iloc[0]) if not etr_row.empty and not pd.isna(etr_row['age'].iloc[0]) else None
+        etr_notes = etr_row['etr_notes'].iloc[0] if not etr_row.empty and etr_row['etr_notes'].iloc[0] is not None else None
 
         # --- DLF data — try canonical alias first, fall back to fuzzy ---
         dlf_match = dlf_canonical_lookup.get(canonicalize(name)) or fuzzy_match(name, {n: n for n in dlf_df['name']}, threshold=85)
@@ -504,6 +503,7 @@ def build():
             'lateround_profile': lateround_profile,
             'lateround_risk': lateround_risk,
             'etr_rank': etr_rank,
+            'etr_notes': etr_notes,
             'dlf_rank': dlf_rank,
             'sanderson_rank': sanderson_rank,
             'sanderson_tier': sanderson_tier,

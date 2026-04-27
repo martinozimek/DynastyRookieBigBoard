@@ -164,6 +164,7 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* ADP Delta */}
       <DeltaCell value={player.adp_delta} />
 
+      {/* ── Scores & Grades ───────────────────────────────────────── */}
       {/* ZAP Score */}
       <ZapCell value={player.zap_score} />
 
@@ -190,15 +191,20 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* ORBIT Score */}
       <ZapCell value={player.orbit_score} />
 
-      {/* ── ETR / DLF ─────────────────────────────────────────────── */}
+      {/* Brugler Grade */}
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>
+        {player.brugler_grade ?? '—'}
+      </td>
+
+      {/* Waldman DOT */}
+      <ZapCell value={player.waldman_dot} />
+
+      {/* ── Expert Rankings ───────────────────────────────────────── */}
       <RankCell value={player.etr_rank} />
       <RankCell value={player.dlf_rank} />
 
-      {/* ── Sanderson group ───────────────────────────────────────── */}
-      {/* Sanderson Rank */}
+      {/* Sanderson */}
       <RankCell value={player.sanderson_rank} />
-
-      {/* Sanderson Exposure */}
       {(() => {
         const { bg, text } = exposureToColor(player.sanderson_exposure);
         return (
@@ -207,24 +213,18 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
           </td>
         );
       })()}
-
-      {/* Sanderson Tier */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555' }}>
         {player.sanderson_tier ?? '—'}
       </td>
-
-      {/* Sanderson Value Label */}
       <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
         {player.sanderson_tier_label ?? '—'}
       </td>
 
-      {/* ── LateRound group ───────────────────────────────────────── */}
+      {/* LateRound */}
       <RankCell value={player.lateround_sf_rank} />
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.lateround_overall_tier ?? '—'}
       </td>
-
-      {/* LateRound Risk */}
       {(() => {
         const { bg, text } = riskToColor(player.lateround_risk);
         return (
@@ -234,34 +234,22 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         );
       })()}
 
-      {/* ── Legendary Upside group ────────────────────────────────── */}
+      {/* Legendary Upside */}
       <RankCell value={player.legendary_rank} />
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.legendary_tier ?? '—'}
       </td>
 
-      {/* Brugler Grade */}
-      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>
-        {player.brugler_grade ?? '—'}
-      </td>
-
-      {/* Waldman DOT */}
-      <ZapCell value={player.waldman_dot} />
-
-      {/* Josh Larky Rank */}
+      {/* Larky / Waldman */}
       <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
-
-      {/* Waldman Rank */}
       <EditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
 
-      {/* Exposure */}
-      <EditableCell value={player.exposure} onChange={v => onFieldChange('exposure', v)} type="text" />
-
-      {/* Avg Rank */}
+      {/* ── Consensus ─────────────────────────────────────────────── */}
       <RankCell value={player.avg_rank} />
-
-      {/* Avg Rank Delta */}
       <DeltaCell value={player.avg_rank_delta} />
+
+      {/* ── Personal ──────────────────────────────────────────────── */}
+      <EditableCell value={player.exposure} onChange={v => onFieldChange('exposure', v)} type="text" />
     </tr>
   );
 }

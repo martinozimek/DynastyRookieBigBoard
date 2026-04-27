@@ -18,6 +18,7 @@ import { exportToExcel } from '../utils/excelExport';
 // sortField: the prospect field used for sorting (null = not sortable)
 // For Brugler grade, we sort by the embedded round number
 const COLUMNS = [
+  // ── Identity ───────────────────────────────────────────────────────────────
   { key: 'drag',            label: '',          width: 32,  sortField: null },
   { key: 'my_rank',         label: 'Rk',        width: 38,  sortField: 'my_rank' },
   { key: 'pos_rank',        label: 'Pos Rk',    width: 52,  sortField: null },
@@ -28,35 +29,35 @@ const COLUMNS = [
   { key: 'age',             label: 'Age',       width: 44,  sortField: 'age' },
   { key: 'draft_capital',   label: 'Pick',      width: 54,  sortField: 'draft_capital' },
   { key: 'position',        label: 'Pos',       width: 44,  sortField: 'position' },
+  // ── Market ─────────────────────────────────────────────────────────────────
   { key: 'adp',             label: 'ADP',       width: 52,  sortField: 'adp' },
   { key: 'adp_delta',       label: 'ADP Δ',     width: 56,  sortField: 'adp_delta' },
+  // ── Scores & Grades ────────────────────────────────────────────────────────
   { key: 'zap_score',       label: 'ZAP',       width: 52,  sortField: 'zap_score' },
   { key: 'zap_tier_label',  label: 'ZAP Tier',  width: 110, sortField: null },
   { key: 'breakout_score',  label: 'Brkout',    width: 56,  sortField: 'breakout_score' },
   { key: 'orbit_score',     label: 'ORBIT*',    width: 54,  sortField: 'orbit_score',   tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
-  // ── ETR / DLF ──────────────────────────────────────────────────────────────
+  { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
+  { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
+  // ── Expert Rankings ────────────────────────────────────────────────────────
   { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
   { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
-  // ── Sanderson group ────────────────────────────────────────────────────────
   { key: 'sand_rank',       label: 'Sand',      width: 48,  sortField: 'sanderson_rank' },
   { key: 'sand_exp',        label: 'S.Exp',     width: 58,  sortField: null },
   { key: 'sand_tier',       label: 'S.Tier',    width: 50,  sortField: 'sanderson_tier' },
   { key: 'sand_val',        label: 'S.Val',     width: 80,  sortField: 'sanderson_tier_label' },
-  // ── LateRound group ────────────────────────────────────────────────────────
   { key: 'lr_sf_rank',      label: 'LR Rk',     width: 50,  sortField: 'lateround_sf_rank' },
   { key: 'lr_tier',         label: 'LR Tier',   width: 56,  sortField: 'lateround_overall_tier' },
   { key: 'lr_risk',         label: 'LR Risk',   width: 58,  sortField: null },
-  // ── Legendary Upside group ─────────────────────────────────────────────────
   { key: 'leg_rank',        label: 'Leg Rk',    width: 52,  sortField: 'legendary_rank' },
   { key: 'leg_tier',        label: 'Leg Tier',  width: 52,  sortField: 'legendary_tier' },
-  // ── Other scouts ───────────────────────────────────────────────────────────
-  { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
-  { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
   { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
   { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
-  { key: 'exposure',        label: 'Exp',       width: 44,  sortField: null },
+  // ── Consensus ──────────────────────────────────────────────────────────────
   { key: 'avg_rank',        label: 'Avg Rk',    width: 54,  sortField: 'avg_rank' },
   { key: 'avg_delta',       label: 'Avg Δ',     width: 54,  sortField: 'avg_rank_delta' },
+  // ── Personal ───────────────────────────────────────────────────────────────
+  { key: 'exposure',        label: 'Exp',       width: 44,  sortField: null },
 ];
 
 // Round grades for Brugler sort order

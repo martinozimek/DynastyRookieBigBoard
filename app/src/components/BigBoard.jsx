@@ -52,8 +52,6 @@ const COLUMNS = [
   // ── Other scouts ───────────────────────────────────────────────────────────
   { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
   { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
-  { key: 'wld_cs_rank',     label: 'W.CS',      width: 50,  sortField: 'waldman_cheat_rank' },
-  { key: 'wld_cs_tier',     label: 'W.Tier',    width: 52,  sortField: 'waldman_cheat_tier' },
   { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
   { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
   { key: 'exposure',        label: 'Exp',       width: 44,  sortField: null },

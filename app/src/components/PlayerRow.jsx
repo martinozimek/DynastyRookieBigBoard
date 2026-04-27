@@ -244,14 +244,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* Waldman DOT */}
       <ZapCell value={player.waldman_dot} />
 
-      {/* Waldman Cheat Sheet Rank */}
-      <RankCell value={player.waldman_cheat_rank} />
-
-      {/* Waldman Cheat Sheet Tier */}
-      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, color: '#555', fontWeight: 600 }}>
-        {player.waldman_cheat_tier ? `T${player.waldman_cheat_tier}` : '—'}
-      </td>
-
       {/* Josh Larky Rank */}
       <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
 

@@ -548,7 +548,7 @@ def build():
             position = POSITION_OVERRIDES[name_key]
 
         # --- Compute Avg Rank from available consensus ranks ---
-        rank_sources = [r for r in [etr_rank, dlf_rank, sanderson_rank] if r is not None]
+        rank_sources = [r for r in [etr_rank, dlf_rank, sanderson_rank, lateround_sf_rank, legendary_rank] if r is not None]
         avg_rank = round(sum(rank_sources) / len(rank_sources), 2) if rank_sources else None
 
         # NFL team: prefer DB (most authoritative post-draft), fall back to LateRound PDF

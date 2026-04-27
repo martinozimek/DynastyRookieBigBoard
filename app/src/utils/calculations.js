@@ -1,6 +1,6 @@
 // Live calculations for ADP delta, avg rank, avg rank delta
 
-const RANK_FIELDS = ['etr_rank', 'dlf_rank', 'sanderson_rank', 'larky_rank', 'waldman_rank'];
+const RANK_FIELDS = ['etr_rank', 'dlf_rank', 'sanderson_rank', 'lateround_sf_rank', 'legendary_rank', 'larky_rank', 'waldman_rank'];
 
 export function calcAvgRank(player) {
   const vals = RANK_FIELDS.map(f => player[f]).filter(v => v != null && !isNaN(v));

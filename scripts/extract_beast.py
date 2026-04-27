@@ -24,12 +24,13 @@ PASSWORD = 'thebeast2026!'
 
 BOLD_MARKER = 'Georgia-Bold'
 
-# Known section page indices (0-based) from PDF probe
+# Known section page indices (0-based) from PDF probe.
+# table_pages is a list; WR table spans 2 pages (84, 85).
 SECTIONS = [
-    ('QB', 5,  6,   39),
-    ('RB', 40, 41,  84),
-    ('WR', 84, 86,  172),
-    ('TE', 172, 174, 225),
+    ('QB', [5],      6,   39),
+    ('RB', [40],     41,  84),
+    ('WR', [84, 85], 86,  172),
+    ('TE', [172],    174, 225),
 ]
 
 GRADE_RE = re.compile(r'^\d+(?:st|nd|rd|th)(?:-(?:\d+(?:st|nd|rd|th)|FA))?$|^FA$')
@@ -114,18 +115,21 @@ def extract():
     with pdfplumber.open(PDF_PATH, password=PASSWORD) as pdf:
         print(f"PDF: {len(pdf.pages)} pages")
 
-        # Parse grade tables
-        for pos, table_idx, writeup_start, writeup_end in SECTIONS:
-            text = (pdf.pages[table_idx].extract_text() or '').encode('ascii', errors='replace').decode()
-            sect_grades = parse_grade_table(text)
+        # Parse grade tables (use Unicode-safe translation so Ja'Kobi-style names survive)
+        _unicode_fixes = str.maketrans({'\u2018': "'", '\u2019': "'", '\u2013': '-', '\u2014': '-'})
+        for pos, table_pages, writeup_start, writeup_end in SECTIONS:
+            sect_grades = {}
+            for pg in table_pages:
+                text = (pdf.pages[pg].extract_text() or '').translate(_unicode_fixes)
+                sect_grades.update(parse_grade_table(text))
             for name, grade in sect_grades.items():
                 grades[name] = grade
                 pos_of[name] = pos
-            print(f"  {pos} table (page {table_idx}): {len(sect_grades)} players")
+            print(f"  {pos} table (pages {table_pages}): {len(sect_grades)} players")
 
         # Collect bold summaries per section
         all_summaries = []
-        for pos, table_idx, writeup_start, writeup_end in SECTIONS:
+        for pos, table_pages, writeup_start, writeup_end in SECTIONS:
             sums = extract_summaries_from_range(pdf, writeup_start, writeup_end)
             all_summaries.extend(sums)
             print(f"  {pos} writeups ({writeup_start}-{writeup_end}): {len(sums)} Overall summaries")
@@ -144,7 +148,9 @@ def extract():
         last_to_caps.setdefault(key, []).append(name)
 
     caps_names = list(grades.keys())
-    results = {}
+    # Seed results with every grade table entry so players without a matched
+    # summary still appear (grade present, summary null).
+    results = {name: {'brugler_grade': grades[name], 'brugler_summary': None} for name in grades}
     matched = 0
     unmatched = []
 

@@ -220,7 +220,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
 
       {/* ── LateRound group ───────────────────────────────────────── */}
       <RankCell value={player.lateround_sf_rank} />
-      <RankCell value={player.lateround_overall_tier} />
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
+        {player.lateround_overall_tier ?? '—'}
+      </td>
 
       {/* LateRound Risk */}
       {(() => {
@@ -234,7 +236,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
 
       {/* ── Legendary Upside group ────────────────────────────────── */}
       <RankCell value={player.legendary_rank} />
-      <RankCell value={player.legendary_tier} />
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
+        {player.legendary_tier ?? '—'}
+      </td>
 
       {/* Brugler Grade */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>

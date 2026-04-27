@@ -74,6 +74,34 @@ def fuzzy_match(name: str, candidates: dict, threshold: int = 80):
     return None
 
 
+_ABBR_SUFFIXES = {'Jr', 'Jr.', 'II', 'III', 'IV', 'Sr', 'Sr.'}
+
+def match_abbr_name(abbr: str, full_names: list) -> str | None:
+    """Match an abbreviated name like 'J. Love' or 'O. Cooper Jr.' to a full name.
+    Uses first initial + last name matching.
+    """
+    abbr = abbr.strip()
+    dot_idx = abbr.find('.')
+    if dot_idx < 0:
+        return None
+    initial = abbr[:dot_idx].strip().upper()
+    rest = abbr[dot_idx + 1:].strip()
+    rest_words = rest.split()
+    last_words = [w.rstrip('.') for w in rest_words if w.rstrip('.') not in _ABBR_SUFFIXES]
+    last_name = last_words[0].lower() if last_words else ''
+    if not last_name:
+        return None
+    for full_name in full_names:
+        parts = full_name.split()
+        if not parts or parts[0][0].upper() != initial:
+            continue
+        nonsuffix = [p.rstrip('.') for p in parts if p.rstrip('.') not in _ABBR_SUFFIXES]
+        fn_last = nonsuffix[-1].lower() if nonsuffix else parts[-1].lower()
+        if fn_last == last_name:
+            return full_name
+    return None
+
+
 def load_orbit() -> dict:
     """Load ORBIT scores from the dynasty-prospect-model CSV.
     Keys are DB canonical player names (same as players.full_name).
@@ -275,7 +303,10 @@ def build():
     db_players = load_db_players()
     zap_data = load_json(os.path.join(OUT_DIR, 'zap_postdraft.json'))
     sanderson_data = load_json(os.path.join(OUT_DIR, 'sanderson_postdraft.json'))
+    sanderson_xlsx_data = load_json(os.path.join(OUT_DIR, 'sanderson_xlsx.json'))
+    legendary_data = load_json(os.path.join(OUT_DIR, 'legendary.json'))
     waldman_data = load_json(os.path.join(OUT_DIR, 'waldman.json'))
+    waldman_cheat_data = load_json(os.path.join(OUT_DIR, 'waldman_cheatsheet.json'))
     adp_data = load_json(os.path.join(OUT_DIR, 'adp.json'))
     beast_data = load_json(os.path.join(OUT_DIR, 'beast.json'))
     breakout_raw = load_json(os.path.join(SRC, 'breakout_scores.json'))
@@ -287,8 +318,11 @@ def build():
     print(f"  DLF: {len(dlf_df)} players")
     print(f"  DB:  {len(db_players)} players")
     print(f"  ZAP: {len(zap_data)} players")
-    print(f"  Sanderson: {len(sanderson_data)} players")
+    print(f"  Sanderson PDF: {len(sanderson_data)} players")
+    print(f"  Sanderson XLSX: {len(sanderson_xlsx_data)} players")
+    print(f"  Legendary: {len(legendary_data)} players")
     print(f"  Waldman: {len(waldman_data)} players")
+    print(f"  Waldman Cheat: {len(waldman_cheat_data)} players")
     print(f"  ADP: {len(adp_data)} players")
     print(f"  Beast: {len(beast_data)} players")
     print(f"  Breakout: {len(breakout_flat)} players")
@@ -316,10 +350,25 @@ def build():
     breakout_keys = list(breakout_flat.keys())
     zap_keys = list(zap_data.keys())
     sanderson_keys = list(sanderson_data.keys())
+    legendary_keys = list(legendary_data.keys())
     waldman_keys = list(waldman_data.keys())
+    waldman_cheat_keys = list(waldman_cheat_data.keys())
     adp_keys = list(adp_data.keys())
     beast_keys = list(beast_data.keys())
     db_keys = list(db_players.keys())
+
+    # Pre-resolve Sanderson XLSX abbreviated names → full prospect names
+    # e.g. "J. Love" → "Jeremiyah Love", "O. Cooper Jr." → "Omar Cooper Jr."
+    sanderson_xlsx_by_fullname = {}
+    for abbr, entry in sanderson_xlsx_data.items():
+        full = match_abbr_name(abbr, base_names)
+        if full:
+            sanderson_xlsx_by_fullname[full] = entry
+        else:
+            # Fallback: try fuzzy match of abbreviated last name against base_names
+            fm = fuzzy_match(abbr, {n: n for n in base_names}, threshold=70)
+            if fm:
+                sanderson_xlsx_by_fullname[fm] = entry
 
     # Canonical → original DLF name lookup so "KC Concepcion" finds "Kevin Concepcion" in DLF, etc.
     dlf_canonical_lookup = {canonicalize(n): n for n in dlf_df['name']}
@@ -387,14 +436,14 @@ def build():
             if position is None:
                 position = zd.get('position')
 
-        # --- Sanderson data ---
+        # --- Sanderson data (PDF: tier + tier_label) ---
         sand_match_key = fuzzy_match(name, {n: n for n in sanderson_keys}, threshold=80)
         sanderson_rank = None
         sanderson_tier = None
         sanderson_tier_label = None
         if sand_match_key:
             sd = sanderson_data[sand_match_key]
-            sanderson_rank = sd.get('sanderson_rank')
+            sanderson_rank = sd.get('sanderson_rank')   # PDF rank (fallback)
             sanderson_tier = sd.get('sanderson_tier')
             sanderson_tier_label = sd.get('sanderson_tier_label')
             if position is None:
@@ -402,6 +451,26 @@ def build():
                 pos_letters = re.match(r'([A-Z]+)', pos_slot)
                 if pos_letters:
                     position = pos_letters.group(1)
+
+        # --- Sanderson XLSX market-adj rank + exposure (overrides PDF rank) ---
+        sanderson_exposure = None
+        xlsx_entry = sanderson_xlsx_by_fullname.get(name)
+        if xlsx_entry:
+            mkt_rank = xlsx_entry.get('sanderson_mkt_rank')
+            if mkt_rank is not None:
+                sanderson_rank = mkt_rank   # XLSX market-adj rank takes priority
+            sanderson_exposure = xlsx_entry.get('sanderson_exposure')
+
+        # --- Legendary Upside rank + tier ---
+        leg_match_key = fuzzy_match(name, {n: n for n in legendary_keys}, threshold=80)
+        legendary_rank = None
+        legendary_tier = None
+        legendary_pos_rank = None
+        if leg_match_key:
+            ld = legendary_data[leg_match_key]
+            legendary_rank = ld.get('legendary_sf_rank')
+            legendary_tier = ld.get('legendary_tier')
+            legendary_pos_rank = ld.get('legendary_pos_rank')
 
         # --- Waldman data ---
         # Waldman keys are usually "POS Name" (e.g. "RB Nicholas Singleton").
@@ -425,6 +494,15 @@ def build():
             pre_draft_advice = wd.get('pre_draft_advice')
             if position is None:
                 position = wd.get('waldman_position')
+
+        # --- Waldman Cheat Sheet rank + tier ---
+        wc_match_key = fuzzy_match(name, {n: n for n in waldman_cheat_keys}, threshold=82)
+        waldman_cheat_rank = None
+        waldman_cheat_tier = None
+        if wc_match_key:
+            wcd = waldman_cheat_data[wc_match_key]
+            waldman_cheat_rank = wcd.get('waldman_cheat_rank')
+            waldman_cheat_tier = wcd.get('waldman_cheat_tier')
 
         # --- ADP data ---
         adp_match_key = fuzzy_match(name, {n: n for n in adp_keys}, threshold=80)
@@ -509,7 +587,13 @@ def build():
             'sanderson_rank': sanderson_rank,
             'sanderson_tier': sanderson_tier,
             'sanderson_tier_label': sanderson_tier_label,
+            'sanderson_exposure': sanderson_exposure,
+            'legendary_rank': legendary_rank,
+            'legendary_tier': legendary_tier,
+            'legendary_pos_rank': legendary_pos_rank,
             'waldman_dot': waldman_dot,
+            'waldman_cheat_rank': waldman_cheat_rank,
+            'waldman_cheat_tier': waldman_cheat_tier,
             'elevator_pitch': elevator_pitch,
             'pre_draft_advice': pre_draft_advice,
             'brugler_grade': brugler_grade,

@@ -67,6 +67,10 @@
     "brugler_grade": "7th-FA",
     "brugler_summary": "Overall, Gronowski is an athletic passer with field-reading skills and plenty of tools, but he hasn’t shown the passing precision required to beat NFL speed with his arm. He has the play personality and makeup to compete for a backup role — especially given his physicality in short yardage — or even on special teams."
   },
+  "Jalon Daniels": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
   "Behren Morton": {
     "brugler_grade": "FA",
     "brugler_summary": "Overall, Morton needs to develop better passing consistency to make up for his lack of physical upside and to stand out in an NFL camp. He projects as a developmental backup in the NFL."
@@ -115,6 +119,14 @@
     "brugler_grade": "5th-6th",
     "brugler_summary": "Overall, Black runs with light feet and punches above his weight class to consistently get more yards than expected. Once in an NFL camp, his ability to prove himself as a pass catcher will be critical to carving out a part-time role."
   },
+  "J'mari Taylor": {
+    "brugler_grade": "6th",
+    "brugler_summary": "Overall, Taylor runs with both the compass and contact balance to be a volume ball carrier in a zone scheme. His reliability on special teams and third downs will help determine his value once he gets into an NFL camp."
+  },
+  "Le'veon Moss": {
+    "brugler_grade": "6th",
+    "brugler_summary": null
+  },
   "Seth Mcgowan": {
     "brugler_grade": "6th-7th",
     "brugler_summary": "Overall, McGowan is a good-sized, coordinated athlete with adequate vision and run strength, although his lack of explosive traits and inconsistent third-down value will make it an uphill climb to prove his worth on an NFL roster."
@@ -159,13 +171,25 @@
     "brugler_grade": "FA",
     "brugler_summary": "Overall, Donaldson is an all-gas, downhill back who wants to quickly find a crease, stay north-south and pound away (similar in ways to another former Ohio State running back, Carlos Hyde)."
   },
+  "Dean Connors": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
   "Desmond Reid": {
     "brugler_grade": "FA",
     "brugler_summary": "Overall, Reid has limited upside, because of his size, and needs to stay healthy. But he is an explosive athlete who offers alignment versatility on offense and return value."
   },
+  "Cash Jones": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
   "Barika Kpeenu": {
     "brugler_grade": "FA",
     "brugler_summary": "Overall, Kpeenu isn’t the most explosive or creative back in this class, but he has a good feel for run-lane development and finishes with contact balance and toughness. His game is reminiscent of Jerome Ford."
+  },
+  "Star Thomas": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
   },
   "Carnell Tate": {
     "brugler_grade": "1st",
@@ -199,6 +223,18 @@
     "brugler_grade": "2nd",
     "brugler_summary": "Overall, Bell calls himself a “positionless player,” which is both intriguing and concerning for his projection. He needs to land in the right situation, with an NFL staff that sees his value as a catch-and-go weapon."
   },
+  "Malachi Fields": {
+    "brugler_grade": "2nd-3rd",
+    "brugler_summary": null
+  },
+  "Antonio Williams": {
+    "brugler_grade": "2nd-3rd",
+    "brugler_summary": null
+  },
+  "De'zhaun Stribling": {
+    "brugler_grade": "2nd-3rd",
+    "brugler_summary": "Overall, Stribling isn’t the most well-rounded in terms of his route success, but he is a big-bodied athlete with strong ball skills and a pro mindset. He has the talent and competitive toughness to settle into a WR2/3 role for an NFL offense."
+  },
   "Elijah Sarratt": {
     "brugler_grade": "2nd-3rd",
     "brugler_summary": "Overall, Sarratt will be saddled with the “possession receiver” label, but he is an underrated athlete and plays with the urgency and toughness to own the catch point — which translates to any level of football. He has the tools to develop into an NFL starter, either on the outside or as a “big slot.”"
@@ -223,6 +259,14 @@
     "brugler_grade": "3rd-4th",
     "brugler_summary": "Overall, Brazzell still has a long way to go before becoming a complete receiver, but he is a long-striding athlete and dangerous vertical threat with surprising savvy for his size. He has the talent to become a team’s No. 2 or No. 3 option."
   },
+  "Deion Burks": {
+    "brugler_grade": "3rd-4th",
+    "brugler_summary": null
+  },
+  "Skyler Bell": {
+    "brugler_grade": "4th",
+    "brugler_summary": null
+  },
   "Colbie Young": {
     "brugler_grade": "4th-5th",
     "brugler_summary": "Overall, Young is a big-framed athlete with fluid, long strides and the strong hands needed to consistently come down with the rock. He is an attractive option for an NFL team seeking a player who’s stylistically similar to Courtland Sutton."
@@ -239,17 +283,37 @@
     "brugler_grade": "5th",
     "brugler_summary": "Overall, Virgil is a tall, silky-smooth athlete with the long-striding speed and adequate ball skills that give him a fighting chance as an outside pro receiver. His versatility on special teams coverages will increase his value."
   },
+  "Ja'kobi Lane": {
+    "brugler_grade": "5th",
+    "brugler_summary": "Overall, Lane is a light, linear athlete with an outstanding catch radius, but play strength and separation concerns must be addressed for him to find steady success. Not having a special teams role won’t help his chances as NFL teams stack their receiver depth charts."
+  },
+  "Kevin Coleman Jr.": {
+    "brugler_grade": "5th-6th",
+    "brugler_summary": null
+  },
   "Jeff Caldwell": {
     "brugler_grade": "5th-6th",
     "brugler_summary": "Overall, Caldwell is still underdeveloped physically and fundamentally, but he offers rare length and speed, meaning he potentially could grow into a downfield threat. He will require a patient coaching staff that’s willing to invest in his raw talent."
+  },
+  "Cyrus Allen": {
+    "brugler_grade": "5th-6th",
+    "brugler_summary": null
   },
   "Josh Cameron": {
     "brugler_grade": "6th",
     "brugler_summary": "Overall, Cameron plays well through contact and has functional strength and ball-winning size, but his struggle in separating and avoiding contested windows will be a limiting factor. Though he has traits that intrigue NFL teams, development time is needed."
   },
+  "J. Michael": {
+    "brugler_grade": "6th",
+    "brugler_summary": null
+  },
   "Kaden Wetjen": {
     "brugler_grade": "6th",
     "brugler_summary": "Overall, Wetjen is a dynamic return man and scoring threat on every touch, although time will tell if he can graduate from gadget receiver to a more established role in an offense."
+  },
+  "Caleb Douglas": {
+    "brugler_grade": "6th-7th",
+    "brugler_summary": null
   },
   "Harrison Wallace Iii": {
     "brugler_grade": "6th-7th",
@@ -258,6 +322,10 @@
   "Jordan Hudson": {
     "brugler_grade": "6th-7th",
     "brugler_summary": "Overall, Hudson isn’t a polished player at this point in his development, but he is a good-sized athlete with a bionic way of adjusting to the football. The NFL talent is there. Hopefully, he’ll land with a coaching staff able to get the best out of him."
+  },
+  "Zavion Thomas": {
+    "brugler_grade": "7th",
+    "brugler_summary": null
   },
   "Vinny Anthony Ii": {
     "brugler_grade": "7th-FA",
@@ -274,6 +342,74 @@
   "Anthony Smith": {
     "brugler_grade": "7th-FA",
     "brugler_summary": "Overall, Smith is a linear route runner with drop issues, but his “see-ya” speed will help separate him, both on the field and in an NFL training camp."
+  },
+  "Chase Roberts": {
+    "brugler_grade": "7th-FA",
+    "brugler_summary": null
+  },
+  "Emmanuel Henderson Jr.": {
+    "brugler_grade": "7th-FA",
+    "brugler_summary": "Overall, Henderson falls into a very specific bucket as a receiver, but his speed can be weaponized in the right role, and his special teams impact will be an important aspect of his NFL projection."
+  },
+  "Jalen Walthall": {
+    "brugler_grade": "7th-FA",
+    "brugler_summary": "Overall, Walthall is an average size-speed-strength athlete, but his route quickness and adjustment ability are translatable qualities. He will compete for a WR 4/5 role in training camp."
+  },
+  "Dillon Bell": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
+  "Tyren Montgomery": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Montgomery is understandably green in areas, but his route quickness and athletic instincts with the ball in the air are intriguing qualities worth developing in camp. He is a practice-squad candidate with enough upside to eventually make a 53-man roster."
+  },
+  "Eric Mcalister": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, McAlister has draftable talent, but off-field and discipline questions cloud his projection. Accountability concerns will follow him to the league, although he could be a steal if given an opportunity to mature in a professional environment."
+  },
+  "Eric Rivers": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
+  "Cj Daniels": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Daniels might lack explosive speed, but he creates separation with crafty instincts and finishes with dependable ball skills. He projects best inside as a “big slot” in the NFL, who can rely on his awareness and toughness to be productive."
+  },
+  "Donaven Mcculley": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, McCulley is a big-bodied receiver with long-striding speed and the tools to work every level of the field, but the underdeveloped areas of his game are frustrating. Though he has draftable talent, he will need to land with a coaching staff committed to getting the best football out of him."
+  },
+  "Aaron Anderson": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Anderson is more than just a gadget player (as his usage in 2025 would suggest). Given his size and injury history, though, it can be tough to feel great about his NFL ceiling. A Ray-Ray McCloud-type career might be his best NFL path."
+  },
+  "Will Pauling": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Pauling is the type of athletic competitor and leader NFL teams want to bring to the building, but he will need to establish himself on special teams in camp to stay there."
+  },
+  "Chris Hilton Jr.": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Hilton’s NFL grade is based entirely on speed and potential, as he couldn’t put together a full season as a starter at LSU (mostly because of injuries). He is a developmental vertical threat — but needs a lot of work."
+  },
+  "Caullin Lacy": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Lacy is undersized with average production (never hit 100 yards receiving in any of his 18 games at Louisville), but he has the vision and acceleration to be dangerous with the ball in his hands."
+  },
+  "Devonte Ross": {
+    "brugler_grade": "FA",
+    "brugler_summary": null
+  },
+  "Dt Sheffield": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Sheffield is a smallish target who needs to cut down on drops, but his suddenness and speed make him a true three-level threat."
+  },
+  "Romello Brinson": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Brinson lacks desired play strength and route nuance, but his downfield ability makes him dangerous — especially at the third level of the field — and should stand out in camp."
+  },
+  "Trebor Pena": {
+    "brugler_grade": "FA",
+    "brugler_summary": "Overall, Pena is an average size/speed athlete who wins more with feel and toughness than sudden snap in his route running. He projects as a slot option and punt returner."
   },
   "Kenyon Sadiq": {
     "brugler_grade": "1st-2nd",
@@ -315,6 +451,10 @@
     "brugler_grade": "4th",
     "brugler_summary": "Overall, Klein needs to become more quarterback-friendly to see meaningful NFL snaps, but he is a good-sized athlete with toughness worth developing as a blocker. He projects as a potential backup who can be given both inline and slot duties."
   },
+  "Jack Endries": {
+    "brugler_grade": "4th-5th",
+    "brugler_summary": null
+  },
   "Joe Royer": {
     "brugler_grade": "4th-5th",
     "brugler_summary": "Overall, Royer lacks an explosive gear as both a receiver and blocker, but his ball skills are above average, and he is well-rounded everywhere else. He projects as a functional TE2 for an NFL offense."
@@ -327,9 +467,17 @@
     "brugler_grade": "5th",
     "brugler_summary": "Overall, Nowakowski made the Indiana playbook come alive with his usefulness and execution in all areas. He projects as a utility H-back who can be both a tight end and fullback."
   },
+  "Josh Cuevas": {
+    "brugler_grade": "5th",
+    "brugler_summary": null
+  },
   "Michael Trigg": {
     "brugler_grade": "5th-6th",
     "brugler_summary": "Overall, Trigg needs additional refinement as a route runner and blocker, but he plays with the foot quickness, body control and catch-point talent to be a three-level weapon. Showing NFL teams that accountability isn’t a question will be key during the draft process and early in his career."
+  },
+  "Dae'quan Wright": {
+    "brugler_grade": "5th-6th",
+    "brugler_summary": "Overall, Wright is still developing his technique and efficiency in a few areas, but his athletic pass-catching talent and discernible upside are attractive. He projects as a joker tight end who should see his snap count steadily increase throughout his rookie contract."
   },
   "Carsen Ryan": {
     "brugler_grade": "5th-6th",
@@ -347,6 +495,10 @@
     "brugler_grade": "6th-7th",
     "brugler_summary": "Overall, Rogers is a tad behind on the learning curve, but his athletic traits at his size, plus the improvements on his 2025 tape, make him an interesting Day 3 developmental option."
   },
+  "Khalil Dinkins": {
+    "brugler_grade": "6th-7th",
+    "brugler_summary": null
+  },
   "Jaren Kanak": {
     "brugler_grade": "6th-7th",
     "brugler_summary": "Overall, Kanak doesn’t have a large body of work, but he put a promising snapshot on film and offers some upside in the right H-back-style role. His ability to make an impact on special teams will help him stay on an NFL roster."
@@ -358,6 +510,10 @@
   "Bauer Sharp": {
     "brugler_grade": "7th",
     "brugler_summary": "Overall, Sharp is more average than above average in most categories, but his special teams experience and alignment versatility give him a shot to earn an NFL roster spot."
+  },
+  "John Michael": {
+    "brugler_grade": "7th-FA",
+    "brugler_summary": null
   },
   "Seydou Traore": {
     "brugler_grade": "7th-FA",

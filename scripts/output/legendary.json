@@ -1,0 +1,402 @@
+{
+  "Jeremiyah Love": {
+    "name": "Jeremiyah Love",
+    "nfl_team": "ARI",
+    "position": "RB",
+    "legendary_pos_rank": "RB1",
+    "legendary_sf_rank": 1,
+    "legendary_tier": 1
+  },
+  "Carnell Tate": {
+    "name": "Carnell Tate",
+    "nfl_team": "TEN",
+    "position": "WR",
+    "legendary_pos_rank": "WR1",
+    "legendary_sf_rank": 2,
+    "legendary_tier": 2
+  },
+  "Jordyn Tyson": {
+    "name": "Jordyn Tyson",
+    "nfl_team": "NO",
+    "position": "WR",
+    "legendary_pos_rank": "WR2",
+    "legendary_sf_rank": 3,
+    "legendary_tier": 2
+  },
+  "Makai Lemon": {
+    "name": "Makai Lemon",
+    "nfl_team": "PHI",
+    "position": "WR",
+    "legendary_pos_rank": "WR3",
+    "legendary_sf_rank": 4,
+    "legendary_tier": 2
+  },
+  "Fernando Mendoza": {
+    "name": "Fernando Mendoza",
+    "nfl_team": "LV",
+    "position": "QB",
+    "legendary_pos_rank": "QB1",
+    "legendary_sf_rank": 5,
+    "legendary_tier": 3
+  },
+  "KC Concepcion": {
+    "name": "KC Concepcion",
+    "nfl_team": "CLE",
+    "position": "WR",
+    "legendary_pos_rank": "WR4",
+    "legendary_sf_rank": 6,
+    "legendary_tier": 4
+  },
+  "Jadarian Price": {
+    "name": "Jadarian Price",
+    "nfl_team": "SEA",
+    "position": "RB",
+    "legendary_pos_rank": "RB2",
+    "legendary_sf_rank": 7,
+    "legendary_tier": 4
+  },
+  "Kenyon Sadiq": {
+    "name": "Kenyon Sadiq",
+    "nfl_team": "NYJ",
+    "position": "TE",
+    "legendary_pos_rank": "TE1",
+    "legendary_sf_rank": 8,
+    "legendary_tier": 5
+  },
+  "Omar Cooper Jr.": {
+    "name": "Omar Cooper Jr.",
+    "nfl_team": "NYJ",
+    "position": "WR",
+    "legendary_pos_rank": "WR5",
+    "legendary_sf_rank": 9,
+    "legendary_tier": 5
+  },
+  "Eli Stowers": {
+    "name": "Eli Stowers",
+    "nfl_team": "PHI",
+    "position": "TE",
+    "legendary_pos_rank": "TE2",
+    "legendary_sf_rank": 10,
+    "legendary_tier": 6
+  },
+  "De'Zhaun Stribling": {
+    "name": "De'Zhaun Stribling",
+    "nfl_team": "SF",
+    "position": "WR",
+    "legendary_pos_rank": "WR6",
+    "legendary_sf_rank": 11,
+    "legendary_tier": 6
+  },
+  "Denzel Boston": {
+    "name": "Denzel Boston",
+    "nfl_team": "CLE",
+    "position": "WR",
+    "legendary_pos_rank": "WR7",
+    "legendary_sf_rank": 12,
+    "legendary_tier": 6
+  },
+  "Jonah Coleman": {
+    "name": "Jonah Coleman",
+    "nfl_team": "DEN",
+    "position": "RB",
+    "legendary_pos_rank": "RB3",
+    "legendary_sf_rank": 13,
+    "legendary_tier": 6
+  },
+  "Ty Simpson": {
+    "name": "Ty Simpson",
+    "nfl_team": "LAR",
+    "position": "QB",
+    "legendary_pos_rank": "QB2",
+    "legendary_sf_rank": 14,
+    "legendary_tier": 7
+  },
+  "Eli Raridon": {
+    "name": "Eli Raridon",
+    "nfl_team": "NE",
+    "position": "TE",
+    "legendary_pos_rank": "TE3",
+    "legendary_sf_rank": 15,
+    "legendary_tier": 7
+  },
+  "Ted Hurst": {
+    "name": "Ted Hurst",
+    "nfl_team": "TB",
+    "position": "WR",
+    "legendary_pos_rank": "WR8",
+    "legendary_sf_rank": 16,
+    "legendary_tier": 7
+  },
+  "Germie Bernard": {
+    "name": "Germie Bernard",
+    "nfl_team": "PIT",
+    "position": "WR",
+    "legendary_pos_rank": "WR9",
+    "legendary_sf_rank": 17,
+    "legendary_tier": 7
+  },
+  "Zachariah Branch": {
+    "name": "Zachariah Branch",
+    "nfl_team": "ATL",
+    "position": "WR",
+    "legendary_pos_rank": "WR10",
+    "legendary_sf_rank": 18,
+    "legendary_tier": 7
+  },
+  "Chris Brazzell II": {
+    "name": "Chris Brazzell II",
+    "nfl_team": "CAR",
+    "position": "WR",
+    "legendary_pos_rank": "WR11",
+    "legendary_sf_rank": 19,
+    "legendary_tier": 7
+  },
+  "Carson Beck": {
+    "name": "Carson Beck",
+    "nfl_team": "ARI",
+    "position": "QB",
+    "legendary_pos_rank": "QB3",
+    "legendary_sf_rank": 20,
+    "legendary_tier": 7
+  },
+  "Nicholas Singleton": {
+    "name": "Nicholas Singleton",
+    "nfl_team": "TEN",
+    "position": "RB",
+    "legendary_pos_rank": "RB4",
+    "legendary_sf_rank": 21,
+    "legendary_tier": 7
+  },
+  "Elijah Sarratt": {
+    "name": "Elijah Sarratt",
+    "nfl_team": "BAL",
+    "position": "WR",
+    "legendary_pos_rank": "WR12",
+    "legendary_sf_rank": 22,
+    "legendary_tier": 7
+  },
+  "Ja'Kobi Lane": {
+    "name": "Ja'Kobi Lane",
+    "nfl_team": "BAL",
+    "position": "WR",
+    "legendary_pos_rank": "WR13",
+    "legendary_sf_rank": 23,
+    "legendary_tier": 7
+  },
+  "Antonio Williams": {
+    "name": "Antonio Williams",
+    "nfl_team": "WAS",
+    "position": "WR",
+    "legendary_pos_rank": "WR14",
+    "legendary_sf_rank": 24,
+    "legendary_tier": 8
+  },
+  "Chris Bell": {
+    "name": "Chris Bell",
+    "nfl_team": "MIA",
+    "position": "WR",
+    "legendary_pos_rank": "WR15",
+    "legendary_sf_rank": 25,
+    "legendary_tier": 8
+  },
+  "Max Klare": {
+    "name": "Max Klare",
+    "nfl_team": "LAR",
+    "position": "TE",
+    "legendary_pos_rank": "TE4",
+    "legendary_sf_rank": 26,
+    "legendary_tier": 8
+  },
+  "Cole Payton": {
+    "name": "Cole Payton",
+    "nfl_team": "PHI",
+    "position": "QB",
+    "legendary_pos_rank": "QB4",
+    "legendary_sf_rank": 27,
+    "legendary_tier": 8
+  },
+  "Kaytron Allen": {
+    "name": "Kaytron Allen",
+    "nfl_team": "WAS",
+    "position": "RB",
+    "legendary_pos_rank": "RB5",
+    "legendary_sf_rank": 28,
+    "legendary_tier": 8
+  },
+  "Emmett Johnson": {
+    "name": "Emmett Johnson",
+    "nfl_team": "KC",
+    "position": "RB",
+    "legendary_pos_rank": "RB6",
+    "legendary_sf_rank": 29,
+    "legendary_tier": 8
+  },
+  "Eli Heidenreich": {
+    "name": "Eli Heidenreich",
+    "nfl_team": "PIT",
+    "position": "RB",
+    "legendary_pos_rank": "RB7",
+    "legendary_sf_rank": 30,
+    "legendary_tier": 8
+  },
+  "Kaelon Black": {
+    "name": "Kaelon Black",
+    "nfl_team": "SF",
+    "position": "RB",
+    "legendary_pos_rank": "RB8",
+    "legendary_sf_rank": 31,
+    "legendary_tier": 8
+  },
+  "Mike Washington": {
+    "name": "Mike Washington",
+    "nfl_team": "LV",
+    "position": "RB",
+    "legendary_pos_rank": "RB9",
+    "legendary_sf_rank": 32,
+    "legendary_tier": 8
+  },
+  "Sam Roush": {
+    "name": "Sam Roush",
+    "nfl_team": "CHI",
+    "position": "TE",
+    "legendary_pos_rank": "TE5",
+    "legendary_sf_rank": 33,
+    "legendary_tier": 8
+  },
+  "Tanner Koziol": {
+    "name": "Tanner Koziol",
+    "nfl_team": "JAX",
+    "position": "TE",
+    "legendary_pos_rank": "TE6",
+    "legendary_sf_rank": 34,
+    "legendary_tier": 9
+  },
+  "Nate Boerkircher": {
+    "name": "Nate Boerkircher",
+    "nfl_team": "JAX",
+    "position": "TE",
+    "legendary_pos_rank": "TE7",
+    "legendary_sf_rank": 35,
+    "legendary_tier": 9
+  },
+  "Drew Allar": {
+    "name": "Drew Allar",
+    "nfl_team": "PIT",
+    "position": "QB",
+    "legendary_pos_rank": "QB5",
+    "legendary_sf_rank": 36,
+    "legendary_tier": 9
+  },
+  "Cade Klubnik": {
+    "name": "Cade Klubnik",
+    "nfl_team": "NYJ",
+    "position": "QB",
+    "legendary_pos_rank": "QB6",
+    "legendary_sf_rank": 37,
+    "legendary_tier": 9
+  },
+  "Taylen Green": {
+    "name": "Taylen Green",
+    "nfl_team": "CLE",
+    "position": "QB",
+    "legendary_pos_rank": "QB7",
+    "legendary_sf_rank": 38,
+    "legendary_tier": 9
+  },
+  "Bryce Lance": {
+    "name": "Bryce Lance",
+    "nfl_team": "NO",
+    "position": "WR",
+    "legendary_pos_rank": "WR16",
+    "legendary_sf_rank": 39,
+    "legendary_tier": 10
+  },
+  "Malachi Fields": {
+    "name": "Malachi Fields",
+    "nfl_team": "NYG",
+    "position": "WR",
+    "legendary_pos_rank": "WR17",
+    "legendary_sf_rank": 40,
+    "legendary_tier": 10
+  },
+  "Adam Randall": {
+    "name": "Adam Randall",
+    "nfl_team": "BAL",
+    "position": "RB",
+    "legendary_pos_rank": "RB10",
+    "legendary_sf_rank": 41,
+    "legendary_tier": 10
+  },
+  "Brenen Thompson": {
+    "name": "Brenen Thompson",
+    "nfl_team": "LAC",
+    "position": "WR",
+    "legendary_pos_rank": "WR18",
+    "legendary_sf_rank": 42,
+    "legendary_tier": 10
+  },
+  "Caleb Douglas": {
+    "name": "Caleb Douglas",
+    "nfl_team": "MIA",
+    "position": "WR",
+    "legendary_pos_rank": "WR19",
+    "legendary_sf_rank": 43,
+    "legendary_tier": 10
+  },
+  "Skyler Bell": {
+    "name": "Skyler Bell",
+    "nfl_team": "BUF",
+    "position": "WR",
+    "legendary_pos_rank": "WR20",
+    "legendary_sf_rank": 44,
+    "legendary_tier": 10
+  },
+  "Seth McGowan": {
+    "name": "Seth McGowan",
+    "nfl_team": "IND",
+    "position": "RB",
+    "legendary_pos_rank": "RB11",
+    "legendary_sf_rank": 45,
+    "legendary_tier": 10
+  },
+  "Demond Claiborne": {
+    "name": "Demond Claiborne",
+    "nfl_team": "MIN",
+    "position": "RB",
+    "legendary_pos_rank": "RB12",
+    "legendary_sf_rank": 46,
+    "legendary_tier": 10
+  },
+  "Marlin Klein": {
+    "name": "Marlin Klein",
+    "nfl_team": "HOU",
+    "position": "TE",
+    "legendary_pos_rank": "TE8",
+    "legendary_sf_rank": 47,
+    "legendary_tier": 10
+  },
+  "Justin Joly": {
+    "name": "Justin Joly",
+    "nfl_team": "DEN",
+    "position": "TE",
+    "legendary_pos_rank": "TE9",
+    "legendary_sf_rank": 48,
+    "legendary_tier": 10
+  },
+  "Oscar Delp": {
+    "name": "Oscar Delp",
+    "nfl_team": "NO",
+    "position": "TE",
+    "legendary_pos_rank": "TE10",
+    "legendary_sf_rank": 49,
+    "legendary_tier": 10
+  },
+  "Will Kacmarek": {
+    "name": "Will Kacmarek",
+    "nfl_team": "MIA",
+    "position": "TE",
+    "legendary_pos_rank": "TE11",
+    "legendary_sf_rank": 50,
+    "legendary_tier": 10
+  }
+}

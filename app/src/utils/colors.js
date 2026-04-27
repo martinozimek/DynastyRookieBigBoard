@@ -111,6 +111,30 @@ export function draftCapitalToColor(value) {
   return rankToColor(round, 7);
 }
 
+// Color for Sanderson target exposure (FADE=red, 1X=neutral, high multiples=green)
+const EXPOSURE_ORDER = { 'FADE': 0, '0.25X': 1, '0.5X': 2, '0.75X': 3, '1X': 4, '1.25X': 5, '1.5X': 6, '2X': 7, '2.5X': 8, '3X': 9, '4X': 10, '6X': 11 };
+const EXPOSURE_COLORS = [
+  { bg: '#dc2626', text: '#fff' },    // FADE
+  { bg: '#f87171', text: '#fff' },    // 0.25X
+  { bg: '#fca5a5', text: '#1a1a1a' }, // 0.5X
+  { bg: '#fde68a', text: '#1a1a1a' }, // 0.75X
+  { bg: '#f3f4f6', text: '#555' },    // 1X (neutral)
+  { bg: '#d1fae5', text: '#065f46' }, // 1.25X
+  { bg: '#86efac', text: '#1a1a1a' }, // 1.5X
+  { bg: '#4ade80', text: '#1a1a1a' }, // 2X
+  { bg: '#22c55e', text: '#fff' },    // 2.5X
+  { bg: '#16a34a', text: '#fff' },    // 3X
+  { bg: '#15803d', text: '#fff' },    // 4X
+  { bg: '#14532d', text: '#fff' },    // 6X
+];
+export function exposureToColor(value) {
+  if (!value) return { bg: 'transparent', text: '#888' };
+  const key = String(value).trim().toUpperCase().replace('X', 'X');
+  const idx = EXPOSURE_ORDER[key] ?? EXPOSURE_ORDER[String(value).trim()];
+  if (idx == null) return { bg: '#e5e7eb', text: '#555' };
+  return EXPOSURE_COLORS[idx];
+}
+
 export function tierToColor(tier) {
   const palette = [
     '#1a472a', '#155724', '#186a3b', '#1e8449',

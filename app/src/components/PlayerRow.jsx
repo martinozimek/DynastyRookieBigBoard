@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor, riskToColor } from '../utils/colors';
+import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor, riskToColor, exposureToColor } from '../utils/colors';
 
 const TOTAL = 74;
 
@@ -190,17 +190,23 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* ORBIT Score */}
       <ZapCell value={player.orbit_score} />
 
-      {/* LateRound SF Rank */}
-      <RankCell value={player.lateround_sf_rank} />
-
-      {/* ETR Rank */}
+      {/* ── ETR / DLF ─────────────────────────────────────────────── */}
       <RankCell value={player.etr_rank} />
-
-      {/* DLF Rank */}
       <RankCell value={player.dlf_rank} />
 
+      {/* ── Sanderson group ───────────────────────────────────────── */}
       {/* Sanderson Rank */}
       <RankCell value={player.sanderson_rank} />
+
+      {/* Sanderson Exposure */}
+      {(() => {
+        const { bg, text } = exposureToColor(player.sanderson_exposure);
+        return (
+          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 11, whiteSpace: 'nowrap' }}>
+            {player.sanderson_exposure ?? '—'}
+          </td>
+        );
+      })()}
 
       {/* Sanderson Tier */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555' }}>
@@ -212,7 +218,8 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         {player.sanderson_tier_label ?? '—'}
       </td>
 
-      {/* LateRound Overall Tier */}
+      {/* ── LateRound group ───────────────────────────────────────── */}
+      <RankCell value={player.lateround_sf_rank} />
       <RankCell value={player.lateround_overall_tier} />
 
       {/* LateRound Risk */}
@@ -225,6 +232,10 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         );
       })()}
 
+      {/* ── Legendary Upside group ────────────────────────────────── */}
+      <RankCell value={player.legendary_rank} />
+      <RankCell value={player.legendary_tier} />
+
       {/* Brugler Grade */}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, fontWeight: 600, color: '#444' }}>
         {player.brugler_grade ?? '—'}
@@ -232,6 +243,14 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
 
       {/* Waldman DOT */}
       <ZapCell value={player.waldman_dot} />
+
+      {/* Waldman Cheat Sheet Rank */}
+      <RankCell value={player.waldman_cheat_rank} />
+
+      {/* Waldman Cheat Sheet Tier */}
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 11, color: '#555', fontWeight: 600 }}>
+        {player.waldman_cheat_tier ? `T${player.waldman_cheat_tier}` : '—'}
+      </td>
 
       {/* Josh Larky Rank */}
       <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />

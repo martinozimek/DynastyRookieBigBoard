@@ -39,6 +39,7 @@ NAME_ALIASES = {
     'Mike Washington': 'Michael Washington',
     'Mike Washington Jr': 'Michael Washington',
     'Mike Washington Jr.': 'Michael Washington',
+    'Mike Washington Jr': 'Michael Washington',
     'Ja\'Kobi Lane': 'Jakobi Lane',
     'Chris Brazzell II': 'Chris Brazzell',
     'Chris Brazzell': 'Chris Brazzell',

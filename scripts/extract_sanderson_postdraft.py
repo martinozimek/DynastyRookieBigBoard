@@ -28,7 +28,7 @@ ENTRY_PATTERN = re.compile(
     r'\(([A-Z]+\d*)\)\s+'                       # (RB1)
     r'[—\-]+\s+'                                # em-dash separator
     r'([A-Z]{2,4}|[A-Z][a-z]+(?:\s[A-Z][a-z]+)*)\s+'  # NFL team abbrev
-    r'\[([^\]]+)\]'                             # [draft pick or UDFA]
+    r'\[([^\]\n]+)\]?'                          # [draft pick or UDFA] — closing ] optional (PDF line-wrap)
 )
 
 # Tier label canonicalization (matches SANDERSON_VAL_ORDER in BigBoard.jsx)

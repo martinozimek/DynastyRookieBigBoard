@@ -249,6 +249,16 @@
     "sanderson_tier_label": "3RD ROUND",
     "sanderson_rank": 25
   },
+  "Mike Washington Jr.": {
+    "slot": "3.03",
+    "name": "Mike Washington Jr.",
+    "position_slot": "RB7",
+    "nfl_team": "LVR",
+    "sanderson_pick_value": "4.122",
+    "sanderson_tier": 7,
+    "sanderson_tier_label": "3RD ROUND",
+    "sanderson_rank": 26
+  },
   "Ted Hurst": {
     "slot": "3.04",
     "name": "Ted Hurst",
@@ -257,7 +267,7 @@
     "sanderson_pick_value": "3.84",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 26
+    "sanderson_rank": 27
   },
   "Justin Joly": {
     "slot": "3.05",
@@ -267,7 +277,7 @@
     "sanderson_pick_value": "5.152",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 27
+    "sanderson_rank": 28
   },
   "De'Zhaun Stribling": {
     "slot": "3.06",
@@ -277,7 +287,7 @@
     "sanderson_pick_value": "2.33",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 28
+    "sanderson_rank": 29
   },
   "Demond Claiborne": {
     "slot": "3.07",
@@ -287,7 +297,7 @@
     "sanderson_pick_value": "6.198",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 29
+    "sanderson_rank": 30
   },
   "Kaelon Black": {
     "slot": "3.08",
@@ -297,7 +307,7 @@
     "sanderson_pick_value": "3.90",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 30
+    "sanderson_rank": 31
   },
   "Drew Allar": {
     "slot": "3.09",
@@ -307,7 +317,7 @@
     "sanderson_pick_value": "3.76",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 31
+    "sanderson_rank": 32
   },
   "Adam Randall": {
     "slot": "3.10",
@@ -317,7 +327,7 @@
     "sanderson_pick_value": "5.174",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 32
+    "sanderson_rank": 33
   },
   "Brenen Thompson": {
     "slot": "3.11",
@@ -327,7 +337,7 @@
     "sanderson_pick_value": "4.105",
     "sanderson_tier": 9,
     "sanderson_tier_label": "3RD ROUND",
-    "sanderson_rank": 33
+    "sanderson_rank": 34
   },
   "Jack Endries": {
     "slot": "3.12",
@@ -337,7 +347,7 @@
     "sanderson_pick_value": "7.221",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 34
+    "sanderson_rank": 35
   },
   "Kevin Coleman Jr.": {
     "slot": "4.01",
@@ -347,7 +357,7 @@
     "sanderson_pick_value": "5.177",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 35
+    "sanderson_rank": 36
   },
   "Tanner Koziol": {
     "slot": "4.02",
@@ -357,7 +367,7 @@
     "sanderson_pick_value": "5.164",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 36
+    "sanderson_rank": 37
   },
   "Taylen Green": {
     "slot": "4.03",
@@ -367,7 +377,7 @@
     "sanderson_pick_value": "6.182",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 37
+    "sanderson_rank": 38
   },
   "Skyler Bell": {
     "slot": "4.04",
@@ -377,7 +387,7 @@
     "sanderson_pick_value": "4.125",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 38
+    "sanderson_rank": 39
   },
   "Ja'Kobi Lane": {
     "slot": "4.05",
@@ -387,7 +397,7 @@
     "sanderson_pick_value": "3.80",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 39
+    "sanderson_rank": 40
   },
   "Malachi Fields": {
     "slot": "4.06",
@@ -397,7 +407,7 @@
     "sanderson_pick_value": "3.74",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 40
+    "sanderson_rank": 41
   },
   "Bryce Lance": {
     "slot": "4.07",
@@ -407,7 +417,7 @@
     "sanderson_pick_value": "4.136",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 41
+    "sanderson_rank": 42
   },
   "Cade Klubnik": {
     "slot": "4.08",
@@ -417,7 +427,7 @@
     "sanderson_pick_value": "4.110",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 42
+    "sanderson_rank": 43
   },
   "Eli Heidenreich": {
     "slot": "4.09",
@@ -427,7 +437,7 @@
     "sanderson_pick_value": "7.230",
     "sanderson_tier": 9,
     "sanderson_tier_label": "4TH ROUND",
-    "sanderson_rank": 43
+    "sanderson_rank": 44
   },
   "Seth McGowan": {
     "slot": "4.10",
@@ -437,7 +447,7 @@
     "sanderson_pick_value": "7.237",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 44
+    "sanderson_rank": 45
   },
   "Nate Roerkircher": {
     "slot": "4.11",
@@ -447,7 +457,7 @@
     "sanderson_pick_value": "2.56",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 45
+    "sanderson_rank": 46
   },
   "Marlin Klein": {
     "slot": "4.12",
@@ -457,7 +467,7 @@
     "sanderson_pick_value": "2.59",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 46
+    "sanderson_rank": 47
   },
   "Sam Roush": {
     "slot": "5.01",
@@ -467,7 +477,7 @@
     "sanderson_pick_value": "3.79",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 47
+    "sanderson_rank": 48
   },
   "Cole Payton": {
     "slot": "5.02",
@@ -477,7 +487,7 @@
     "sanderson_pick_value": "5.178",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 48
+    "sanderson_rank": 49
   },
   "Desmond Reid": {
     "slot": "5.03",
@@ -487,7 +497,7 @@
     "sanderson_pick_value": "UDFA",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 49
+    "sanderson_rank": 50
   },
   "Jaren Kanak": {
     "slot": "5.04",
@@ -497,7 +507,7 @@
     "sanderson_pick_value": "7.225",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 50
+    "sanderson_rank": 51
   },
   "Deion Burks": {
     "slot": "5.05",
@@ -507,7 +517,7 @@
     "sanderson_pick_value": "7.254",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 51
+    "sanderson_rank": 52
   },
   "Josh Cameron": {
     "slot": "5.06",
@@ -517,7 +527,7 @@
     "sanderson_pick_value": "6.191",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 52
+    "sanderson_rank": 53
   },
   "Le'Veon Moss": {
     "slot": "5.07",
@@ -527,7 +537,7 @@
     "sanderson_pick_value": "UDFA",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 53
+    "sanderson_rank": 54
   },
   "Jaydn Ott": {
     "slot": "5.08",
@@ -537,7 +547,7 @@
     "sanderson_pick_value": "UDFA",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 54
+    "sanderson_rank": 55
   },
   "Caleb Douglas": {
     "slot": "5.09",
@@ -547,7 +557,7 @@
     "sanderson_pick_value": "3.75",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 55
+    "sanderson_rank": 56
   },
   "Cyrus Allen": {
     "slot": "5.10",
@@ -557,7 +567,7 @@
     "sanderson_pick_value": "5.176",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 56
+    "sanderson_rank": 57
   },
   "Colbie Young": {
     "slot": "5.11",
@@ -567,7 +577,7 @@
     "sanderson_pick_value": "4.140",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 57
+    "sanderson_rank": 58
   },
   "Garrett Nussmeier": {
     "slot": "5.12",
@@ -577,6 +587,6 @@
     "sanderson_pick_value": "7.249",
     "sanderson_tier": 10,
     "sanderson_tier_label": "WAIVER WIRE",
-    "sanderson_rank": 58
+    "sanderson_rank": 59
   }
 }

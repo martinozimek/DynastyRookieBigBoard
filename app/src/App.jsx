@@ -374,11 +374,14 @@ export default function App() {
     }
 
     if (saved && saved.items && saved.items.length > 0) {
+      const validIds = new Set(players.map(p => p.id));
+      // Remove stale player IDs no longer in prospects.json
+      const filteredItems = saved.items.filter(i => i.type !== 'player' || validIds.has(i.id));
       // Add any new players from prospects.json not yet in saved state
-      const savedPlayerIds = new Set(saved.items.filter(i => i.type === 'player').map(i => i.id));
+      const savedPlayerIds = new Set(filteredItems.filter(i => i.type === 'player').map(i => i.id));
       const newPlayers = players.filter(p => !savedPlayerIds.has(p.id));
       const newItems = newPlayers.map(p => ({ type: 'player', id: p.id }));
-      let mergedItems = [...saved.items, ...newItems];
+      let mergedItems = [...filteredItems, ...newItems];
       // Ensure a Tier 1 divider exists at the top
       if (mergedItems[0]?.type !== 'tier') {
         mergedItems = [{ type: 'tier', id: 'div-0', num: 1 }, ...mergedItems];

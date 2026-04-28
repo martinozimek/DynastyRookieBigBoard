@@ -24,8 +24,10 @@ export function signInWithGoogle() {
 export async function handleRedirectResult() {
   try {
     await getRedirectResult(auth);
+    return null;
   } catch (e) {
     console.warn('Auth redirect error:', e.code, e.message);
+    return e.code + ': ' + e.message;
   }
 }
 

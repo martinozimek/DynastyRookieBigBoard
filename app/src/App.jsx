@@ -305,13 +305,16 @@ function PlayerPanel({ player, myRank, onClose }) {
   );
 }
 
-function SignInScreen() {
+function SignInScreen({ error }) {
   const [loading, setLoading] = useState(false);
+  const [localError, setLocalError] = useState(null);
   async function handleSignIn() {
     setLoading(true);
+    setLocalError(null);
     try { await signInWithGoogle(); }
-    catch (e) { console.error('Sign in failed:', e); setLoading(false); }
+    catch (e) { setLocalError(e.code + ': ' + e.message); setLoading(false); }
   }
+  const displayError = localError || error;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ fontSize: 26, fontWeight: 800, marginBottom: 8 }}>2026 Dynasty Rookie Big Board</div>
@@ -320,6 +323,11 @@ function SignInScreen() {
         style={{ background: '#fff', color: '#333', border: 'none', borderRadius: 6, padding: '12px 28px', fontSize: 15, fontWeight: 600, cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.7 : 1 }}>
         {loading ? 'Signing in…' : 'Sign in with Google'}
       </button>
+      {displayError && (
+        <div style={{ marginTop: 24, padding: '12px 20px', background: '#7f1d1d', borderRadius: 6, fontSize: 12, maxWidth: 500, wordBreak: 'break-all', textAlign: 'center' }}>
+          {displayError}
+        </div>
+      )}
     </div>
   );
 }
@@ -329,6 +337,7 @@ export default function App() {
   const prospectsById = Object.fromEntries(players.map(p => [p.id, p]));
 
   const [user, setUser] = useState(undefined); // undefined=initializing, null=signed out
+  const [authError, setAuthError] = useState(null);
   const [boardState, setBoardState] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null); // { player, myRank }
 
@@ -392,7 +401,7 @@ export default function App() {
   // Auth state listener — handleRedirectResult must be called on every page load
   // to complete the sign-in after Google redirects back to the app
   useEffect(() => {
-    handleRedirectResult();
+    handleRedirectResult().then(err => { if (err) setAuthError(err); });
     return onAuthChange(u => {
       if (u) setCurrentUser(u.uid, u.email);
       setUser(u ?? null);
@@ -444,7 +453,7 @@ export default function App() {
   }
 
   // Not signed in
-  if (user === null) return <SignInScreen />;
+  if (user === null) return <SignInScreen error={authError} />;
 
   // Signed in but board not yet loaded
   if (!boardState) {

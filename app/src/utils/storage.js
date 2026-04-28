@@ -1,5 +1,7 @@
-// Persist board state in localStorage
+// Persist board state in localStorage + Firestore cloud sync
 // State shape: { items: [{type,id,num?}], tierLabels, targets, playerEdits }
+
+import { saveCloudState } from './firebaseSync';
 
 const KEY = 'dynasty_big_board_2026';
 
@@ -74,6 +76,7 @@ export function saveBoardState(state) {
   } catch (e) {
     console.warn('Could not save board state:', e);
   }
+  saveCloudState(state);
 }
 
 export function exportBoardState(state) {

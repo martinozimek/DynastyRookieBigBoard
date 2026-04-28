@@ -1,0 +1,14 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAdn7vakAEK0wITMsakUZbf8my0ljRevTU",
+  authDomain: "dynasty-big-board.firebaseapp.com",
+  projectId: "dynasty-big-board",
+  storageBucket: "dynasty-big-board.firebasestorage.app",
+  messagingSenderId: "916933275044",
+  appId: "1:916933275044:web:83c75943ed0b71c31de531",
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);

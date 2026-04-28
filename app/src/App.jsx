@@ -3,6 +3,7 @@ import BigBoard from './components/BigBoard';
 import LeagueSetup from './components/LeagueSetup';
 import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
+import { loadCloudState } from './utils/firebaseSync';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
 
@@ -368,10 +369,12 @@ export default function App() {
   }
 
   useEffect(() => {
-    let saved = loadBoardState();
-    if (saved) {
-      saved = migrateState(saved, players);
-    }
+    async function init() {
+      // Cloud first, localStorage fallback (handles offline gracefully)
+      let saved = await loadCloudState() || loadBoardState();
+      if (saved) {
+        saved = migrateState(saved, players);
+      }
 
     if (saved && saved.items && saved.items.length > 0) {
       const validIds = new Set(players.map(p => p.id));
@@ -394,6 +397,8 @@ export default function App() {
       setBoardState(def);
       saveBoardState(def);
     }
+    }
+    init();
   }, []);
 
   if (!boardState) {

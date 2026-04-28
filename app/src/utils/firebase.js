@@ -18,7 +18,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 export function signInWithGoogle() {
-  return signInWithPopup(auth, provider);
+  return signInWithRedirect(auth, provider);
 }
 
 export async function handleRedirectResult() {

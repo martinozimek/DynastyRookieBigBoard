@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdn7vakAEK0wITMsakUZbf8my0ljRevTU",
@@ -17,18 +17,14 @@ export const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export function signInWithGoogle() {
-  return signInWithRedirect(auth, provider);
+export async function signInWithGoogle() {
+  const result = await signInWithPopup(auth, provider);
+  return result;
 }
 
+// No-op — kept so App.jsx import doesn't break
 export async function handleRedirectResult() {
-  try {
-    await getRedirectResult(auth);
-    return null;
-  } catch (e) {
-    console.warn('Auth redirect error:', e.code, e.message);
-    return e.code + ': ' + e.message;
-  }
+  return null;
 }
 
 export function signOutUser() {

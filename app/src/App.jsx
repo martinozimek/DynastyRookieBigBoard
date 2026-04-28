@@ -4,7 +4,7 @@ import LeagueSetup from './components/LeagueSetup';
 import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
 import { loadCloudState, setCurrentUser } from './utils/firebaseSync';
-import { signInWithGoogle, signOutUser, onAuthChange, handleRedirectResult } from './utils/firebase';
+import { signInWithGoogle, signOutUser, onAuthChange } from './utils/firebase';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
 
@@ -338,7 +338,6 @@ export default function App() {
 
   const [user, setUser] = useState(undefined); // undefined=initializing, null=signed out
   const [authError, setAuthError] = useState(null);
-  const [redirectChecked, setRedirectChecked] = useState(false);
   const [boardState, setBoardState] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null); // { player, myRank }
 
@@ -402,10 +401,6 @@ export default function App() {
   // Auth state listener — handleRedirectResult must be called on every page load
   // to complete the sign-in after Google redirects back to the app
   useEffect(() => {
-    handleRedirectResult().then(err => {
-      if (err) setAuthError(err);
-      setRedirectChecked(true);
-    });
     return onAuthChange(u => {
       if (u) setCurrentUser(u.uid, u.email);
       setUser(u ?? null);
@@ -447,8 +442,7 @@ export default function App() {
     init();
   }, [user?.uid]);
 
-  // Keep loading until both: redirect result checked AND auth state known
-  if (user === undefined || !redirectChecked) {
+  if (user === undefined) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff', fontSize: 18 }}>
         Loading…

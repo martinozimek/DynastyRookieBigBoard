@@ -86,7 +86,7 @@ function getItemTiers(items) {
 export default function BigBoard({
   initialState, prospectsData, onPlayerClick,
   league, allLeagues, onSelectLeague, onNewLeague, onEditLeague,
-  onMarkDrafted, onClearDrafted,
+  onMarkDrafted, onClearDrafted, user, onSignOut,
 }) {
   const [items, setItems] = useState(initialState.items);
   const [tierLabels, setTierLabels] = useState(initialState.tierLabels || {});
@@ -377,6 +377,16 @@ export default function BigBoard({
         </label>
 
         <span style={{ fontSize: 11, color: '#666' }}>{playerCount} players</span>
+
+        {user && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderLeft: '1px solid #333', paddingLeft: 10 }}>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>{user.displayName || user.email}</span>
+            <button onClick={onSignOut}
+              style={{ padding: '3px 8px', borderRadius: 4, border: '1px solid #444', background: '#16213e', color: '#aaa', fontSize: 11, cursor: 'pointer' }}>
+              Sign out
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Table — flex-grow fills remaining height; overflow in both axes */}

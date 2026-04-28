@@ -3,7 +3,8 @@ import BigBoard from './components/BigBoard';
 import LeagueSetup from './components/LeagueSetup';
 import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
-import { loadCloudState } from './utils/firebaseSync';
+import { loadCloudState, setCurrentUser } from './utils/firebaseSync';
+import { signInWithGoogle, signOutUser, onAuthChange } from './utils/firebase';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
 
@@ -304,10 +305,30 @@ function PlayerPanel({ player, myRank, onClose }) {
   );
 }
 
+function SignInScreen() {
+  const [loading, setLoading] = useState(false);
+  async function handleSignIn() {
+    setLoading(true);
+    try { await signInWithGoogle(); }
+    catch (e) { console.error('Sign in failed:', e); setLoading(false); }
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ fontSize: 26, fontWeight: 800, marginBottom: 8 }}>2026 Dynasty Rookie Big Board</div>
+      <div style={{ fontSize: 14, color: '#9ca3af', marginBottom: 40 }}>Sign in to load your personal board</div>
+      <button onClick={handleSignIn} disabled={loading}
+        style={{ background: '#fff', color: '#333', border: 'none', borderRadius: 6, padding: '12px 28px', fontSize: 15, fontWeight: 600, cursor: loading ? 'default' : 'pointer', opacity: loading ? 0.7 : 1 }}>
+        {loading ? 'Signing in…' : 'Sign in with Google'}
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   const players = prospectsRaw.players;
   const prospectsById = Object.fromEntries(players.map(p => [p.id, p]));
 
+  const [user, setUser] = useState(undefined); // undefined=initializing, null=signed out
   const [boardState, setBoardState] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null); // { player, myRank }
 
@@ -368,7 +389,17 @@ export default function App() {
     updateLeagueState({ ...leagueState, leagues: { ...leagueState.leagues, [league.id]: league } });
   }
 
+  // Auth state listener
   useEffect(() => {
+    return onAuthChange(u => {
+      if (u) setCurrentUser(u.uid, u.email);
+      setUser(u ?? null);
+    });
+  }, []);
+
+  // Load board once user is authenticated
+  useEffect(() => {
+    if (!user) return;
     async function init() {
       // Cloud first, localStorage fallback (handles offline gracefully)
       let saved = await loadCloudState() || loadBoardState();
@@ -399,12 +430,25 @@ export default function App() {
     }
     }
     init();
-  }, []);
+  }, [user?.uid]);
 
+  // Auth initializing
+  if (user === undefined) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff', fontSize: 18 }}>
+        Loading…
+      </div>
+    );
+  }
+
+  // Not signed in
+  if (user === null) return <SignInScreen />;
+
+  // Signed in but board not yet loaded
   if (!boardState) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#1a1a2e', color: '#fff', fontSize: 18 }}>
-        Loading Big Board...
+        Loading Big Board…
       </div>
     );
   }
@@ -422,6 +466,8 @@ export default function App() {
         onEditLeague={() => { setEditingLeague(activeLeague); setShowLeagueSetup(true); }}
         onMarkDrafted={handleMarkDrafted}
         onClearDrafted={handleClearDrafted}
+        user={user}
+        onSignOut={signOutUser}
       />
 
       <MyPicksPanel

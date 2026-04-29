@@ -3,7 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { tierToColor } from '../utils/colors';
 
-export default function TierDivider({ id, tier, label, onLabelChange, onRemove, extraCol }) {
+export default function TierDivider({ id, tier, label, onLabelChange, onRemove, colCount }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(label);
   const color = tierToColor(tier);
@@ -23,7 +23,7 @@ export default function TierDivider({ id, tier, label, onLabelChange, onRemove, 
 
   return (
     <tr ref={setNodeRef} style={style}>
-      <td colSpan={extraCol ? 32 : 31}
+      <td colSpan={colCount}
         style={{ background: color, borderTop: '3px solid rgba(0,0,0,0.25)', padding: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', padding: '3px 6px', gap: 6 }}>
           {/* Drag handle */}

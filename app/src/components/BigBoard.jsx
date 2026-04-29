@@ -57,8 +57,6 @@ const COLUMNS = [
   // ── Consensus ──────────────────────────────────────────────────────────────
   { key: 'avg_rank',        label: 'Avg Rk',    width: 54,  sortField: 'avg_rank' },
   { key: 'avg_delta',       label: 'Avg Δ',     width: 54,  sortField: 'avg_rank_delta' },
-  // ── Personal ───────────────────────────────────────────────────────────────
-  { key: 'exposure',        label: 'Exp',       width: 44,  sortField: null },
 ];
 
 // Round grades for Brugler sort order
@@ -433,7 +431,7 @@ export default function BigBoard({
                         label={tierLabels[item.num] || `Tier ${item.num}`}
                         onLabelChange={label => handleTierLabelChange(item.num, label)}
                         onRemove={() => handleRemoveTier(item.id)}
-                        extraCol={!!league} />
+                        colCount={COLUMNS.length + (league ? 1 : 0)} />
                     );
                   }
                   const p = annotatedById[item.id];

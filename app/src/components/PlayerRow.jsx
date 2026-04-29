@@ -119,8 +119,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <td onClick={onToggleMark}
         title={isTarget ? 'Target (click → avoid)' : isAvoid ? 'Avoid (click → clear)' : 'Click: mark as target'}
         style={{ textAlign: 'center', cursor: 'pointer', fontSize: 15, padding: '2px 3px',
-          color: isTarget ? '#155724' : isAvoid ? '#c2410c' : '#ccc' }}>
-        {isTarget ? '★' : isAvoid ? '▼' : '☆'}
+          color: isTarget ? '#16a34a' : isAvoid ? '#dc2626' : '#94a3b8',
+          fontWeight: isTarget || isAvoid ? 700 : 400 }}>
+        {isTarget ? '★' : isAvoid ? '▽' : '☆'}
       </td>
 
       {/* Player name — clickable for detail panel */}
@@ -250,9 +251,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* ── Consensus ─────────────────────────────────────────────── */}
       <RankCell value={player.avg_rank} />
       <DeltaCell value={player.avg_rank_delta} />
-
-      {/* ── Personal ──────────────────────────────────────────────── */}
-      <EditableCell value={player.exposure} onChange={v => onFieldChange('exposure', v)} type="text" />
     </tr>
   );
 }

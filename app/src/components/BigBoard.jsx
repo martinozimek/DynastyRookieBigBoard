@@ -42,6 +42,7 @@ const COLUMNS = [
   // ── Expert Rankings ────────────────────────────────────────────────────────
   { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
   { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
+  { key: 'dlf_tier',        label: 'D.Tier',    width: 50,  sortField: 'dlf_tier' },
   { key: 'sand_rank',       label: 'Sand',      width: 48,  sortField: 'sanderson_rank' },
   { key: 'sand_exp',        label: 'S.Exp',     width: 58,  sortField: null },
   { key: 'sand_tier',       label: 'S.Tier',    width: 50,  sortField: 'sanderson_tier' },

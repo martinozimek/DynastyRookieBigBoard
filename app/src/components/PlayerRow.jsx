@@ -202,6 +202,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* ── Expert Rankings ───────────────────────────────────────── */}
       <RankCell value={player.etr_rank} />
       <RankCell value={player.dlf_rank} />
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
+        {player.dlf_tier ?? '—'}
+      </td>
 
       {/* Sanderson */}
       <RankCell value={player.sanderson_rank} />

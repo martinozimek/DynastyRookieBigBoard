@@ -145,7 +145,7 @@
       "waldman_rank": 3,
       "exposure": null,
       "avg_rank": 1.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -0.3,
       "dlf_tier": 1
     },
     {
@@ -263,7 +263,7 @@
       "waldman_rank": 6,
       "exposure": null,
       "avg_rank": 3.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.5,
       "dlf_tier": 2
     },
     {
@@ -411,7 +411,7 @@
       "waldman_rank": 1,
       "exposure": null,
       "avg_rank": 2.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.7,
       "dlf_tier": 2
     },
     {
@@ -545,7 +545,7 @@
       "waldman_rank": 2,
       "exposure": null,
       "avg_rank": 3.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.7,
       "dlf_tier": 2
     },
     {
@@ -693,7 +693,7 @@
       "waldman_rank": 4,
       "exposure": null,
       "avg_rank": 4.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.2,
       "dlf_tier": 2
     },
     {
@@ -841,7 +841,7 @@
       "waldman_rank": 5,
       "exposure": null,
       "avg_rank": 5.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.3,
       "dlf_tier": 3
     },
     {
@@ -989,7 +989,7 @@
       "waldman_rank": 7,
       "exposure": null,
       "avg_rank": 7.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.0,
       "dlf_tier": 3
     },
     {
@@ -1137,7 +1137,7 @@
       "waldman_rank": 28,
       "exposure": null,
       "avg_rank": 11.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -3.5,
       "dlf_tier": 3
     },
     {
@@ -1285,7 +1285,7 @@
       "waldman_rank": 13,
       "exposure": null,
       "avg_rank": 9.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -0.7,
       "dlf_tier": 3
     },
     {
@@ -1401,7 +1401,7 @@
       "waldman_rank": 15,
       "exposure": null,
       "avg_rank": 11.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.3,
       "dlf_tier": 3
     },
     {
@@ -1549,7 +1549,7 @@
       "waldman_rank": 10,
       "exposure": null,
       "avg_rank": 11.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.0,
       "dlf_tier": 4
     },
     {
@@ -1697,7 +1697,7 @@
       "waldman_rank": 14,
       "exposure": null,
       "avg_rank": 13.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.0,
       "dlf_tier": 4
     },
     {
@@ -1845,7 +1845,7 @@
       "waldman_rank": 19,
       "exposure": null,
       "avg_rank": 15.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -2.3,
       "dlf_tier": 4
     },
     {
@@ -1993,7 +1993,7 @@
       "waldman_rank": 36,
       "exposure": null,
       "avg_rank": 19.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -5.5,
       "dlf_tier": 5
     },
     {
@@ -2141,7 +2141,7 @@
       "waldman_rank": 20,
       "exposure": null,
       "avg_rank": 17.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -2.8,
       "dlf_tier": 5
     },
     {
@@ -2289,7 +2289,7 @@
       "waldman_rank": 11,
       "exposure": null,
       "avg_rank": 16.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -0.5,
       "dlf_tier": 5
     },
     {
@@ -2437,7 +2437,7 @@
       "waldman_rank": 26,
       "exposure": null,
       "avg_rank": 17.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -0.7,
       "dlf_tier": 5
     },
     {
@@ -2585,7 +2585,7 @@
       "waldman_rank": 23,
       "exposure": null,
       "avg_rank": 20.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -2.7,
       "dlf_tier": 5
     },
     {
@@ -2733,7 +2733,7 @@
       "waldman_rank": 18,
       "exposure": null,
       "avg_rank": 22.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -3.2,
       "dlf_tier": 6
     },
     {
@@ -2881,7 +2881,7 @@
       "waldman_rank": 12,
       "exposure": null,
       "avg_rank": 19.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.5,
       "dlf_tier": 5
     },
     {
@@ -3029,7 +3029,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 24.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -3.8,
       "dlf_tier": 7
     },
     {
@@ -3177,7 +3177,7 @@
       "waldman_rank": 27,
       "exposure": null,
       "avg_rank": 23.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.7,
       "dlf_tier": 5
     },
     {
@@ -3295,7 +3295,7 @@
       "waldman_rank": 25,
       "exposure": null,
       "avg_rank": 23.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -0.3,
       "dlf_tier": 5
     },
     {
@@ -3429,7 +3429,7 @@
       "waldman_rank": 21,
       "exposure": null,
       "avg_rank": 23.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.8,
       "dlf_tier": 5
     },
     {
@@ -3577,7 +3577,7 @@
       "waldman_rank": 20,
       "exposure": null,
       "avg_rank": 24.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.7,
       "dlf_tier": 6
     },
     {
@@ -3587,7 +3587,7 @@
       "nfl_team": "KC",
       "age": 22.6,
       "position": "RB",
-      "pos_rank": 6,
+      "pos_rank": 5,
       "height_inches": 71.0,
       "weight_lbs": 200.0,
       "combine": {
@@ -3725,7 +3725,7 @@
       "waldman_rank": 17,
       "exposure": null,
       "avg_rank": 24.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.2,
       "dlf_tier": 6
     },
     {
@@ -3873,7 +3873,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 26.4,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.6,
       "dlf_tier": 5
     },
     {
@@ -3883,7 +3883,7 @@
       "nfl_team": "WAS",
       "age": 23.3,
       "position": "RB",
-      "pos_rank": 5,
+      "pos_rank": 6,
       "height_inches": 71.0,
       "weight_lbs": 217.0,
       "combine": {
@@ -4021,7 +4021,7 @@
       "waldman_rank": 34,
       "exposure": null,
       "avg_rank": 28.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.0,
       "dlf_tier": 6
     },
     {
@@ -4031,7 +4031,7 @@
       "nfl_team": "LV",
       "age": 22.8,
       "position": "RB",
-      "pos_rank": 9,
+      "pos_rank": 8,
       "height_inches": 74.0,
       "weight_lbs": 223.0,
       "combine": {
@@ -4136,7 +4136,7 @@
       "waldman_rank": 32,
       "exposure": null,
       "avg_rank": 30.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.7,
       "dlf_tier": 6
     },
     {
@@ -4276,7 +4276,7 @@
       "waldman_rank": 31,
       "exposure": null,
       "avg_rank": 29.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 0.3,
       "dlf_tier": 5
     },
     {
@@ -4410,7 +4410,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 30.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.0,
       "dlf_tier": 5
     },
     {
@@ -4558,7 +4558,7 @@
       "waldman_rank": 9,
       "exposure": null,
       "avg_rank": 28.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 3.5,
       "dlf_tier": 5
     },
     {
@@ -4706,7 +4706,7 @@
       "waldman_rank": 8,
       "exposure": null,
       "avg_rank": 30.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 3.0,
       "dlf_tier": 6
     },
     {
@@ -4843,7 +4843,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 35.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -1.0,
       "dlf_tier": null
     },
     {
@@ -4853,7 +4853,7 @@
       "nfl_team": "MIN",
       "age": 22.6,
       "position": "RB",
-      "pos_rank": 8,
+      "pos_rank": 9,
       "height_inches": 70.0,
       "weight_lbs": 195.0,
       "combine": {
@@ -4991,7 +4991,7 @@
       "waldman_rank": 16,
       "exposure": null,
       "avg_rank": 33.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 2.0,
       "dlf_tier": 6
     },
     {
@@ -5139,7 +5139,7 @@
       "waldman_rank": 38,
       "exposure": null,
       "avg_rank": 38.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": -2.2,
       "dlf_tier": 7
     },
     {
@@ -5254,7 +5254,7 @@
       "waldman_rank": 24,
       "exposure": null,
       "avg_rank": 36.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.0,
       "dlf_tier": 6
     },
     {
@@ -5361,7 +5361,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 30.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 8.0,
       "dlf_tier": null
     },
     {
@@ -5509,7 +5509,7 @@
       "waldman_rank": 35,
       "exposure": null,
       "avg_rank": 37.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.2,
       "dlf_tier": 6
     },
     {
@@ -5657,7 +5657,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 39.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.0,
       "dlf_tier": null
     },
     {
@@ -5805,7 +5805,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 39.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 1.8,
       "dlf_tier": null
     },
     {
@@ -5953,7 +5953,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 39.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 3.0,
       "dlf_tier": 6
     },
     {
@@ -6101,7 +6101,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 38.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 5.0,
       "dlf_tier": 7
     },
     {
@@ -6235,7 +6235,7 @@
       "waldman_rank": 22,
       "exposure": null,
       "avg_rank": 36.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 7.2,
       "dlf_tier": 6
     },
     {
@@ -6383,7 +6383,7 @@
       "waldman_rank": 39,
       "exposure": null,
       "avg_rank": 40.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 5.0,
       "dlf_tier": 6
     },
     {
@@ -6517,7 +6517,7 @@
       "waldman_rank": 48,
       "exposure": null,
       "avg_rank": 42.8,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 3.2,
       "dlf_tier": 7
     },
     {
@@ -6665,7 +6665,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 43.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 3.3,
       "dlf_tier": 7
     },
     {
@@ -6813,7 +6813,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 41.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 6.7,
       "dlf_tier": null
     },
     {
@@ -6961,7 +6961,7 @@
       "waldman_rank": 21,
       "exposure": null,
       "avg_rank": 34.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 15.0,
       "dlf_tier": null
     },
     {
@@ -7109,7 +7109,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 45.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 4.3,
       "dlf_tier": null
     },
     {
@@ -7257,7 +7257,7 @@
       "waldman_rank": 29,
       "exposure": null,
       "avg_rank": 40.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 10.8,
       "dlf_tier": 6
     },
     {
@@ -7267,7 +7267,7 @@
       "nfl_team": "IND",
       "age": 25.5,
       "position": "RB",
-      "pos_rank": null,
+      "pos_rank": 12,
       "height_inches": 73.0,
       "weight_lbs": 215.0,
       "combine": {
@@ -7375,7 +7375,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 47.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 4.8,
       "dlf_tier": 7
     },
     {
@@ -7523,7 +7523,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 46.2,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 6.8,
       "dlf_tier": null
     },
     {
@@ -7671,7 +7671,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 42.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 11.5,
       "dlf_tier": 7
     },
     {
@@ -7797,7 +7797,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 47.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 8.0,
       "dlf_tier": null
     },
     {
@@ -7945,7 +7945,7 @@
       "waldman_rank": 22,
       "exposure": null,
       "avg_rank": 40.3,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 15.7,
       "dlf_tier": null
     },
     {
@@ -8093,7 +8093,7 @@
       "waldman_rank": 21,
       "exposure": null,
       "avg_rank": 30.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 26.5,
       "dlf_tier": null
     },
     {
@@ -8241,7 +8241,7 @@
       "waldman_rank": 21,
       "exposure": null,
       "avg_rank": 36.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 21.5,
       "dlf_tier": null
     },
     {
@@ -8389,7 +8389,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 50.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 9.0,
       "dlf_tier": null
     },
     {
@@ -8529,7 +8529,7 @@
       "waldman_rank": 21,
       "exposure": null,
       "avg_rank": 35.5,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 24.5,
       "dlf_tier": 7
     },
     {
@@ -8677,7 +8677,7 @@
       "waldman_rank": 30,
       "exposure": null,
       "avg_rank": 47.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 14.0,
       "dlf_tier": 7
     },
     {
@@ -8787,7 +8787,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 56.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 6.0,
       "dlf_tier": null
     },
     {
@@ -8935,7 +8935,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 56.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 7.0,
       "dlf_tier": null
     },
     {
@@ -8945,7 +8945,7 @@
       "nfl_team": "Patriots",
       "age": 22.0,
       "position": "RB",
-      "pos_rank": null,
+      "pos_rank": 13,
       "height_inches": null,
       "weight_lbs": null,
       "combine": null,
@@ -9023,7 +9023,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 50.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 14.0,
       "dlf_tier": 7
     },
     {
@@ -9148,7 +9148,7 @@
       "waldman_rank": 47,
       "exposure": null,
       "avg_rank": 50.7,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 14.3,
       "dlf_tier": 7
     },
     {
@@ -9296,7 +9296,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 59.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 7.0,
       "dlf_tier": null
     },
     {
@@ -9345,7 +9345,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 61.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 6.0,
       "dlf_tier": null
     },
     {
@@ -9493,8 +9493,86 @@
       "waldman_rank": 20,
       "exposure": null,
       "avg_rank": 20.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 48.0,
       "dlf_tier": null
+    },
+    {
+      "id": "leveon-moss",
+      "name": "Le'Veon Moss",
+      "team": "Texas A&M",
+      "nfl_team": null,
+      "age": 23.4,
+      "position": "RB",
+      "pos_rank": 14,
+      "height_inches": 71.0,
+      "weight_lbs": 210.0,
+      "combine": {
+        "forty_time": null,
+        "vertical_jump": null,
+        "broad_jump": null,
+        "three_cone": null,
+        "shuttle": null,
+        "bench_press": null,
+        "speed_score": null
+      },
+      "seasons": [
+        {
+          "year": 2025,
+          "team": "Texas A&M",
+          "games": 7,
+          "pass_completions": null,
+          "pass_attempts": null,
+          "pass_yards": null,
+          "pass_tds": null,
+          "interceptions": null,
+          "rush_attempts": 77,
+          "rush_yards": 404,
+          "rush_tds": 6,
+          "targets": null,
+          "receptions": 2,
+          "rec_yards": 3,
+          "rec_tds": 0,
+          "dominator_rating": null,
+          "reception_share": null,
+          "pff": null
+        }
+      ],
+      "draft_capital": null,
+      "adp": 38.4,
+      "adp_delta": null,
+      "breakout_score": null,
+      "orbit_score": null,
+      "projected_b2s": null,
+      "b2s_lo80": null,
+      "b2s_hi80": null,
+      "zap_score": 19.5,
+      "lateround_sf_rank": null,
+      "lateround_overall_tier": null,
+      "lateround_zap_tier_label": "DART THROW",
+      "lateround_profile": null,
+      "lateround_risk": null,
+      "etr_rank": 54,
+      "etr_notes": null,
+      "dlf_rank": null,
+      "dlf_tier": null,
+      "sanderson_rank": null,
+      "sanderson_tier": null,
+      "sanderson_tier_label": null,
+      "sanderson_exposure": "FADE",
+      "legendary_rank": null,
+      "legendary_tier": null,
+      "legendary_pos_rank": null,
+      "waldman_dot": 80.8,
+      "waldman_cheat_tier": null,
+      "elevator_pitch": "Moss has a running style that makes you want to love his game because he plays with an edge. You'd \nguess he was 220 pounds based on his running style. The same could be said about 205-pounder, Walter Payton. \nMoss is no Payton, but he also has enough size to earn productive workloads in the NFL. Moss attacks creases with urgency. \nHe's decisive into tight creases and sets up blocks on perimeter runs. \nAlthough good at taking what the defense gives him in the green zone, which is vital, Moss has a bad habit of cutting back \non gap plays because he's running to open space instead of sticking with the play design. He must also show more patience \nwith Counter. \nFew backs accelerate into collisions anymore. Moss is one who does. It makes him a capable tackle-breaker who wins \ncollisions with linebackers and safeties. \nWhat Moss lacks in speed, he can make up for with acceleration and cuts. Moss's acceleration is good enough for him to \nreach the secondary and hold off pursuit long enough to flip the field. It's also good enough for Moss to turn the short \ncorner on perimeter runs against box defenders. \nMoss had good deceleration, hip mobility, and footwork that can be precise, subtle, and dynamic. If he can stay healthy, \nMoss has enough well-rounded skills to develop into a productive \"B\" back in a committee backfield. \nVision: Moss runs with urgency on gap plays, attacking the creases downhill and getting past his pullers on blockers as \nquickly as possible. At the same time, he'll press close to his pullers to set up the block. \nHe identifies interior or edge penetration and quickly transitions downhill under the penetrator. \nMoss has a bad habit of attacking backside creases when he sees an open space, but it can come at the expense of the \nplay's success. Moss has run into the back of blockers because he attacks the wrong gap when he could have continued to \nset up Counter with greater patience to the front-side gap. \nHe's good at setting up lead blockers in open space and perimeter runs, pressing within one step of the blocker. Between \nthe tackles, Moss is a decisive tight-crease runner. \nWhen in the green zone, Moss takes what the blocking gives him and uses his size and physicality to move forward. In the \nopen field, Moss veers away from pursuit closing on him and sustains runs for much longer as a result. \nElusiveness: He hurdles linebackers shooting for his feet in open space. Moss can drop his weight at the top of the stem. \nMoss can stick his foot in the ground and open his hips in the opposite direction. \nMoss can transition downhill from a perimeter approach with one step - a jump stop. He uses two steps to transition \ndownhill from a perimeter approach when he has a longer runway. \nMoss adjusts his stride length and pace to set up creases and defenders in creases. He uses a double up effective as one of \nthose stride adjustments. \n105",
+      "pre_draft_advice": "Moss is a mid-round selection in fantasy drafts. He could develop into a committee back \nsimilar with what we saw in Detroit. Moss's ceiling is high enough to become a lead back with a more explosive partner on \npassing downs.",
+      "brugler_grade": "6th",
+      "brugler_summary": null,
+      "larky_rank": null,
+      "waldman_rank": null,
+      "exposure": null,
+      "avg_rank": 54.0,
+      "avg_rank_delta": 15.0
     },
     {
       "id": "jeff-caldwell",
@@ -9619,7 +9697,7 @@
       "waldman_rank": null,
       "exposure": null,
       "avg_rank": 63.0,
-      "avg_rank_delta": null,
+      "avg_rank_delta": 7.0,
       "dlf_tier": null
     }
   ],

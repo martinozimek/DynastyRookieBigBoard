@@ -39,27 +39,22 @@ const COLUMNS = [
   { key: 'orbit_score',     label: 'ORBIT*',    width: 54,  sortField: 'orbit_score',   tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
   { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
   { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
-  // ── Expert Rankings ────────────────────────────────────────────────────────
-  // Sanderson
+  // ── Expert Ranks (all together, in requested order) ───────────────────────
   { key: 'sand_rank',       label: 'Sand',      width: 48,  sortField: 'sanderson_rank' },
+  { key: 'lr_sf_rank',      label: 'LR Rk',     width: 50,  sortField: 'lateround_sf_rank' },
+  { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
+  { key: 'leg_rank',        label: 'Leg Rk',    width: 52,  sortField: 'legendary_rank' },
+  { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
+  { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
+  { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
+  // ── Expert Tiers (same source order) ──────────────────────────────────────
   { key: 'sand_exp',        label: 'S.Exp',     width: 58,  sortField: null },
   { key: 'sand_tier',       label: 'S.Tier',    width: 50,  sortField: 'sanderson_tier' },
   { key: 'sand_val',        label: 'S.Val',     width: 80,  sortField: 'sanderson_tier_label' },
-  // LateRound
-  { key: 'lr_sf_rank',      label: 'LR Rk',     width: 50,  sortField: 'lateround_sf_rank' },
   { key: 'lr_tier',         label: 'LR Tier',   width: 56,  sortField: 'lateround_overall_tier' },
   { key: 'lr_risk',         label: 'LR Risk',   width: 58,  sortField: null },
-  { key: 'leg_rank',        label: 'Leg Rk',    width: 52,  sortField: 'legendary_rank' },
-  { key: 'leg_tier',        label: 'Leg Tier',  width: 52,  sortField: 'legendary_tier' },
-  // DLF
-  { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
   { key: 'dlf_tier',        label: 'D.Tier',    width: 50,  sortField: 'dlf_tier' },
-  // ETR
-  { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
-  // Larky
-  { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
-  // Waldman
-  { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
+  { key: 'leg_tier',        label: 'Leg Tier',  width: 52,  sortField: 'legendary_tier' },
   // ── Consensus ──────────────────────────────────────────────────────────────
   { key: 'avg_rank',        label: 'Avg Rk',    width: 54,  sortField: 'avg_rank' },
   { key: 'avg_delta',       label: 'Avg Δ',     width: 54,  sortField: 'avg_rank_delta' },
@@ -76,7 +71,7 @@ const SANDERSON_VAL_ORDER = {
 
 const POS_FILTERS = ['All', 'QB', 'RB', 'WR', 'TE'];
 
-let dividerCounter = 100; // unique IDs for new dividers
+let dividerCounter = Date.now(); // timestamp-seeded so IDs stay unique across page reloads
 
 function getItemTiers(items) {
   const tiers = {};
@@ -167,6 +162,23 @@ export default function BigBoard({
   function handleRemoveTier(divId) {
     const newItems = items.filter(i => i.id !== divId);
     setItems(newItems);
+    persist(newItems, null, null, null, null);
+  }
+
+  function handleRepairTiers() {
+    // Remove tiers with num >= 8, deduplicate by num (keep first occurrence), deduplicate by id
+    const seenNums = new Set();
+    const seenIds = new Set();
+    const newItems = items.filter(i => {
+      if (i.type !== 'tier') return true;
+      if (i.num >= 8) return false;
+      if (seenNums.has(i.num) || seenIds.has(i.id)) return false;
+      seenNums.add(i.num);
+      seenIds.add(i.id);
+      return true;
+    });
+    setItems(newItems);
+    setSortConfig(null);
     persist(newItems, null, null, null, null);
   }
 
@@ -327,6 +339,12 @@ export default function BigBoard({
         <button onClick={handleAddTier}
           style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #444', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#ccc' }}>
           + Add Tier
+        </button>
+
+        <button onClick={handleRepairTiers}
+          title="Remove tiers 8+, deduplicate stuck tier breaks"
+          style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #7c3aed', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#a78bfa' }}>
+          ⚙ Repair Tiers
         </button>
 
         {sortConfig && (

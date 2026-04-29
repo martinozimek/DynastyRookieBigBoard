@@ -200,10 +200,16 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {/* Waldman DOT */}
       <ZapCell value={player.waldman_dot} />
 
-      {/* ── Expert Rankings ───────────────────────────────────────── */}
-
-      {/* Sanderson */}
+      {/* ── Expert Ranks (all together) ───────────────────────────── */}
       <RankCell value={player.sanderson_rank} />
+      <RankCell value={player.lateround_sf_rank} />
+      <RankCell value={player.dlf_rank} />
+      <RankCell value={player.legendary_rank} />
+      <RankCell value={player.etr_rank} />
+      <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
+      <EditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
+
+      {/* ── Expert Tiers (all together, same source order) ────────── */}
       {(() => {
         const { bg, text } = exposureToColor(player.sanderson_exposure);
         return (
@@ -218,9 +224,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
         {player.sanderson_tier_label ?? '—'}
       </td>
-
-      {/* LateRound */}
-      <RankCell value={player.lateround_sf_rank} />
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.lateround_overall_tier ?? '—'}
       </td>
@@ -232,27 +235,12 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
           </td>
         );
       })()}
-
-      {/* Legendary */}
-      <RankCell value={player.legendary_rank} />
-      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
-        {player.legendary_tier ?? '—'}
-      </td>
-
-      {/* DLF */}
-      <RankCell value={player.dlf_rank} />
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.dlf_tier ?? '—'}
       </td>
-
-      {/* ETR */}
-      <RankCell value={player.etr_rank} />
-
-      {/* Larky */}
-      <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
-
-      {/* Waldman */}
-      <EditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
+        {player.legendary_tier ?? '—'}
+      </td>
 
       {/* ── Consensus ─────────────────────────────────────────────── */}
       <RankCell value={player.avg_rank} />

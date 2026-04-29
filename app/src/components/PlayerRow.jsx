@@ -201,11 +201,6 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <ZapCell value={player.waldman_dot} />
 
       {/* ── Expert Rankings ───────────────────────────────────────── */}
-      <RankCell value={player.etr_rank} />
-      <RankCell value={player.dlf_rank} />
-      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
-        {player.dlf_tier ?? '—'}
-      </td>
 
       {/* Sanderson */}
       <RankCell value={player.sanderson_rank} />
@@ -238,14 +233,25 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         );
       })()}
 
-      {/* Legendary Upside */}
+      {/* Legendary */}
       <RankCell value={player.legendary_rank} />
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.legendary_tier ?? '—'}
       </td>
 
-      {/* Larky / Waldman */}
+      {/* DLF */}
+      <RankCell value={player.dlf_rank} />
+      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
+        {player.dlf_tier ?? '—'}
+      </td>
+
+      {/* ETR */}
+      <RankCell value={player.etr_rank} />
+
+      {/* Larky */}
       <EditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
+
+      {/* Waldman */}
       <EditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
 
       {/* ── Consensus ─────────────────────────────────────────────── */}

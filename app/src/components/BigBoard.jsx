@@ -40,19 +40,25 @@ const COLUMNS = [
   { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
   { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
   // ── Expert Rankings ────────────────────────────────────────────────────────
-  { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
-  { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
-  { key: 'dlf_tier',        label: 'D.Tier',    width: 50,  sortField: 'dlf_tier' },
+  // Sanderson
   { key: 'sand_rank',       label: 'Sand',      width: 48,  sortField: 'sanderson_rank' },
   { key: 'sand_exp',        label: 'S.Exp',     width: 58,  sortField: null },
   { key: 'sand_tier',       label: 'S.Tier',    width: 50,  sortField: 'sanderson_tier' },
   { key: 'sand_val',        label: 'S.Val',     width: 80,  sortField: 'sanderson_tier_label' },
+  // LateRound
   { key: 'lr_sf_rank',      label: 'LR Rk',     width: 50,  sortField: 'lateround_sf_rank' },
   { key: 'lr_tier',         label: 'LR Tier',   width: 56,  sortField: 'lateround_overall_tier' },
   { key: 'lr_risk',         label: 'LR Risk',   width: 58,  sortField: null },
   { key: 'leg_rank',        label: 'Leg Rk',    width: 52,  sortField: 'legendary_rank' },
   { key: 'leg_tier',        label: 'Leg Tier',  width: 52,  sortField: 'legendary_tier' },
+  // DLF
+  { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
+  { key: 'dlf_tier',        label: 'D.Tier',    width: 50,  sortField: 'dlf_tier' },
+  // ETR
+  { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
+  // Larky
   { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
+  // Waldman
   { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
   // ── Consensus ──────────────────────────────────────────────────────────────
   { key: 'avg_rank',        label: 'Avg Rk',    width: 54,  sortField: 'avg_rank' },

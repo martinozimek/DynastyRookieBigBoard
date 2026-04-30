@@ -216,6 +216,21 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <ZapCell value={player.orbit_score} />
       <ZapCell value={player.waldman_dot} />
 
+      {/* S.Val and S.Exp — owner-only grade signals, grouped with scores */}
+      {isOwner && (
+        <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
+          {player.sanderson_tier_label ?? '—'}
+        </td>
+      )}
+      {isOwner && (() => {
+        const { bg, text } = exposureToColor(player.sanderson_exposure);
+        return (
+          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 11, whiteSpace: 'nowrap' }}>
+            {player.sanderson_exposure ?? '—'}
+          </td>
+        );
+      })()}
+
       {/* ── Expert Ranks ──────────────────────────────────────────── */}
       {isOwner && <RankCell value={player.sanderson_rank} />}
       <RankCell value={player.lateround_sf_rank} />
@@ -226,22 +241,9 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <ColoredEditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
 
       {/* ── Expert Tiers ──────────────────────────────────────────── */}
-      {isOwner && (() => {
-        const { bg, text } = exposureToColor(player.sanderson_exposure);
-        return (
-          <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 11, whiteSpace: 'nowrap' }}>
-            {player.sanderson_exposure ?? '—'}
-          </td>
-        );
-      })()}
       {isOwner && (
         <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555' }}>
           {player.sanderson_tier ?? '—'}
-        </td>
-      )}
-      {isOwner && (
-        <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
-          {player.sanderson_tier_label ?? '—'}
         </td>
       )}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>

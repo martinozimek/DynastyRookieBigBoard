@@ -35,11 +35,13 @@ const COLUMNS = [
   { key: 'adp_delta',      label: 'ADP Δ',    width: 56,  sortField: 'adp_delta' },
   // ── Dynasty Scores ─────────────────────────────────────────────────────────
   { key: 'zap_score',      label: 'ZAP',      width: 52,  sortField: 'zap_score' },
-  { key: 'zap_tier_label', label: 'ZAP Tier', width: 110, sortField: null },
+  { key: 'zap_tier_label', label: 'ZAP Cat.',  width: 90,  sortField: null },
   { key: 'lr_risk',        label: 'LR Risk',  width: 58,  sortField: null },
   { key: 'breakout_score', label: 'Brkout',   width: 56,  sortField: 'breakout_score' },
   { key: 'orbit_score',    label: 'ORBIT*',   width: 54,  sortField: 'orbit_score', tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
   { key: 'waldman_dot',    label: 'W.DOT',    width: 54,  sortField: 'waldman_dot' },
+  { key: 'sand_val',       label: 'S.Val',    width: 80,  sortField: 'sanderson_tier_label' },
+  { key: 'sand_exp',       label: 'S.Exp',    width: 58,  sortField: null },
   // ── Expert Ranks ───────────────────────────────────────────────────────────
   { key: 'sand_rank',      label: 'Sand',     width: 48,  sortField: 'sanderson_rank' },
   { key: 'lr_sf_rank',     label: 'LR Rk',    width: 50,  sortField: 'lateround_sf_rank' },
@@ -49,9 +51,7 @@ const COLUMNS = [
   { key: 'larky_rank',     label: 'Larky',    width: 48,  sortField: 'larky_rank' },
   { key: 'waldman_rank',   label: 'Wld Rk',   width: 54,  sortField: 'waldman_rank' },
   // ── Expert Tiers ───────────────────────────────────────────────────────────
-  { key: 'sand_exp',       label: 'S.Exp',    width: 58,  sortField: null },
   { key: 'sand_tier',      label: 'S.Tier',   width: 50,  sortField: 'sanderson_tier' },
-  { key: 'sand_val',       label: 'S.Val',    width: 80,  sortField: 'sanderson_tier_label' },
   { key: 'lr_tier',        label: 'LR Tier',  width: 56,  sortField: 'lateround_overall_tier' },
   { key: 'dlf_tier',       label: 'D.Tier',   width: 50,  sortField: 'dlf_tier' },
   { key: 'leg_tier',       label: 'Leg Tier', width: 52,  sortField: 'legendary_tier' },
@@ -66,9 +66,9 @@ const COLUMNS = [
 const GROUPS = [
   { label: '',               color: null,      frozen: true, keys: ['drag','my_rank','pos_rank','tier','target','name','team','age','draft_capital','position'] },
   { label: 'Market',         color: '#0e7490',              keys: ['adp','adp_delta'] },
-  { label: 'Dynasty Scores', color: '#6d28d9',              keys: ['zap_score','zap_tier_label','lr_risk','breakout_score','orbit_score','waldman_dot'] },
+  { label: 'Scores & Grades', color: '#6d28d9',              keys: ['zap_score','zap_tier_label','lr_risk','breakout_score','orbit_score','waldman_dot','sand_val','sand_exp'] },
   { label: 'Expert Ranks',   color: '#b45309',              keys: ['sand_rank','lr_sf_rank','dlf_rank','leg_rank','etr_rank','larky_rank','waldman_rank'] },
-  { label: 'Expert Tiers',   color: '#92400e',              keys: ['sand_exp','sand_tier','sand_val','lr_tier','dlf_tier','leg_tier'] },
+  { label: 'Expert Tiers',   color: '#92400e',              keys: ['sand_tier','lr_tier','dlf_tier','leg_tier'] },
   { label: 'Consensus',      color: '#166534',              keys: ['avg_rank','avg_delta'] },
   { label: 'NFL Grade',      color: '#374151',              keys: ['brugler_grade'] },
 ];
@@ -439,6 +439,8 @@ export default function BigBoard({
 
       {/* Table — flex-grow fills remaining height; overflow in both axes */}
       <div style={{ flex: 1, overflow: 'auto', minHeight: 0 }}>
+        {/* Inner block gives extra right scroll room so any column can sit flush against the frozen pane */}
+        <div style={{ display: 'inline-block', verticalAlign: 'top', paddingRight: '60vw' }}>
         <table style={{ borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             {/* Row 1: Meta group labels */}
@@ -541,6 +543,7 @@ export default function BigBoard({
             </SortableContext>
           </DndContext>
         </table>
+        </div>
       </div>
     </div>
   );

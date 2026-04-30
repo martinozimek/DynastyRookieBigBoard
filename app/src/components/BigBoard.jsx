@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   DndContext, closestCenter, PointerSensor, KeyboardSensor, useSensor, useSensors,
 } from '@dnd-kit/core';
@@ -16,75 +16,102 @@ import { exportToExcel } from '../utils/excelExport';
 const OWNER_EMAIL = 'mtozimek@gmail.com';
 const SANDERSON_KEYS = new Set(['sand_rank', 'sand_exp', 'sand_tier', 'sand_val']);
 
-// items: array of {type:'player',id} | {type:'tier',id:'div-N',num:N}
-// Tier num is derived from the last seen tier divider above each player.
-
-// sortField: the prospect field used for sorting (null = not sortable)
-// For Brugler grade, we sort by the embedded round number
+// frozen: sticky to left pane. left: cumulative pixel offset from table edge (non-league).
+// lastFrozen: draws the freeze-boundary separator line.
 const COLUMNS = [
-  // ── Identity ───────────────────────────────────────────────────────────────
-  { key: 'drag',            label: '',          width: 32,  sortField: null },
-  { key: 'my_rank',         label: 'Rk',        width: 38,  sortField: 'my_rank' },
-  { key: 'pos_rank',        label: 'Pos Rk',    width: 52,  sortField: null },
-  { key: 'tier',            label: 'Tier',      width: 40,  sortField: null },
-  { key: 'target',          label: '★▽',        width: 34,  sortField: null },
-  { key: 'name',            label: 'Player',    width: 160, sortField: 'name' },
-  { key: 'team',            label: 'Team',      width: 90,  sortField: 'team' },
-  { key: 'age',             label: 'Age',       width: 44,  sortField: 'age' },
-  { key: 'draft_capital',   label: 'Pick',      width: 54,  sortField: 'draft_capital' },
-  { key: 'position',        label: 'Pos',       width: 44,  sortField: 'position' },
+  // ── Identity (frozen pane) ─────────────────────────────────────────────────
+  { key: 'drag',           label: '',         width: 32,  sortField: null,                frozen: true, left: 0 },
+  { key: 'my_rank',        label: 'Rk',       width: 38,  sortField: 'my_rank',           frozen: true, left: 32 },
+  { key: 'pos_rank',       label: 'Pos Rk',   width: 52,  sortField: null,                frozen: true, left: 70 },
+  { key: 'tier',           label: 'Tier',     width: 40,  sortField: null,                frozen: true, left: 122 },
+  { key: 'target',         label: '★▽',       width: 34,  sortField: null,                frozen: true, left: 162 },
+  { key: 'name',           label: 'Player',   width: 160, sortField: 'name',              frozen: true, left: 196 },
+  { key: 'team',           label: 'Team',     width: 90,  sortField: 'team',              frozen: true, left: 356 },
+  { key: 'age',            label: 'Age',      width: 44,  sortField: 'age',               frozen: true, left: 446 },
+  { key: 'draft_capital',  label: 'Pick',     width: 54,  sortField: 'draft_capital',     frozen: true, left: 490 },
+  { key: 'position',       label: 'Pos',      width: 44,  sortField: 'position',          frozen: true, left: 544, lastFrozen: true },
   // ── Market ─────────────────────────────────────────────────────────────────
-  { key: 'adp',             label: 'ADP',       width: 52,  sortField: 'adp' },
-  { key: 'adp_delta',       label: 'ADP Δ',     width: 56,  sortField: 'adp_delta' },
-  // ── Scores & Grades ────────────────────────────────────────────────────────
-  { key: 'zap_score',       label: 'ZAP',       width: 52,  sortField: 'zap_score' },
-  { key: 'zap_tier_label',  label: 'ZAP Tier',  width: 110, sortField: null },
-  { key: 'breakout_score',  label: 'Brkout',    width: 56,  sortField: 'breakout_score' },
-  { key: 'orbit_score',     label: 'ORBIT*',    width: 54,  sortField: 'orbit_score',   tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
-  { key: 'brugler_grade',   label: 'Brugler',   width: 64,  sortField: 'brugler_grade' },
-  { key: 'waldman_dot',     label: 'W.DOT',     width: 54,  sortField: 'waldman_dot' },
-  // ── Expert Ranks (all together, in requested order) ───────────────────────
-  { key: 'sand_rank',       label: 'Sand',      width: 48,  sortField: 'sanderson_rank' },
-  { key: 'lr_sf_rank',      label: 'LR Rk',     width: 50,  sortField: 'lateround_sf_rank' },
-  { key: 'dlf_rank',        label: 'DLF',       width: 44,  sortField: 'dlf_rank' },
-  { key: 'leg_rank',        label: 'Leg Rk',    width: 52,  sortField: 'legendary_rank' },
-  { key: 'etr_rank',        label: 'ETR',       width: 44,  sortField: 'etr_rank' },
-  { key: 'larky_rank',      label: 'Larky',     width: 48,  sortField: 'larky_rank' },
-  { key: 'waldman_rank',    label: 'Wld Rk',    width: 54,  sortField: 'waldman_rank' },
-  // ── Expert Tiers (same source order) ──────────────────────────────────────
-  { key: 'sand_exp',        label: 'S.Exp',     width: 58,  sortField: null },
-  { key: 'sand_tier',       label: 'S.Tier',    width: 50,  sortField: 'sanderson_tier' },
-  { key: 'sand_val',        label: 'S.Val',     width: 80,  sortField: 'sanderson_tier_label' },
-  { key: 'lr_tier',         label: 'LR Tier',   width: 56,  sortField: 'lateround_overall_tier' },
-  { key: 'lr_risk',         label: 'LR Risk',   width: 58,  sortField: null },
-  { key: 'dlf_tier',        label: 'D.Tier',    width: 50,  sortField: 'dlf_tier' },
-  { key: 'leg_tier',        label: 'Leg Tier',  width: 52,  sortField: 'legendary_tier' },
+  { key: 'adp',            label: 'ADP',      width: 52,  sortField: 'adp' },
+  { key: 'adp_delta',      label: 'ADP Δ',    width: 56,  sortField: 'adp_delta' },
+  // ── Dynasty Scores ─────────────────────────────────────────────────────────
+  { key: 'zap_score',      label: 'ZAP',      width: 52,  sortField: 'zap_score' },
+  { key: 'zap_tier_label', label: 'ZAP Tier', width: 110, sortField: null },
+  { key: 'lr_risk',        label: 'LR Risk',  width: 58,  sortField: null },
+  { key: 'breakout_score', label: 'Brkout',   width: 56,  sortField: 'breakout_score' },
+  { key: 'orbit_score',    label: 'ORBIT*',   width: 54,  sortField: 'orbit_score', tooltip: 'Experimental in-progress prospect model. Predicts Best Two Seasons PPR PPG from college/combine data. Pre-draft: uses projected draft capital.' },
+  { key: 'waldman_dot',    label: 'W.DOT',    width: 54,  sortField: 'waldman_dot' },
+  // ── Expert Ranks ───────────────────────────────────────────────────────────
+  { key: 'sand_rank',      label: 'Sand',     width: 48,  sortField: 'sanderson_rank' },
+  { key: 'lr_sf_rank',     label: 'LR Rk',    width: 50,  sortField: 'lateround_sf_rank' },
+  { key: 'dlf_rank',       label: 'DLF',      width: 44,  sortField: 'dlf_rank' },
+  { key: 'leg_rank',       label: 'Leg Rk',   width: 52,  sortField: 'legendary_rank' },
+  { key: 'etr_rank',       label: 'ETR',      width: 44,  sortField: 'etr_rank' },
+  { key: 'larky_rank',     label: 'Larky',    width: 48,  sortField: 'larky_rank' },
+  { key: 'waldman_rank',   label: 'Wld Rk',   width: 54,  sortField: 'waldman_rank' },
+  // ── Expert Tiers ───────────────────────────────────────────────────────────
+  { key: 'sand_exp',       label: 'S.Exp',    width: 58,  sortField: null },
+  { key: 'sand_tier',      label: 'S.Tier',   width: 50,  sortField: 'sanderson_tier' },
+  { key: 'sand_val',       label: 'S.Val',    width: 80,  sortField: 'sanderson_tier_label' },
+  { key: 'lr_tier',        label: 'LR Tier',  width: 56,  sortField: 'lateround_overall_tier' },
+  { key: 'dlf_tier',       label: 'D.Tier',   width: 50,  sortField: 'dlf_tier' },
+  { key: 'leg_tier',       label: 'Leg Tier', width: 52,  sortField: 'legendary_tier' },
   // ── Consensus ──────────────────────────────────────────────────────────────
-  { key: 'avg_rank',        label: 'Avg Rk',    width: 54,  sortField: 'avg_rank' },
-  { key: 'avg_delta',       label: 'Avg Δ',     width: 54,  sortField: 'avg_rank_delta' },
+  { key: 'avg_rank',       label: 'Avg Rk',   width: 54,  sortField: 'avg_rank' },
+  { key: 'avg_delta',      label: 'Avg Δ',    width: 54,  sortField: 'avg_rank_delta' },
+  // ── NFL Grade ──────────────────────────────────────────────────────────────
+  { key: 'brugler_grade',  label: 'Brugler',  width: 64,  sortField: 'brugler_grade' },
 ];
 
-// Round grades for Brugler sort order
+// Thematic groups for the meta header row
+const GROUPS = [
+  { label: '',               color: null,      frozen: true, keys: ['drag','my_rank','pos_rank','tier','target','name','team','age','draft_capital','position'] },
+  { label: 'Market',         color: '#0e7490',              keys: ['adp','adp_delta'] },
+  { label: 'Dynasty Scores', color: '#6d28d9',              keys: ['zap_score','zap_tier_label','lr_risk','breakout_score','orbit_score','waldman_dot'] },
+  { label: 'Expert Ranks',   color: '#b45309',              keys: ['sand_rank','lr_sf_rank','dlf_rank','leg_rank','etr_rank','larky_rank','waldman_rank'] },
+  { label: 'Expert Tiers',   color: '#92400e',              keys: ['sand_exp','sand_tier','sand_val','lr_tier','dlf_tier','leg_tier'] },
+  { label: 'Consensus',      color: '#166534',              keys: ['avg_rank','avg_delta'] },
+  { label: 'NFL Grade',      color: '#374151',              keys: ['brugler_grade'] },
+];
+
 const BRUGLER_ORDER = {'1st':1,'1st-2nd':1.5,'2nd':2,'2nd-3rd':2.5,'3rd':3,'3rd-4th':3.5,'4th':4,'4th-5th':4.5,'5th':5,'5th-6th':5.5,'6th':6,'6th-7th':6.5,'7th':7,'7th-FA':7.5,'FA':8};
 
-// Sanderson value label sort order (most valuable = lowest number)
 const SANDERSON_VAL_ORDER = {
   '2+ BASE 1s': 1, '1.25 BASE 1s': 2, 'BASE 1': 3, 'LATE 1': 4,
   'EARLY 2': 5, 'BASE 2': 6, 'LATE 2': 7, '3RD ROUND': 8, '4TH ROUND': 9, 'WAIVER WIRE': 10,
 };
 
 const POS_FILTERS = ['All', 'QB', 'RB', 'WR', 'TE'];
+const META_ROW_HEIGHT = 22; // px — used to offset the column-label row's sticky top
 
-let dividerCounter = Date.now(); // timestamp-seeded so IDs stay unique across page reloads
+let dividerCounter = Date.now();
 
 function getItemTiers(items) {
   const tiers = {};
   let cur = 1;
   for (const item of items) {
-    if (item.type === 'tier') { cur = item.num; }
-    else { tiers[item.id] = cur; }
+    if (item.type === 'tier') cur = item.num;
+    else tiers[item.id] = cur;
   }
   return tiers;
+}
+
+// Renumber all tier dividers 1, 2, 3… by their top-to-bottom position in items.
+// Tier labels follow their divider (remapped by old→new num).
+function renumberTiers(items, tierLabels) {
+  let count = 0;
+  const remap = {};
+  const newItems = items.map(item => {
+    if (item.type !== 'tier') return item;
+    count++;
+    remap[item.num] = count;
+    return { ...item, num: count };
+  });
+  const newLabels = {};
+  for (const [k, v] of Object.entries(tierLabels)) {
+    const n = remap[parseInt(k)];
+    if (n != null) newLabels[n] = v;
+  }
+  return { newItems, newLabels };
 }
 
 export default function BigBoard({
@@ -99,12 +126,14 @@ export default function BigBoard({
   const [playerEdits, setPlayerEdits] = useState(initialState.playerEdits || {});
   const [posFilter, setPosFilter] = useState('All');
   const [showTargetsOnly, setShowTargetsOnly] = useState(false);
-  const [sortConfig, setSortConfig] = useState(null); // {field, dir:'asc'|'desc'}
+  const [sortConfig, setSortConfig] = useState(null);
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
   const toolbarRef = useRef(null);
 
   const isOwner = user?.email === OWNER_EMAIL;
   const visibleColumns = COLUMNS.filter(c => isOwner || !SANDERSON_KEYS.has(c.key));
+  const visibleKeySet = new Set(visibleColumns.map(c => c.key));
+  const pickOffset = league ? 44 : 0;
 
   const prospectsById = Object.fromEntries(prospectsData.map(p => [p.id, p]));
 
@@ -127,14 +156,15 @@ export default function BigBoard({
     if (!over || active.id === over.id) return;
     const oldIdx = items.findIndex(i => i.id === active.id);
     const newIdx = items.findIndex(i => i.id === over.id);
-    // Don't allow tier divider to move before position 1 (keep at least one player visible at top if desired)
-    const newItems = arrayMove(items, oldIdx, newIdx);
+    const moved = arrayMove(items, oldIdx, newIdx);
+    // Renumber tiers after every drag so position drives the number
+    const { newItems, newLabels } = renumberTiers(moved, tierLabels);
     setItems(newItems);
-    persist(newItems, null, null, null, null);
+    setTierLabels(newLabels);
+    persist(newItems, newLabels, null, null, null);
   }
 
   function handleToggleMark(id) {
-    // Cycle: neutral → target → avoid → neutral
     const nextTargets = new Set(targets);
     const nextAvoids = new Set(avoids);
     if (nextTargets.has(id)) {
@@ -157,43 +187,37 @@ export default function BigBoard({
   }
 
   function handleAddTier() {
-    const maxNum = items.filter(i => i.type === 'tier').reduce((m, i) => Math.max(m, i.num), 1);
-    const newNum = maxNum + 1;
-    const newDiv = { type: 'tier', id: `div-${++dividerCounter}`, num: newNum };
-    const newItems = [...items, newDiv];
+    const tierCount = items.filter(i => i.type === 'tier').length;
+    const newDiv = { type: 'tier', id: `div-${++dividerCounter}`, num: tierCount + 1 };
+    const { newItems, newLabels } = renumberTiers([...items, newDiv], tierLabels);
     setItems(newItems);
-    setSortConfig(null); // clear sort so the new tier is immediately visible
-    persist(newItems, null, null, null, null);
+    setTierLabels(newLabels);
+    setSortConfig(null);
+    persist(newItems, newLabels, null, null, null);
   }
 
   function handleRemoveTier(divId) {
-    const newItems = items.filter(i => i.id !== divId);
+    const filtered = items.filter(i => i.id !== divId);
+    const { newItems, newLabels } = renumberTiers(filtered, tierLabels);
     setItems(newItems);
-    persist(newItems, null, null, null, null);
+    setTierLabels(newLabels);
+    persist(newItems, newLabels, null, null, null);
   }
 
   async function handleRepairTiers() {
-    // Deduplicate tier dividers by num (keep first occurrence at correct board position)
-    // Also remove any tiers with num >= 8 (user's current max is 7)
-    const seenNums = new Set();
-    const newItems = items.filter(i => {
-      if (i.type !== 'tier') return true;
-      if (i.num >= 8) return false;
-      if (seenNums.has(i.num)) return false;
-      seenNums.add(i.num);
-      return true;
-    });
+    const { newItems, newLabels } = renumberTiers(items, tierLabels);
     const newState = {
       items: newItems,
-      tierLabels,
+      tierLabels: newLabels,
       targets: [...targets],
       avoids: [...avoids],
       playerEdits,
     };
     setItems(newItems);
+    setTierLabels(newLabels);
     setSortConfig(null);
     saveBoardState(newState);
-    await saveCloudStateNow(newState); // force immediate cloud write, no debounce
+    await saveCloudStateNow(newState);
   }
 
   function handleFieldChange(id, field, value) {
@@ -215,14 +239,11 @@ export default function BigBoard({
   }
 
   function handleExcelExport() {
-    // Build a filtered-off list so Excel gets same view as screen
-    const playerTiers = getItemTiers(items);
     const annotated = buildAnnotated(items, prospectsById, playerEdits);
     const filteredItems = buildFilteredItems(items, annotated, posFilter, showTargetsOnly, targets);
     exportToExcel(filteredItems, prospectsById, targets, playerEdits, tierLabels);
   }
 
-  // Build annotated players (with live calcs)
   function buildAnnotated(itemList, byId, edits) {
     const playerIds = itemList.filter(i => i.type === 'player').map(i => i.id);
     const players = playerIds.map(id => {
@@ -236,7 +257,7 @@ export default function BigBoard({
     setSortConfig(prev => {
       if (!prev || prev.field !== field) return { field, dir: 'asc' };
       if (prev.dir === 'asc') return { field, dir: 'desc' };
-      return null; // third click clears sort
+      return null;
     });
   }
 
@@ -246,7 +267,6 @@ export default function BigBoard({
     if (field === 'draft_capital') {
       const v = p[field];
       if (!v) return 999;
-      // Parse "2.14" → 2*100+14 = 214 for numeric sort
       const parts = String(v).split('.');
       return (parseInt(parts[0]) || 99) * 100 + (parseInt(parts[1]) || 99);
     }
@@ -255,9 +275,7 @@ export default function BigBoard({
     return typeof v === 'string' ? v.toLowerCase() : v;
   }
 
-  // Build filtered item list preserving tier dividers
   function buildFilteredItems(itemList, annotatedById, posF, targetsOnly, targetSet, sort) {
-    // First collect player items that pass filters
     let playerItems = [];
     let rankCounter = 0;
     const tierMap = getItemTiers(itemList);
@@ -272,12 +290,8 @@ export default function BigBoard({
       playerItems.push({ ...item, displayRank: rankCounter, _tier: tierMap[item.id] ?? 1 });
     }
 
-    // When sorted, return flat player list without tier dividers.
-    // displayRank stays as the player's unsorted board position so the "Rk"
-    // column always shows where the user ranked that player.
     if (sort) {
       return [...playerItems].sort((a, b) => {
-        // Sorting by "Rk" column uses board position (displayRank)
         if (sort.field === 'my_rank') {
           return sort.dir === 'asc' ? a.displayRank - b.displayRank : b.displayRank - a.displayRank;
         }
@@ -291,15 +305,11 @@ export default function BigBoard({
       });
     }
 
-    // Unsorted: rebuild with tier dividers in original order
     const result = [];
     let pendingTier = null;
     rankCounter = 0;
     for (const item of itemList) {
-      if (item.type === 'tier') {
-        pendingTier = item;
-        continue;
-      }
+      if (item.type === 'tier') { pendingTier = item; continue; }
       const p = annotatedById[item.id];
       if (!p) continue;
       if (posF !== 'All' && p.position !== posF) continue;
@@ -308,7 +318,6 @@ export default function BigBoard({
       rankCounter++;
       result.push({ ...item, displayRank: rankCounter });
     }
-    // Always show a trailing tier divider (e.g. newly added tier at end of list)
     if (pendingTier) result.push(pendingTier);
     return result;
   }
@@ -322,6 +331,14 @@ export default function BigBoard({
   const sortableIds = items.map(i => i.id);
   const playerCount = filteredItems.filter(i => i.type === 'player').length;
   const playerTiersMap = getItemTiers(items);
+
+  // Group colSpans — computed dynamically so Sanderson cols shrink cleanly for non-owners
+  const groupRows = GROUPS.map(g => ({
+    ...g,
+    colSpan: g.keys.filter(k => visibleKeySet.has(k)).length + (g.frozen && league ? 1 : 0),
+  })).filter(g => g.colSpan > 0);
+
+  const colTop = `${META_ROW_HEIGHT}px`;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, height: '100%' }}>
@@ -356,7 +373,7 @@ export default function BigBoard({
         </button>
 
         <button onClick={handleRepairTiers}
-          title="Remove tiers 8+, deduplicate stuck tier breaks"
+          title="Renumber and deduplicate tier breaks"
           style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #7c3aed', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#a78bfa' }}>
           ⚙ Repair Tiers
         </button>
@@ -369,11 +386,8 @@ export default function BigBoard({
           </button>
         )}
 
-        {/* League section */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 5, borderLeft: '1px solid #333', paddingLeft: 10 }}>
-          <select
-            value={league?.id || ''}
-            onChange={e => onSelectLeague(e.target.value || null)}
+          <select value={league?.id || ''} onChange={e => onSelectLeague(e.target.value || null)}
             style={{ fontSize: 11, padding: '3px 6px', borderRadius: 4, border: '1px solid #444', background: '#16213e', color: '#ccc', cursor: 'pointer' }}>
             <option value="">— League —</option>
             {Object.values(allLeagues || {}).map(l => (
@@ -402,17 +416,14 @@ export default function BigBoard({
           style={{ padding: '3px 10px', borderRadius: 4, border: 'none', cursor: 'pointer', background: '#1d7a3b', color: '#fff', fontSize: 12, fontWeight: 600 }}>
           Export Excel
         </button>
-
         <button onClick={() => exportBoardState({ items, tierLabels, targets: [...targets], playerEdits })}
           style={{ padding: '3px 10px', borderRadius: 4, border: 'none', cursor: 'pointer', background: '#0f3460', color: '#fff', fontSize: 12 }}>
           Export JSON
         </button>
-
         <label style={{ padding: '3px 10px', borderRadius: 4, background: '#0f3460', color: '#fff', fontSize: 12, cursor: 'pointer' }}>
           Import JSON
           <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
         </label>
-
         <span style={{ fontSize: 11, color: '#666' }}>{playerCount} players</span>
 
         {user && (
@@ -430,9 +441,36 @@ export default function BigBoard({
       <div style={{ flex: 1, overflow: 'auto', minHeight: 0 }}>
         <table style={{ borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
+            {/* Row 1: Meta group labels */}
+            <tr style={{ background: '#0d0d1f' }}>
+              {groupRows.map(g => (
+                <th key={g.label || '__id'} colSpan={g.colSpan}
+                  style={{
+                    height: META_ROW_HEIGHT, padding: '0 6px',
+                    fontSize: 10, fontWeight: 700, textTransform: 'uppercase',
+                    letterSpacing: '0.08em', textAlign: 'center',
+                    color: g.color || 'transparent',
+                    borderBottom: '1px solid #2a2a3e',
+                    borderLeft: g.color ? `3px solid ${g.color}` : 'none',
+                    position: 'sticky', top: 0,
+                    background: '#0d0d1f',
+                    zIndex: g.frozen ? 13 : 11,
+                    left: g.frozen ? 0 : undefined,
+                  }}>
+                  {g.label}
+                </th>
+              ))}
+            </tr>
+            {/* Row 2: Column labels */}
             <tr style={{ background: '#1a1a2e', color: '#ccc' }}>
               {league && (
-                <th style={{ padding: '6px 6px', minWidth: 44, fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap', borderBottom: '2px solid #e94560', position: 'sticky', top: 0, background: '#1a1a2e', zIndex: 10, textAlign: 'center', color: '#a78bfa' }}>
+                <th style={{
+                  padding: '6px 6px', minWidth: 44, fontWeight: 600, fontSize: 11,
+                  whiteSpace: 'nowrap', textAlign: 'center', color: '#a78bfa',
+                  borderBottom: '2px solid #e94560',
+                  position: 'sticky', top: colTop, left: 0,
+                  background: '#1a1a2e', zIndex: 12,
+                }}>
                   Pick
                 </th>
               )}
@@ -444,9 +482,17 @@ export default function BigBoard({
                     onClick={col.sortField ? () => handleSort(col.sortField) : undefined}
                     title={col.tooltip || undefined}
                     style={{
-                      padding: '6px 6px', textAlign: col.key === 'name' ? 'left' : 'center',
-                      minWidth: col.width, fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap',
-                      borderBottom: '2px solid #e94560', position: 'sticky', top: 0, background: '#1a1a2e', zIndex: 10,
+                      padding: '6px 6px',
+                      textAlign: col.key === 'name' ? 'left' : 'center',
+                      minWidth: col.width,
+                      fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap',
+                      borderBottom: '2px solid #e94560',
+                      borderRight: col.lastFrozen ? '2px solid #374151' : undefined,
+                      position: 'sticky',
+                      top: colTop,
+                      left: col.frozen ? col.left + pickOffset : undefined,
+                      background: '#1a1a2e',
+                      zIndex: col.frozen ? 12 : 10,
                       cursor: col.sortField ? 'pointer' : 'default',
                       color: isActive ? '#e94560' : (col.tooltip ? '#a78bfa' : '#ccc'),
                       userSelect: 'none',

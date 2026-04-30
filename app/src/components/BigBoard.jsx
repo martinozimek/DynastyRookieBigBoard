@@ -10,7 +10,11 @@ import PlayerRow from './PlayerRow';
 import TierDivider from './TierDivider';
 import { annotateWithCalcs } from '../utils/calculations';
 import { saveBoardState, exportBoardState, importBoardState } from '../utils/storage';
+import { saveCloudStateNow } from '../utils/firebaseSync';
 import { exportToExcel } from '../utils/excelExport';
+
+const OWNER_EMAIL = 'mtozimek@gmail.com';
+const SANDERSON_KEYS = new Set(['sand_rank', 'sand_exp', 'sand_tier', 'sand_val']);
 
 // items: array of {type:'player',id} | {type:'tier',id:'div-N',num:N}
 // Tier num is derived from the last seen tier divider above each player.
@@ -99,6 +103,9 @@ export default function BigBoard({
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
   const toolbarRef = useRef(null);
 
+  const isOwner = user?.email === OWNER_EMAIL;
+  const visibleColumns = COLUMNS.filter(c => isOwner || !SANDERSON_KEYS.has(c.key));
+
   const prospectsById = Object.fromEntries(prospectsData.map(p => [p.id, p]));
 
   const sensors = useSensors(
@@ -165,21 +172,28 @@ export default function BigBoard({
     persist(newItems, null, null, null, null);
   }
 
-  function handleRepairTiers() {
-    // Remove tiers with num >= 8, deduplicate by num (keep first occurrence), deduplicate by id
+  async function handleRepairTiers() {
+    // Deduplicate tier dividers by num (keep first occurrence at correct board position)
+    // Also remove any tiers with num >= 8 (user's current max is 7)
     const seenNums = new Set();
-    const seenIds = new Set();
     const newItems = items.filter(i => {
       if (i.type !== 'tier') return true;
       if (i.num >= 8) return false;
-      if (seenNums.has(i.num) || seenIds.has(i.id)) return false;
+      if (seenNums.has(i.num)) return false;
       seenNums.add(i.num);
-      seenIds.add(i.id);
       return true;
     });
+    const newState = {
+      items: newItems,
+      tierLabels,
+      targets: [...targets],
+      avoids: [...avoids],
+      playerEdits,
+    };
     setItems(newItems);
     setSortConfig(null);
-    persist(newItems, null, null, null, null);
+    saveBoardState(newState);
+    await saveCloudStateNow(newState); // force immediate cloud write, no debounce
   }
 
   function handleFieldChange(id, field, value) {
@@ -422,7 +436,7 @@ export default function BigBoard({
                   Pick
                 </th>
               )}
-              {COLUMNS.map(col => {
+              {visibleColumns.map(col => {
                 const isActive = sortConfig && sortConfig.field === col.sortField;
                 const indicator = isActive ? (sortConfig.dir === 'asc' ? ' ▲' : ' ▼') : (col.sortField ? ' ⇅' : '');
                 return (
@@ -455,7 +469,7 @@ export default function BigBoard({
                         label={tierLabels[item.num] || `Tier ${item.num}`}
                         onLabelChange={label => handleTierLabelChange(item.num, label)}
                         onRemove={() => handleRemoveTier(item.id)}
-                        colCount={COLUMNS.length + (league ? 1 : 0)} />
+                        colCount={visibleColumns.length + (league ? 1 : 0)} />
                     );
                   }
                   const p = annotatedById[item.id];
@@ -473,6 +487,7 @@ export default function BigBoard({
                       draftedBy={draftedBy}
                       onMarkDrafted={team => onMarkDrafted(p.id, team)}
                       onClearDrafted={() => onClearDrafted(p.id)}
+                      isOwner={isOwner}
                     />
                   );
                 })}

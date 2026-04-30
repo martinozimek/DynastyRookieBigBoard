@@ -158,7 +158,9 @@ function RankBadge({ label, value, highlight }) {
   );
 }
 
-function PlayerPanel({ player, myRank, onClose }) {
+const OWNER_EMAIL = 'mtozimek@gmail.com';
+
+function PlayerPanel({ player, myRank, onClose, isOwner }) {
   const posColor = POS_COLORS[player.position] || '#6b7280';
   const c = player.combine || {};
 
@@ -198,7 +200,7 @@ function PlayerPanel({ player, myRank, onClose }) {
         <div style={{ display: 'flex', gap: 6, marginBottom: 16, flexWrap: 'wrap' }}>
           <RankBadge label="My Rank" value={myRank} />
           <RankBadge label="LateRound" value={player.lateround_sf_rank} highlight />
-          <RankBadge label="Sanderson" value={player.sanderson_rank} highlight />
+          {isOwner && <RankBadge label="Sanderson" value={player.sanderson_rank} highlight />}
           <RankBadge label="ETR" value={player.etr_rank} />
           <RankBadge label="DLF" value={player.dlf_rank} />
           <RankBadge label="Avg" value={avgRank} />
@@ -228,8 +230,10 @@ function PlayerPanel({ player, myRank, onClose }) {
             ['ADP', player.adp],
             ['ETR Rank', player.etr_rank],
             ['DLF Rank', player.dlf_rank],
-            ['Sanderson Rank', player.sanderson_rank],
-            ['Sanderson Tier', player.sanderson_tier ? `Tier ${player.sanderson_tier}${player.sanderson_tier_label ? ` — ${player.sanderson_tier_label}` : ''}` : null],
+            ...(isOwner ? [
+              ['Sanderson Rank', player.sanderson_rank],
+              ['Sanderson Tier', player.sanderson_tier ? `Tier ${player.sanderson_tier}${player.sanderson_tier_label ? ` — ${player.sanderson_tier_label}` : ''}` : null],
+            ] : []),
             ['ZAP Score', player.zap_score],
             ['ZAP Tier', player.lateround_zap_tier_label],
             ['LateRound Tier', player.lateround_overall_tier],
@@ -486,7 +490,7 @@ export default function App() {
       />
 
       {selectedPlayer && (
-        <PlayerPanel player={selectedPlayer.player} myRank={selectedPlayer.myRank} onClose={() => setSelectedPlayer(null)} />
+        <PlayerPanel player={selectedPlayer.player} myRank={selectedPlayer.myRank} onClose={() => setSelectedPlayer(null)} isOwner={user?.email === OWNER_EMAIL} />
       )}
 
       {showLeagueSetup && (

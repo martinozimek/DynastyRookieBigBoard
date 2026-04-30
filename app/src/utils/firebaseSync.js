@@ -50,3 +50,13 @@ export function saveCloudState(state) {
     }
   }, 2000);
 }
+
+export async function saveCloudStateNow(state) {
+  if (!_currentUid) return;
+  clearTimeout(_saveTimer);
+  try {
+    await setDoc(boardDoc(_currentUid), state);
+  } catch (e) {
+    console.warn('Cloud save failed:', e);
+  }
+}

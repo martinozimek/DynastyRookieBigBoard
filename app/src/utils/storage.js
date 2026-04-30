@@ -23,7 +23,8 @@ const ID_REMAP = {
 };
 
 function remapItems(items) {
-  const seen = new Set();
+  const seenPlayers = new Set();
+  const seenTierNums = new Set();
   return items
     .map(item =>
       item.type === 'player' && ID_REMAP[item.id]
@@ -31,9 +32,17 @@ function remapItems(items) {
         : item
     )
     .filter(item => {
-      if (item.type !== 'player') return true;
-      if (seen.has(item.id)) return false;
-      seen.add(item.id);
+      if (item.type === 'player') {
+        if (seenPlayers.has(item.id)) return false;
+        seenPlayers.add(item.id);
+        return true;
+      }
+      if (item.type === 'tier') {
+        // Deduplicate tier dividers by num — keeps first (correct position)
+        if (seenTierNums.has(item.num)) return false;
+        seenTierNums.add(item.num);
+        return true;
+      }
       return true;
     });
 }

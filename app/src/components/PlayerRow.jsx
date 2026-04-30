@@ -61,7 +61,7 @@ function EditableCell({ value, onChange, type = 'number', placeholder = '—' })
   );
 }
 
-export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted }) {
+export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
 
   const isMyPick = draftedBy === 'mine';
@@ -201,7 +201,7 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <ZapCell value={player.waldman_dot} />
 
       {/* ── Expert Ranks (all together) ───────────────────────────── */}
-      <RankCell value={player.sanderson_rank} />
+      {isOwner && <RankCell value={player.sanderson_rank} />}
       <RankCell value={player.lateround_sf_rank} />
       <RankCell value={player.dlf_rank} />
       <RankCell value={player.legendary_rank} />
@@ -210,7 +210,7 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       <EditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
 
       {/* ── Expert Tiers (all together, same source order) ────────── */}
-      {(() => {
+      {isOwner && (() => {
         const { bg, text } = exposureToColor(player.sanderson_exposure);
         return (
           <td style={{ background: bg, color: text, textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 11, whiteSpace: 'nowrap' }}>
@@ -218,12 +218,16 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
           </td>
         );
       })()}
-      <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555' }}>
-        {player.sanderson_tier ?? '—'}
-      </td>
-      <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
-        {player.sanderson_tier_label ?? '—'}
-      </td>
+      {isOwner && (
+        <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555' }}>
+          {player.sanderson_tier ?? '—'}
+        </td>
+      )}
+      {isOwner && (
+        <td style={{ textAlign: 'center', padding: '2px 5px', fontSize: 10, color: '#444', whiteSpace: 'nowrap', fontWeight: 600 }}>
+          {player.sanderson_tier_label ?? '—'}
+        </td>
+      )}
       <td style={{ textAlign: 'center', padding: '2px 4px', fontSize: 12, color: '#555', fontWeight: 600 }}>
         {player.lateround_overall_tier ?? '—'}
       </td>

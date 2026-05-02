@@ -49,6 +49,25 @@ NAME_ALIASES = {
     'J\'Mari Taylor': 'J\'Mari Taylor',
 }
 
+# DLF tier assignments derived from their PDF tier markers (tiers 1-7).
+# Keyed by the DLF CSV display name. Preserved here so build_data.py rebuilds don't wipe them.
+DLF_TIERS = {
+    'Jeremiyah Love': 1,
+    'Jordyn Tyson': 2, 'Carnell Tate': 2, 'Fernando Mendoza': 2, 'Makai Lemon': 2,
+    'KC Concepcion': 3, 'Jadarian Price': 3, 'Kenyon Sadiq': 3, 'Omar Cooper Jr': 3, 'Ty Simpson': 3,
+    'Denzel Boston': 4, 'Eli Stowers': 4, 'Germie Bernard': 4,
+    'Jonah Coleman': 5, 'Chris Bell': 5, 'Antonio Williams': 5, "De'Zhaun Stribling": 5,
+    'Zachariah Branch': 5, 'Chris Brazzell II': 5, 'Elijah Sarratt': 5, 'Ted Hurst': 5,
+    'Carson Beck': 5, 'Max Klare': 5, 'Kaelon Black': 5, 'Drew Allar': 5, 'Malachi Fields': 5,
+    'Nicholas Singleton': 6, "Ja'Kobi Lane": 6, 'Emmett Johnson': 6, 'Kaytron Allen': 6,
+    'Mike Washington Jr': 6, 'Skyler Bell': 6, 'Demond Claiborne': 6, 'Bryce Lance': 6,
+    'Adam Randall': 6, 'Brenen Thompson': 6, 'Taylen Green': 6, 'Justin Joly': 6,
+    'Kevin Coleman Jr': 6,
+    'Eli Raridon': 7, 'Oscar Delp': 7, 'Caleb Douglas': 7, 'Cade Klubnik': 7,
+    'Zavion Thomas': 7, 'Seth McGowan': 7, 'Jack Endries': 7, 'Cyrus Allen': 7,
+    'Deion Burks': 7, 'Jam Miller': 7, 'Garrett Nussmeier': 7,
+}
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -385,6 +404,7 @@ def build():
         # --- DLF data — try canonical alias first, fall back to fuzzy ---
         dlf_match = dlf_canonical_lookup.get(canonicalize(name)) or fuzzy_match(name, {n: n for n in dlf_df['name']}, threshold=85)
         dlf_rank = None
+        dlf_tier = None
         if dlf_match:
             dlf_row = dlf_df[dlf_df['name'] == dlf_match]
             if not dlf_row.empty:
@@ -394,6 +414,7 @@ def build():
                         age = float(dlf_row['dlf_age'].iloc[0])
                     except (ValueError, TypeError):
                         pass
+            dlf_tier = DLF_TIERS.get(dlf_match)
 
         # --- DB data (position, team) ---
         db_lookup_name = NAME_ALIASES.get(name, name)
@@ -584,6 +605,7 @@ def build():
             'etr_rank': etr_rank,
             'etr_notes': etr_notes,
             'dlf_rank': dlf_rank,
+            'dlf_tier': dlf_tier,
             'sanderson_rank': sanderson_rank,
             'sanderson_tier': sanderson_tier,
             'sanderson_tier_label': sanderson_tier_label,

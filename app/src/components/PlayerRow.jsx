@@ -1,9 +1,20 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { rankToColor, zapToColor, breakoutToColor, zapTierToColor, deltaToColor, positionColors, draftCapitalToColor, riskToColor, exposureToColor } from '../utils/colors';
 
 const TOTAL = 74;
+
+// Drives the Expert Ranks cell loop; order must match COLUMNS order in BigBoard.
+const EXPERT_RANK_CELLS = [
+  { key: 'sand_rank',    field: 'sanderson_rank',    ownerOnly: true,  editable: false },
+  { key: 'lr_sf_rank',   field: 'lateround_sf_rank', ownerOnly: false, editable: false },
+  { key: 'dlf_rank',     field: 'dlf_rank',          ownerOnly: false, editable: false },
+  { key: 'leg_rank',     field: 'legendary_rank',    ownerOnly: false, editable: false },
+  { key: 'etr_rank',     field: 'etr_rank',          ownerOnly: false, editable: false },
+  { key: 'larky_rank',   field: 'larky_rank',        ownerOnly: false, editable: true  },
+  { key: 'waldman_rank', field: 'waldman_rank',      ownerOnly: false, editable: true  },
+];
 
 function RankCell({ value }) {
   const { bg, text } = rankToColor(value, TOTAL);
@@ -64,7 +75,7 @@ function ColoredEditableCell({ value, onChange }) {
   );
 }
 
-export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner }) {
+export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner, compareExpert }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
 
   const isMyPick = draftedBy === 'mine';
@@ -232,13 +243,17 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       })()}
 
       {/* ── Expert Ranks ──────────────────────────────────────────── */}
-      {isOwner && <RankCell value={player.sanderson_rank} />}
-      <RankCell value={player.lateround_sf_rank} />
-      <RankCell value={player.dlf_rank} />
-      <RankCell value={player.legendary_rank} />
-      <RankCell value={player.etr_rank} />
-      <ColoredEditableCell value={player.larky_rank} onChange={v => onFieldChange('larky_rank', v)} />
-      <ColoredEditableCell value={player.waldman_rank} onChange={v => onFieldChange('waldman_rank', v)} />
+      {EXPERT_RANK_CELLS.filter(o => !o.ownerOnly || isOwner).map(o => (
+        <Fragment key={o.key}>
+          {o.editable
+            ? <ColoredEditableCell value={player[o.field]} onChange={v => onFieldChange(o.field, v)} />
+            : <RankCell value={player[o.field]} />
+          }
+          {compareExpert?.key === o.key && (
+            <DeltaCell value={player.compare_delta ?? null} />
+          )}
+        </Fragment>
+      ))}
 
       {/* ── Expert Tiers ──────────────────────────────────────────── */}
       {isOwner && (

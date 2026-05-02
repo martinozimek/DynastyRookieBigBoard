@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, Fragment } from 'react';
 import {
   DndContext, closestCenter, PointerSensor, KeyboardSensor, useSensor, useSensors,
 } from '@dnd-kit/core';
@@ -15,6 +15,18 @@ import { exportToExcel } from '../utils/excelExport';
 
 const OWNER_EMAIL = 'mtozimek@gmail.com';
 const SANDERSON_KEYS = new Set(['sand_rank', 'sand_exp', 'sand_tier', 'sand_val']);
+
+// Expert rank columns available for comparison. ownerOnly entries hidden from non-owners.
+const EXPERT_RANK_OPTIONS = [
+  { key: 'sand_rank',    label: 'Sand',   field: 'sanderson_rank',    ownerOnly: true  },
+  { key: 'lr_sf_rank',   label: 'LR Rk',  field: 'lateround_sf_rank', ownerOnly: false },
+  { key: 'dlf_rank',     label: 'DLF',    field: 'dlf_rank',          ownerOnly: false },
+  { key: 'leg_rank',     label: 'Leg Rk', field: 'legendary_rank',    ownerOnly: false },
+  { key: 'etr_rank',     label: 'ETR',    field: 'etr_rank',          ownerOnly: false },
+  { key: 'larky_rank',   label: 'Larky',  field: 'larky_rank',        ownerOnly: false },
+  { key: 'waldman_rank', label: 'Wld Rk', field: 'waldman_rank',      ownerOnly: false },
+];
+const EXPERT_RANK_KEYS = new Set(EXPERT_RANK_OPTIONS.map(o => o.key));
 
 // frozen: sticky to left pane. left: cumulative pixel offset from table edge (non-league).
 // lastFrozen: draws the freeze-boundary separator line.
@@ -128,6 +140,7 @@ export default function BigBoard({
   const [showTargetsOnly, setShowTargetsOnly] = useState(false);
   const [sortConfig, setSortConfig] = useState(null);
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
+  const [compareExpert, setCompareExpert] = useState(null); // null | EXPERT_RANK_OPTIONS entry
   const toolbarRef = useRef(null);
 
   const isOwner = user?.email === OWNER_EMAIL;
@@ -253,6 +266,12 @@ export default function BigBoard({
     return Object.fromEntries(annotateWithCalcs(players).map(p => [p.id, p]));
   }
 
+  function handleToggleCompare(colKey) {
+    const opt = EXPERT_RANK_OPTIONS.find(o => o.key === colKey);
+    if (!opt) return;
+    setCompareExpert(prev => prev?.key === colKey ? null : opt);
+  }
+
   function handleSort(field) {
     setSortConfig(prev => {
       if (!prev || prev.field !== field) return { field, dir: 'asc' };
@@ -323,6 +342,15 @@ export default function BigBoard({
   }
 
   const annotatedById = buildAnnotated(items, prospectsById, playerEdits);
+  // Add per-player compare delta when an expert is selected
+  if (compareExpert) {
+    for (const p of Object.values(annotatedById)) {
+      const expertVal = p[compareExpert.field];
+      p.compare_delta = (p.my_rank != null && expertVal != null)
+        ? Math.round((p.my_rank - expertVal) * 10) / 10
+        : null;
+    }
+  }
   const picks = league?.picks || {};
   let filteredItems = buildFilteredItems(items, annotatedById, posFilter, showTargetsOnly, targets, sortConfig);
   if (showAvailableOnly && league) {
@@ -335,7 +363,9 @@ export default function BigBoard({
   // Group colSpans — computed dynamically so Sanderson cols shrink cleanly for non-owners
   const groupRows = GROUPS.map(g => ({
     ...g,
-    colSpan: g.keys.filter(k => visibleKeySet.has(k)).length + (g.frozen && league ? 1 : 0),
+    colSpan: g.keys.filter(k => visibleKeySet.has(k)).length
+      + (g.frozen && league ? 1 : 0)
+      + (g.label === 'Expert Ranks' && compareExpert ? 1 : 0),
   })).filter(g => g.colSpan > 0);
 
   const colTop = `${META_ROW_HEIGHT}px`;
@@ -479,28 +509,58 @@ export default function BigBoard({
               {visibleColumns.map(col => {
                 const isActive = sortConfig && sortConfig.field === col.sortField;
                 const indicator = isActive ? (sortConfig.dir === 'asc' ? ' ▲' : ' ▼') : (col.sortField ? ' ⇅' : '');
+                const isExpertRank = EXPERT_RANK_KEYS.has(col.key);
+                const isComparing = compareExpert?.key === col.key;
                 return (
-                  <th key={col.key}
-                    onClick={col.sortField ? () => handleSort(col.sortField) : undefined}
-                    title={col.tooltip || undefined}
-                    style={{
-                      padding: '6px 6px',
-                      textAlign: col.key === 'name' ? 'left' : 'center',
-                      minWidth: col.width,
-                      fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap',
-                      borderBottom: '2px solid #e94560',
-                      borderRight: col.lastFrozen ? '2px solid #374151' : undefined,
-                      position: 'sticky',
-                      top: colTop,
-                      left: col.frozen ? col.left + pickOffset : undefined,
-                      background: '#1a1a2e',
-                      zIndex: col.frozen ? 12 : 10,
-                      cursor: col.sortField ? 'pointer' : 'default',
-                      color: isActive ? '#e94560' : (col.tooltip ? '#a78bfa' : '#ccc'),
-                      userSelect: 'none',
-                    }}>
-                    {col.label}{indicator}
-                  </th>
+                  <Fragment key={col.key}>
+                    <th
+                      onClick={col.sortField ? () => handleSort(col.sortField) : undefined}
+                      title={col.tooltip || undefined}
+                      style={{
+                        padding: '6px 6px',
+                        textAlign: col.key === 'name' ? 'left' : 'center',
+                        minWidth: col.width,
+                        fontWeight: 600, fontSize: 11, whiteSpace: 'nowrap',
+                        borderBottom: isComparing ? '3px solid #0891b2' : '2px solid #e94560',
+                        borderRight: col.lastFrozen ? '2px solid #374151' : undefined,
+                        position: 'sticky',
+                        top: colTop,
+                        left: col.frozen ? col.left + pickOffset : undefined,
+                        background: '#1a1a2e',
+                        zIndex: col.frozen ? 12 : 10,
+                        cursor: col.sortField ? 'pointer' : 'default',
+                        color: isComparing ? '#0891b2' : (isActive ? '#e94560' : (col.tooltip ? '#a78bfa' : '#ccc')),
+                        userSelect: 'none',
+                      }}>
+                      {col.label}{indicator}
+                      {isExpertRank && (
+                        <span
+                          onClick={e => { e.stopPropagation(); handleToggleCompare(col.key); }}
+                          title={isComparing ? 'Hide comparison' : `Compare my ranks vs. ${col.label}`}
+                          style={{
+                            marginLeft: 3, fontSize: 9, cursor: 'pointer',
+                            color: isComparing ? '#0891b2' : '#888',
+                            fontWeight: 700, verticalAlign: 'super',
+                          }}>
+                          Δ
+                        </span>
+                      )}
+                    </th>
+                    {isComparing && (
+                      <th
+                        onClick={() => handleSort('compare_delta')}
+                        style={{
+                          padding: '6px 8px', minWidth: 64, fontWeight: 700, fontSize: 11,
+                          whiteSpace: 'nowrap', textAlign: 'center',
+                          borderBottom: '3px solid #0891b2',
+                          position: 'sticky', top: colTop,
+                          background: '#1a1a2e', zIndex: 10,
+                          cursor: 'pointer', color: '#0891b2', userSelect: 'none',
+                        }}>
+                        vs. {compareExpert.label}{sortConfig?.field === 'compare_delta' ? (sortConfig.dir === 'asc' ? ' ▲' : ' ▼') : ' ⇅'}
+                      </th>
+                    )}
+                  </Fragment>
                 );
               })}
             </tr>
@@ -517,7 +577,7 @@ export default function BigBoard({
                         label={tierLabels[item.num] || `Tier ${item.num}`}
                         onLabelChange={label => handleTierLabelChange(item.num, label)}
                         onRemove={() => handleRemoveTier(item.id)}
-                        colCount={visibleColumns.length + (league ? 1 : 0)} />
+                        colCount={visibleColumns.length + (league ? 1 : 0) + (compareExpert ? 1 : 0)} />
                     );
                   }
                   const p = annotatedById[item.id];
@@ -536,6 +596,7 @@ export default function BigBoard({
                       onMarkDrafted={team => onMarkDrafted(p.id, team)}
                       onClearDrafted={() => onClearDrafted(p.id)}
                       isOwner={isOwner}
+                      compareExpert={compareExpert}
                     />
                   );
                 })}

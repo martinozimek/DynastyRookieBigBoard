@@ -144,6 +144,7 @@ export default function BigBoard({
   const toolbarRef = useRef(null);
 
   const isOwner = user?.email === OWNER_EMAIL;
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
   const visibleColumns = COLUMNS.filter(c => isOwner || !SANDERSON_KEYS.has(c.key));
   const visibleKeySet = new Set(visibleColumns.map(c => c.key));
   const pickOffset = league ? 44 : 0;
@@ -252,9 +253,9 @@ export default function BigBoard({
   }
 
   function handleExcelExport() {
-    const annotated = buildAnnotated(items, prospectsById, playerEdits);
-    const filteredItems = buildFilteredItems(items, annotated, posFilter, showTargetsOnly, targets);
-    exportToExcel(filteredItems, prospectsById, targets, playerEdits, tierLabels);
+    const annotatedById = buildAnnotated(items, prospectsById, playerEdits);
+    const filteredItems = buildFilteredItems(items, annotatedById, posFilter, showTargetsOnly, targets);
+    exportToExcel(filteredItems, annotatedById, targets, avoids, tierLabels, isOwner);
   }
 
   function buildAnnotated(itemList, byId, edits) {
@@ -487,7 +488,7 @@ export default function BigBoard({
                     position: 'sticky', top: 0,
                     background: '#0d0d1f',
                     zIndex: g.frozen ? 13 : 11,
-                    left: g.frozen ? 0 : undefined,
+                    left: (!isMobile && g.frozen) ? 0 : undefined,
                   }}>
                   {g.label}
                 </th>
@@ -500,7 +501,7 @@ export default function BigBoard({
                   padding: '6px 6px', minWidth: 44, fontWeight: 600, fontSize: 11,
                   whiteSpace: 'nowrap', textAlign: 'center', color: '#a78bfa',
                   borderBottom: '2px solid #e94560',
-                  position: 'sticky', top: colTop, left: 0,
+                  position: 'sticky', top: colTop, left: isMobile ? undefined : 0,
                   background: '#1a1a2e', zIndex: 12,
                 }}>
                   Pick
@@ -525,7 +526,7 @@ export default function BigBoard({
                         borderRight: col.lastFrozen ? '2px solid #374151' : undefined,
                         position: 'sticky',
                         top: colTop,
-                        left: col.frozen ? col.left + pickOffset : undefined,
+                        left: (!isMobile && col.frozen) ? col.left + pickOffset : undefined,
                         background: '#1a1a2e',
                         zIndex: col.frozen ? 12 : 10,
                         cursor: col.sortField ? 'pointer' : 'default',
@@ -597,6 +598,7 @@ export default function BigBoard({
                       onClearDrafted={() => onClearDrafted(p.id)}
                       isOwner={isOwner}
                       compareExpert={compareExpert}
+                      isMobile={isMobile}
                     />
                   );
                 })}

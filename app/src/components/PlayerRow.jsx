@@ -75,7 +75,7 @@ function ColoredEditableCell({ value, onChange }) {
   );
 }
 
-export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner, compareExpert }) {
+export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner, compareExpert, isMobile }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
 
   const isMyPick = draftedBy === 'mine';
@@ -97,11 +97,11 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
   const pc = positionColors(player.position);
 
   // Returns base sticky styles for frozen identity cells.
-  // background: 'inherit' lets sticky cells cover scrolled content while showing row highlight colors.
+  // On mobile, omit left offset so the frozen pane doesn't apply.
   const frozen = (left, isLast = false) => ({
-    position: 'sticky',
-    left: left + pickOffset,
-    zIndex: 11,
+    position: isMobile ? undefined : 'sticky',
+    left: isMobile ? undefined : left + pickOffset,
+    zIndex: isMobile ? undefined : 11,
     background: 'inherit',
     ...(isLast ? { borderRight: '2px solid #e94560' } : {}),
   });
@@ -173,7 +173,7 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
       {(() => {
         const { bg, text } = draftCapitalToColor(player.draft_capital);
         return (
-          <td style={{ position: 'sticky', left: 490 + pickOffset, zIndex: 11,
+          <td style={{ position: isMobile ? undefined : 'sticky', left: isMobile ? undefined : 490 + pickOffset, zIndex: isMobile ? undefined : 11,
             background: bg || 'inherit', color: text,
             textAlign: 'center', padding: '2px 4px', fontWeight: 700, fontSize: 12, whiteSpace: 'nowrap' }}>
             {player.draft_capital ?? '—'}

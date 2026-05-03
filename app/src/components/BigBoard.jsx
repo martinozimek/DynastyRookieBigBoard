@@ -10,7 +10,6 @@ import PlayerRow from './PlayerRow';
 import TierDivider from './TierDivider';
 import { annotateWithCalcs } from '../utils/calculations';
 import { saveBoardState, exportBoardState, importBoardState } from '../utils/storage';
-import { saveCloudStateNow } from '../utils/firebaseSync';
 import { exportToExcel } from '../utils/excelExport';
 
 const OWNER_EMAIL = 'mtozimek@gmail.com';
@@ -218,22 +217,6 @@ export default function BigBoard({
     persist(newItems, newLabels, null, null, null);
   }
 
-  async function handleRepairTiers() {
-    const { newItems, newLabels } = renumberTiers(items, tierLabels);
-    const newState = {
-      items: newItems,
-      tierLabels: newLabels,
-      targets: [...targets],
-      avoids: [...avoids],
-      playerEdits,
-    };
-    setItems(newItems);
-    setTierLabels(newLabels);
-    setSortConfig(null);
-    saveBoardState(newState);
-    await saveCloudStateNow(newState);
-  }
-
   function handleFieldChange(id, field, value) {
     const newEdits = { ...playerEdits, [id]: { ...(playerEdits[id] || {}), [field]: value } };
     setPlayerEdits(newEdits);
@@ -401,12 +384,6 @@ export default function BigBoard({
         <button onClick={handleAddTier}
           style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #444', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#ccc' }}>
           + Add Tier
-        </button>
-
-        <button onClick={handleRepairTiers}
-          title="Renumber and deduplicate tier breaks"
-          style={{ padding: '3px 10px', borderRadius: 4, border: '1px solid #7c3aed', cursor: 'pointer', fontSize: 12, background: '#16213e', color: '#a78bfa' }}>
-          ⚙ Repair Tiers
         </button>
 
         {sortConfig && (

@@ -75,8 +75,8 @@ function ColoredEditableCell({ value, onChange }) {
   );
 }
 
-export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner, compareExpert, isMobile }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id });
+export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onToggleMark, onFieldChange, onClick, league, draftedBy, onMarkDrafted, onClearDrafted, isOwner, compareExpert, isMobile, sortable }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: player.id, disabled: !sortable });
 
   const isMyPick = draftedBy === 'mine';
   const isDrafted = draftedBy === 'drafted';
@@ -125,10 +125,10 @@ export default function PlayerRow({ player, myRank, tier, isTarget, isAvoid, onT
         </td>
       )}
 
-      {/* Drag handle */}
-      <td {...attributes} {...listeners}
-        style={{ ...frozen(0), cursor: 'grab', textAlign: 'center', padding: '4px 6px', color: '#bbb', fontSize: 16, userSelect: 'none' }}>
-        ≡
+      {/* Drag handle — disabled when a positional filter is active */}
+      <td {...(sortable ? { ...attributes, ...listeners } : {})}
+        style={{ ...frozen(0), cursor: sortable ? 'grab' : 'default', textAlign: 'center', padding: '4px 6px', color: sortable ? '#bbb' : '#333', fontSize: 16, userSelect: 'none' }}>
+        {sortable ? '≡' : '·'}
       </td>
 
       {/* My Rank */}

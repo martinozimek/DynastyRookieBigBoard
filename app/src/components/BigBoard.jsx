@@ -576,6 +576,7 @@ export default function BigBoard({
                       isOwner={isOwner}
                       compareExpert={compareExpert}
                       isMobile={isMobile}
+                      sortable={posFilter === 'All' && !sortConfig}
                     />
                   );
                 })}

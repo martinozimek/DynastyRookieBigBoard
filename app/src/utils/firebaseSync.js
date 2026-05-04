@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const OWNER_EMAIL = 'mtozimek@gmail.com';
@@ -58,5 +58,34 @@ export async function saveCloudStateNow(state) {
     await setDoc(boardDoc(_currentUid), state);
   } catch (e) {
     console.warn('Cloud save failed:', e);
+  }
+}
+
+let _leagueTimer = null;
+export function saveLeagueCloudState(leagueState) {
+  if (!_currentUid) return;
+  clearTimeout(_leagueTimer);
+  _leagueTimer = setTimeout(async () => {
+    try {
+      await updateDoc(boardDoc(_currentUid), { leagues: leagueState });
+    } catch (e) {
+      // Doc may not exist yet (first-ever save) — fall back to setDoc merge
+      try {
+        await setDoc(boardDoc(_currentUid), { leagues: leagueState }, { merge: true });
+      } catch (e2) {
+        console.warn('League cloud save failed:', e2);
+      }
+    }
+  }, 2000);
+}
+
+export async function loadLeagueCloudState() {
+  if (!_currentUid) return null;
+  try {
+    const snap = await getDoc(boardDoc(_currentUid));
+    return snap.exists() ? (snap.data().leagues ?? null) : null;
+  } catch (e) {
+    console.warn('League cloud load failed:', e);
+    return null;
   }
 }

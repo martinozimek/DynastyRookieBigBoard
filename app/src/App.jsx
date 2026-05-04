@@ -3,7 +3,7 @@ import BigBoard from './components/BigBoard';
 import LeagueSetup from './components/LeagueSetup';
 import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
-import { loadCloudState, setCurrentUser } from './utils/firebaseSync';
+import { loadCloudState, setCurrentUser, saveLeagueCloudState, loadLeagueCloudState } from './utils/firebaseSync';
 import { signInWithGoogle, signOutUser, onAuthChange } from './utils/firebase';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
@@ -355,6 +355,7 @@ export default function App() {
   function updateLeagueState(next) {
     setLeagueState(next);
     saveLeagueState(next);
+    saveLeagueCloudState(next);
   }
 
   function handleCreateLeague(name) {
@@ -415,6 +416,14 @@ export default function App() {
   useEffect(() => {
     if (!user) return;
     async function init() {
+      // Load leagues from cloud, merge with localStorage fallback
+      const cloudLeagues = await loadLeagueCloudState();
+      if (cloudLeagues) {
+        const merged = { ...loadLeagueState(), ...cloudLeagues };
+        setLeagueState(merged);
+        saveLeagueState(merged);
+      }
+
       // Cloud first, localStorage fallback (handles offline gracefully)
       let saved = await loadCloudState() || loadBoardState();
       if (saved) {

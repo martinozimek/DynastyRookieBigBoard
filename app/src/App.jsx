@@ -165,11 +165,19 @@ function PlayerPanel({ player, myRank, onClose, isOwner }) {
   const c = player.combine || {};
 
   const avgRank = player.avg_rank;
-  const myVsAvg = myRank != null && avgRank != null ? myRank - avgRank : null;
+  const myVsAvgRaw = myRank != null && avgRank != null ? myRank - avgRank : null;
+  const myVsAvg = myVsAvgRaw != null ? Math.round(myVsAvgRaw * 10) / 10 : null;
   const myVsAvgLabel = myVsAvg == null ? null
     : myVsAvg > 0 ? `+${myVsAvg} vs consensus (you rank lower)`
     : myVsAvg < 0 ? `${myVsAvg} vs consensus (you rank higher)`
     : 'Matches consensus avg';
+
+  const cleanProfile = (text) => text
+    ?.replace(/Late-Round Fantasy Football:.*$/s, '')
+    .trimEnd() || null;
+  const cleanPitch = (text) => text
+    ?.replace(/\n\d+\s*$/, '')
+    .trimEnd() || null;
 
   return (
     <div onClick={onClose}
@@ -279,10 +287,10 @@ function PlayerPanel({ player, myRank, onClose, isOwner }) {
           </StatSection>
         )}
 
-        {player.elevator_pitch && (
+        {cleanPitch(player.elevator_pitch) && (
           <StatSection title="Waldman — Elevator Pitch">
             <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
-              {player.elevator_pitch}
+              {cleanPitch(player.elevator_pitch)}
             </div>
           </StatSection>
         )}
@@ -290,14 +298,14 @@ function PlayerPanel({ player, myRank, onClose, isOwner }) {
         {player.pre_draft_advice && (
           <StatSection title="Waldman — Pre-Draft Fantasy Advice">
             <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
-              {player.pre_draft_advice}
+              {cleanPitch(player.pre_draft_advice)}
             </div>
           </StatSection>
         )}
 
-        {player.lateround_profile && (
+        {cleanProfile(player.lateround_profile) && (
           <StatSection title="LateRound Analysis">
-            {player.lateround_profile.split('\n\n').map((para, i) => (
+            {cleanProfile(player.lateround_profile).split('\n\n').map((para, i) => (
               <p key={i} style={{ fontSize: 13, color: '#374151', lineHeight: 1.65, margin: '0 0 10px' }}>
                 {para}
               </p>

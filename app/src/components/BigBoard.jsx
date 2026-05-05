@@ -129,6 +129,7 @@ export default function BigBoard({
   initialState, prospectsData, onPlayerClick,
   league, allLeagues, onSelectLeague, onNewLeague, onEditLeague,
   onMarkDrafted, onClearDrafted, user, onSignOut,
+  showPicks, onTogglePicks,
 }) {
   const [items, setItems] = useState(initialState.items);
   const [tierLabels, setTierLabels] = useState(initialState.tierLabels || {});
@@ -414,6 +415,10 @@ export default function BigBoard({
             <button onClick={() => setShowAvailableOnly(v => !v)}
               style={{ padding: '3px 10px', borderRadius: 4, border: 'none', background: showAvailableOnly ? '#e94560' : '#16213e', color: showAvailableOnly ? '#fff' : '#aaa', fontSize: 12, cursor: 'pointer' }}>
               Available Only
+            </button>
+            <button onClick={onTogglePicks}
+              style={{ padding: '3px 10px', borderRadius: 4, border: 'none', background: showPicks ? '#16213e' : '#0e7490', color: showPicks ? '#6b7280' : '#fff', fontSize: 12, cursor: 'pointer' }}>
+              My Picks {showPicks ? '◀' : '▶'}
             </button>
           </>}
         </div>

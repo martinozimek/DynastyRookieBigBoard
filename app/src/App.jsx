@@ -349,6 +349,8 @@ export default function App() {
   const [leagueState, setLeagueState] = useState(() => loadLeagueState());
   const [showLeagueSetup, setShowLeagueSetup] = useState(false);
   const [editingLeague, setEditingLeague] = useState(null);
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+  const [showPicks, setShowPicks] = useState(!isMobile);
 
   const activeLeague = leagueState.activeId ? leagueState.leagues[leagueState.activeId] : null;
 
@@ -490,13 +492,17 @@ export default function App() {
         onClearDrafted={handleClearDrafted}
         user={user}
         onSignOut={signOutUser}
+        showPicks={showPicks}
+        onTogglePicks={() => setShowPicks(v => !v)}
       />
 
-      <MyPicksPanel
-        league={activeLeague}
-        prospectsById={prospectsById}
-        onUnmark={handleClearDrafted}
-      />
+      {showPicks && (
+        <MyPicksPanel
+          league={activeLeague}
+          prospectsById={prospectsById}
+          onUnmark={handleClearDrafted}
+        />
+      )}
 
       {selectedPlayer && (
         <PlayerPanel player={selectedPlayer.player} myRank={selectedPlayer.myRank} onClose={() => setSelectedPlayer(null)} isOwner={user?.email === OWNER_EMAIL} />

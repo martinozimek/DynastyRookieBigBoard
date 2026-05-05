@@ -22,7 +22,6 @@ const EXPERT_RANK_OPTIONS = [
   { key: 'dlf_rank',     label: 'DLF',    field: 'dlf_rank',          ownerOnly: false },
   { key: 'leg_rank',     label: 'Leg Rk', field: 'legendary_rank',    ownerOnly: false },
   { key: 'etr_rank',     label: 'ETR',    field: 'etr_rank',          ownerOnly: false },
-  { key: 'larky_rank',   label: 'Larky',  field: 'larky_rank',        ownerOnly: false },
   { key: 'waldman_rank', label: 'Wld Rk', field: 'waldman_rank',      ownerOnly: false },
 ];
 const EXPERT_RANK_KEYS = new Set(EXPERT_RANK_OPTIONS.map(o => o.key));
@@ -59,7 +58,6 @@ const COLUMNS = [
   { key: 'dlf_rank',       label: 'DLF',      width: 44,  sortField: 'dlf_rank' },
   { key: 'leg_rank',       label: 'Leg Rk',   width: 52,  sortField: 'legendary_rank' },
   { key: 'etr_rank',       label: 'ETR',      width: 44,  sortField: 'etr_rank' },
-  { key: 'larky_rank',     label: 'Larky',    width: 48,  sortField: 'larky_rank' },
   { key: 'waldman_rank',   label: 'Wld Rk',   width: 54,  sortField: 'waldman_rank' },
   // ── Expert Tiers ───────────────────────────────────────────────────────────
   { key: 'sand_tier',      label: 'S.Tier',   width: 50,  sortField: 'sanderson_tier' },
@@ -78,7 +76,7 @@ const GROUPS = [
   { label: '',               color: null,      frozen: true, keys: ['drag','my_rank','pos_rank','tier','target','name','team','age','draft_capital','position'] },
   { label: 'Market',         color: '#0e7490',              keys: ['adp','adp_delta'] },
   { label: 'Scores & Grades', color: '#6d28d9',              keys: ['zap_score','zap_tier_label','lr_risk','breakout_score','orbit_score','waldman_dot','sand_val','sand_exp'] },
-  { label: 'Expert Ranks',   color: '#b45309',              keys: ['sand_rank','lr_sf_rank','dlf_rank','leg_rank','etr_rank','larky_rank','waldman_rank'] },
+  { label: 'Expert Ranks',   color: '#b45309',              keys: ['sand_rank','lr_sf_rank','dlf_rank','leg_rank','etr_rank','waldman_rank'] },
   { label: 'Expert Tiers',   color: '#92400e',              keys: ['sand_tier','lr_tier','dlf_tier','leg_tier'] },
   { label: 'Consensus',      color: '#166534',              keys: ['avg_rank','avg_delta'] },
   { label: 'NFL Grade',      color: '#374151',              keys: ['brugler_grade'] },

@@ -12,7 +12,6 @@ const EXPERT_RANK_CELLS = [
   { key: 'dlf_rank',     field: 'dlf_rank',          ownerOnly: false, editable: false },
   { key: 'leg_rank',     field: 'legendary_rank',    ownerOnly: false, editable: false },
   { key: 'etr_rank',     field: 'etr_rank',          ownerOnly: false, editable: false },
-  { key: 'larky_rank',   field: 'larky_rank',        ownerOnly: false, editable: true  },
   { key: 'waldman_rank', field: 'waldman_rank',      ownerOnly: false, editable: true  },
 ];
 

@@ -117,7 +117,7 @@ function makeColumns(isOwner) {
     { key: 'dlf',       label: 'DLF',     w: 7,  get: (p, c) => p.dlf_rank ?? '',               fill: rankFill },
     { key: 'leg_rk',    label: 'Leg Rk',  w: 7,  get: (p, c) => p.legendary_rank ?? '',         fill: rankFill },
     { key: 'etr',       label: 'ETR',     w: 7,  get: (p, c) => p.etr_rank ?? '',               fill: rankFill },
-    { key: 'larky',     label: 'Larky',   w: 7,  get: (p, c) => p.larky_rank ?? '',             fill: rankFill },
+
     { key: 'wld_rk',    label: 'Wld Rk',  w: 7,  get: (p, c) => p.waldman_rank ?? '',           fill: rankFill },
     // Expert Tiers
     { key: 'sand_tier', label: 'S.Tier',  w: 7,  ownerOnly: true, get: (p, c) => p.sanderson_tier ?? '' },

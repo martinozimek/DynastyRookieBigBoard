@@ -3,7 +3,7 @@ import BigBoard from './components/BigBoard';
 import LeagueSetup from './components/LeagueSetup';
 import MyPicksPanel from './components/MyPicksPanel';
 import { loadBoardState, saveBoardState, migrateState } from './utils/storage';
-import { loadCloudState, setCurrentUser, saveLeagueCloudState, loadLeagueCloudState } from './utils/firebaseSync';
+import { loadCloudState, setCurrentUser, saveLeagueCloudState, loadLeagueCloudState, subscribeToLeagues } from './utils/firebaseSync';
 import { signInWithGoogle, signOutUser, onAuthChange } from './utils/firebase';
 import { loadLeagueState, saveLeagueState, makeLeague } from './utils/leagueStorage';
 import prospectsRaw from './data/prospects.json';
@@ -416,10 +416,23 @@ export default function App() {
   // Auth state listener — handleRedirectResult must be called on every page load
   // to complete the sign-in after Google redirects back to the app
   useEffect(() => {
-    return onAuthChange(u => {
-      if (u) setCurrentUser(u.uid, u.email);
+    let unsubLeagues = () => {};
+    const unsubAuth = onAuthChange(u => {
+      unsubLeagues();
+      if (u) {
+        setCurrentUser(u.uid, u.email);
+        // Real-time league sync: update state whenever another device writes picks
+        unsubLeagues = subscribeToLeagues(cloudLeagues => {
+          setLeagueState(prev => {
+            const next = { ...prev, ...cloudLeagues };
+            saveLeagueState(next);
+            return next;
+          });
+        });
+      }
       setUser(u ?? null);
     });
+    return () => { unsubAuth(); unsubLeagues(); };
   }, []);
 
   // Load board once user is authenticated

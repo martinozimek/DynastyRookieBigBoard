@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase';
 
 const OWNER_EMAIL = 'mtozimek@gmail.com';
@@ -61,22 +61,20 @@ export async function saveCloudStateNow(state) {
   }
 }
 
-let _leagueTimer = null;
-export function saveLeagueCloudState(leagueState) {
+// Saves league state immediately — no debounce, because picks change during
+// live drafts where every second counts across multiple devices.
+export async function saveLeagueCloudState(leagueState) {
   if (!_currentUid) return;
-  clearTimeout(_leagueTimer);
-  _leagueTimer = setTimeout(async () => {
+  try {
+    await updateDoc(boardDoc(_currentUid), { leagues: leagueState });
+  } catch (e) {
+    // Doc may not exist yet (first-ever save) — fall back to setDoc merge
     try {
-      await updateDoc(boardDoc(_currentUid), { leagues: leagueState });
-    } catch (e) {
-      // Doc may not exist yet (first-ever save) — fall back to setDoc merge
-      try {
-        await setDoc(boardDoc(_currentUid), { leagues: leagueState }, { merge: true });
-      } catch (e2) {
-        console.warn('League cloud save failed:', e2);
-      }
+      await setDoc(boardDoc(_currentUid), { leagues: leagueState }, { merge: true });
+    } catch (e2) {
+      console.warn('League cloud save failed:', e2);
     }
-  }, 2000);
+  }
 }
 
 export async function loadLeagueCloudState() {
@@ -88,4 +86,16 @@ export async function loadLeagueCloudState() {
     console.warn('League cloud load failed:', e);
     return null;
   }
+}
+
+// Real-time listener: calls callback(leagueState) whenever league data
+// changes in Firestore from any device. Returns an unsubscribe function.
+// Skips updates that originated from this tab (hasPendingWrites = true).
+export function subscribeToLeagues(callback) {
+  if (!_currentUid) return () => {};
+  return onSnapshot(boardDoc(_currentUid), (snap) => {
+    if (!snap.exists() || snap.metadata.hasPendingWrites) return;
+    const leagues = snap.data().leagues;
+    if (leagues) callback(leagues);
+  });
 }
